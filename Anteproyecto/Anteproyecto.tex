@@ -1,13 +1,118 @@
-\documentclass[12pt,a4paper]{report}
+
+%Plantilla anteproyecto
+%Última modificación: 21 de mayo de 2010
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{subfigure}
+\usepackage{url}
+\linespread{1}
+\setlength{\parskip}{1\baselineskip}
+\parindent 1cm
+\sloppy
+
+
+%Opciones que debes descomentar mientras estemos revisando el anteproyecto
+%\usepackage{lineno}
+%\linenumbers
+%\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=true]{hyperref}
+
+
+%lista de palabras que Latex no parte bien
+\hyphenation{pa-la-bras lis-ta}
+
 \begin{document}
-\title{Sistema de adaptación inteligente de la velocidad para vehículos basados en inteligencia artificial y visión por computador}
-\author{Sergio Sastre Arrojo}
-\maketitle
-\chapter*{Introducción}
+
+\thispagestyle{empty}
+
+\begin{center}
+
+
+Departamento de Teoría de la Señal y Comunicaciones\\
+Escuela Politécnica Superior (u otra)\\
+Universidad de Alcalá\\
+
+\vspace{1cm}
+
+\includegraphics[width=4cm]{figuras/logo-uah.eps}
+
+\textbf{ANTEPROYECTO}
+
+\vspace{1cm}
+
+\begin{large}\textbf{\textit{Sistema de adaptación inteligente de la velocidad para vehículos basados en inteligencia artificial y visión por computador}}\end{large}
+
+\vfill
+
+Diciembre - 2020
+
+\end{center}
+
+\begin{flushright}
+\textit{Autor - \textbf{Sergio Sastre Arrojo}} \\
+\textit{Director - \textbf{Roberto Javier López Sastre}}
+\end{flushright}
+
+\newpage
+
+\section{Introducción}
+
 \paragraph*{En los últimos años, con la aparición de los sistemas ISA para conseguir que los vehículos adapten su velocidad se han evitado muchas desgracias afortunadamente. No obstante, han acarreado una serie de inconvenientes que se podrían mejorar. Por ejemplo: estos sistemas utilizan GPS, lo cual es muy eficiente para su propósito, pero en determinadas ocasiones (núcleos urbanos, distinción de carriles en una autovía con una carretera de servicio) pueden desembocar en situaciones de gran peligro.}
 \paragraph*{¿Pero qué es un sistema ISA? ISA son las siglas de Intelligent Speed Adaptation, y como su propio nombre indica, es un sistema para adaptar la velocidad según diversos factores como adaptación por proximidad con otros vehículos u objetos, o por GPS como hemos mencionado anteriormente.}
 \paragraph*{Es por ello que aquí presentamos una solución ante esos problemas: \[ISA^{2}\]}
 \paragraph*{Con este nuevo sistema queremos añadirle un factor más de reconocimiento para adaptar su velocidad, y no es otro que la situación del tráfico en cada momento para poder estimar una velocidad apropiada del vehículo.}
 \paragraph*{La primera versión ya se realizó en su momento, por lo que el objetivo de este proyecto es mejorarlo a partir de nuevas tecnologías que han ido surgiendo en los últimos años.}
-\chapter*{Metodología}
+
+\section{Objetivos y campos de aplicación}
+Destaca de nuevo los objetivos, y también los campos de aplicación.
+
+\section{Descripción del trabajo}
+Ahora si, ¿cómo vas a hacer las cosas? Describe las partes, módulos o fases de tu proyecto, y añade un diagrama de bloques. Comenta cada uno de ellos, para que el lector entienda lo que persigues.
+
+\section{Fases de desarrollo}
+Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
+
+\begin{enumerate}
+\item Estudio de bibliografía y documentación sobre el problema de caza de pesca con gusano.
+\item \ldots
+\item Edición del manual de usuario de la aplicación.
+\item Edición del documento final utilizando \LaTeX.
+\end{enumerate}
+
+\section{Sobre \LaTeX}
+
+Si ya manejas \LaTeX no hace falta que leas esta sección.
+
+Necesitas aprender a manejar \LaTeX para escribir este anteproyecto y la memoria final del PFC. Verás que se trata de una herramienta estupenda para editar textos de forma profesional.
+
+La mejor manera de aprender es abrir un fichero \verb$.tex$ (por ejemplo el \verb$anteproyecto.tex$) y empezar a cambiar cosas en él y a compilarlo para generar un fichero \verb$.pdf$. Como editor te recomendamos Kile \cite{kile} (está en los repositorios de Ubuntu).
+
+Un página estupenda donde consultar dudas es esta \cite{wikibook}.
+
+Ya has visto que las citas bibliográficas (referencias a páginas web, artículos, congresos y libros) debes ponerlas utilizando el comando \verb$\cite$.
+
+Toda la bibliografía debes tenerla en un fichero \verb$.bib$ (en este caso estamos utilizando el fichero \verb$bibliografia-tfc.bib$). Se trata de un fichero que tiene la bibliografía en formato BibTex \cite{bibtex}. Para gestionar este fichero te recomendamos utilizar el programa JabRef \cite{jabref}. Si abres con JabRef el fichero \verb$bibliografia-tfc.bib$ verás las referencias que hemos utilizado en esta plantilla de anteproyecto. Tienes referencias a páginas web (que debes poner como tipo MISC) \cite{bibtex,jabref,wikibook}, a artículos de congresos (tipo INPROCEEDINGS) \cite{Lowe1999}, a artículos en revistas (tipo ARTICLE) \cite{Tuytelaars2008} y a libros (tipo BOOK) \cite{hartley2006}.
+
+Como ves, \LaTeX se encarga de numerar las referencias y de generar la bibliografía a partir del fichero \verb$.bib$.
+
+También puedes poner imágenes, como la representada en la Figura \ref{fig:ejemplo}. Recuerda utilizar \textbf{SÓLO} el formato \verb$.eps$ y compilar con latex (no con pdflatex). Para generar figuras en formato \verb$.eps$ te recomiendo utilizar el programa Inkscape\footnote{\url{http://www.inkscape.org/} -- también está en los repositorios de Ubuntu}. Por cierto, las notas a pie de página como esta debes tratar de no utilizarlas en exceso cuando escribas tu proyecto.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=4cm]{figuras/logo-uah.eps}
+  \caption{Un título.}
+  \label{fig:ejemplo}
+\end{figure}
+
+
+%Bibliografía
+\bibliographystyle{plain}
+\bibliography{bibliografia-tfc}
+
+
 \end{document}
