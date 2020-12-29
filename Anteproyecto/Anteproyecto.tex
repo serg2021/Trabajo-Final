@@ -35,7 +35,7 @@
 
 
 Departamento de Teoría de la Señal y Comunicaciones\\
-Escuela Politécnica Superior (u otra)\\
+Escuela Politécnica Superior\\
 Universidad de Alcalá\\
 
 \vspace{1cm}
@@ -78,36 +78,39 @@ La primera versión ya se realizó en su momento, por lo que el objetivo de este
 
 Como ya hemos dicho, el objetivo principal de este proyecto es optimizar la primera versión que se hizo en su momento basándonos en la repetición de experimentos pasados para comprobar que funciona correctamente y de forma más eficiente que el anterior con un nuevo sistema de regresión y más componentes del proyecto que explicaremos más adelante.
 
-Este proyecto será aplicable a cualquier automóvil, para ayudar a mejorar la seguridad vial actual y, en esencia, para facilitar la lectura de la vía durante la conducción.
+Este proyecto será aplicable a cualquier campo relacionado con el automovilismo, para ayudar a mejorar la seguridad vial actual y, en esencia, para facilitar la lectura de la vía durante la conducción.
 
 \section{Descripción del trabajo}
 
 A continuación vamos a pasar a explicar las fases sobre las que se va a desarrollar el proyecto. Para ello nos ayudaremos de un diagrama de bloques:
 
-\subsection{Diagrama}
 \begin{center}
-
+\xymatrix{*+[F]\txt{Modelos de predicción de segmentación semántica} \ar[r] & *+[F]\txt{Elaboración de sistema $ISA^2$} \\
+*+[F]\txt{Preparación de experimentos para el sistema $ISA^2$} \ar[r] & *+[F]\txt{Repetición de experimentos anteriores}}
 \end{center}
-
 \subsection{Exploración de nuevos modelos de predicción de segmentación semántica}
 
+Para esta fase investigaremos diferentes sistemas de predicción de segmentación semántica para que cuando el $ISA^2$ procese las imágenes, sepa diferenciar de la propia imagen qué es cada cosa de forma más eficiente que en la primera versión.
 \subsection{Elaboración de sistema $ISA^2$}
 
+Elaboraremos el nuevo sistema a partir del punto anterior para optimizarlo con respecto al anterior. Para ello pensaremos en nuevas técnicas de procesado de imagen y sistemas de regresión para su realización.
 \subsection{Preparación de experimentos para el sistema $ISA^2$}
 
+Para realizar esta fase, recabaremos múltiples imágenes de la vía en diferentes situaciones para tener un amplio rango de posibilidades a la hora de realizar los experimentos. Una vez hecho esto, las pasaremos por el sistema y comprobaremos su funcionamiento.
 \subsection{Repetición de experimentos anteriores (de la primera versión) para el sistema $ISA^2$}
 
+Por otro lado, tenemos una base de datos con imágenes de la vía que se utilizaron en la versión anterior. A partir de esas imágenes, realizaremos los mismo experimentos para comprobar la mejora del funcionamiento de este sistema con respecto al anterior.
 %Ahora si, ¿cómo vas a hacer las cosas? Describe las partes, módulos o fases de tu proyecto, y añade un diagrama de bloques. Comenta cada uno de ellos, para que el lector entienda lo que persigues.
 
 \section{Fases de desarrollo}
-Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
+%Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
 
-\begin{enumerate}
-\item Estudio de bibliografía y documentación sobre el problema de caza de pesca con gusano.
-\item \ldots
-\item Edición del manual de usuario de la aplicación.
-\item Edición del documento final utilizando \LaTeX.
-\end{enumerate}
+%\begin{enumerate}
+%\item Estudio de bibliografía y documentación sobre el problema de caza de pesca con gusano.
+%\item \ldots
+%\item Edición del manual de usuario de la aplicación.
+%\item Edición del documento final utilizando \LaTeX.
+%\end{enumerate}
 
 \section{Sobre \LaTeX}
 

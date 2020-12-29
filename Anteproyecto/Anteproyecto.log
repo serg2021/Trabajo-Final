@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.20)  29 DEC 2020 00:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.20)  29 DEC 2020 18:48
 entering extended mode
 **./Anteproyecto.tex
 (Anteproyecto.tex
@@ -555,7 +555,7 @@ Package epstopdf Info: Output file is already uptodate.
 
 pdfTeX warning: pdflatex (file ./figuras/logo-uah-eps-converted-to.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figuras/logo-uah-eps-converted-to.pdf, id=43, 606.265pt x 688.5725pt>
+<figuras/logo-uah-eps-converted-to.pdf, id=39, 606.265pt x 688.5725pt>
 File: figuras/logo-uah-eps-converted-to.pdf Graphic file (type pdf)
 <use figuras/logo-uah-eps-converted-to.pdf>
 Package pdftex.def Info: figuras/logo-uah-eps-converted-to.pdf  used on input l
@@ -564,7 +564,7 @@ ine 43.
 [1
 
 {C:/Users/Sergio/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./figuras/logo
--uah-eps-converted-to.pdf>] [2]
+-uah-eps-converted-to.pdf>] [2] <xymatrix 2x2 86>
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 94.
@@ -579,59 +579,59 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 96.
+(hyperref)                removing `math shift' on input line 97.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 96.
+(hyperref)                removing `superscript' on input line 97.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 96.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 98.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 98.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 98.
+(hyperref)                removing `math shift' on input line 97.
 
 [3]
 
-LaTeX Warning: Citation `kile' on page 4 undefined on input line 118.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 100.
 
 
-LaTeX Warning: Citation `wikibook' on page 4 undefined on input line 120.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 100.
 
 
-LaTeX Warning: Citation `bibtex' on page 4 undefined on input line 124.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 100.
 
 
-LaTeX Warning: Citation `jabref' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `kile' on page 4 undefined on input line 121.
 
 
-LaTeX Warning: Citation `bibtex' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `wikibook' on page 4 undefined on input line 123.
 
 
-LaTeX Warning: Citation `jabref' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `bibtex' on page 4 undefined on input line 127.
 
 
-LaTeX Warning: Citation `wikibook' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `jabref' on page 4 undefined on input line 127.
 
 
-LaTeX Warning: Citation `Lowe1999' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `bibtex' on page 4 undefined on input line 127.
 
 
-LaTeX Warning: Citation `Tuytelaars2008' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `jabref' on page 4 undefined on input line 127.
+
+
+LaTeX Warning: Citation `wikibook' on page 4 undefined on input line 127.
+
+
+LaTeX Warning: Citation `Lowe1999' on page 4 undefined on input line 127.
+
+
+LaTeX Warning: Citation `Tuytelaars2008' on page 4 undefined on input line 127.
 
 
 
-LaTeX Warning: Citation `hartley2006' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `hartley2006' on page 4 undefined on input line 127.
 
 [4]
 Package epstopdf Info: Source file: <figuras/logo-uah.eps>
@@ -642,12 +642,12 @@ Package epstopdf Info: Source file: <figuras/logo-uah.eps>
 (epstopdf)                    size: 43584 bytes
 (epstopdf)             Command: <epstopdf --outfile=figuras/logo-uah-eps-conver
 ted-to.pdf figuras/logo-uah.eps>
-(epstopdf)             \includegraphics on input line 132.
+(epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 File: figuras/logo-uah-eps-converted-to.pdf Graphic file (type pdf)
 <use figuras/logo-uah-eps-converted-to.pdf>
 Package pdftex.def Info: figuras/logo-uah-eps-converted-to.pdf  used on input l
-ine 132.
+ine 135.
 (pdftex.def)             Requested size: 113.81102pt x 129.2541pt.
 
 No file Anteproyecto.bbl.
@@ -656,20 +656,20 @@ LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
 Package rerunfilecheck Info: File `Anteproyecto.out' has not changed.
-(rerunfilecheck)             Checksum: DFDBE851D74BB03DE0A934150C4A604A;787.
+(rerunfilecheck)             Checksum: D9CEA98AE147E14586E1E62BEC851938;729.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 10577 strings out of 479697
- 152163 string characters out of 2866657
+ 10587 strings out of 479697
+ 152190 string characters out of 2866657
  512470 words of memory out of 3000000
- 27419 multiletter control sequences out of 15000+200000
+ 27434 multiletter control sequences out of 15000+200000
  416637 words of font info for 82 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
- 91i,8n,98p,3239b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 91i,13n,98p,3239b,372s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmbxti10.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/ty
@@ -681,10 +681,12 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/S
 ergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><
 C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmtt12.pfb>
-Output written on Anteproyecto.pdf (5 pages, 171775 bytes).
+onts/cm/cmtt12.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/xypic/xyatip10.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/xypic/xybtip10.pfb>
+Output written on Anteproyecto.pdf (5 pages, 176869 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 86 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 124 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
+ 78 words of extra memory for PDF output out of 10000 (max. 10000000)
 
