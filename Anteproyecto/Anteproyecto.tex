@@ -97,12 +97,44 @@ Elaboraremos el nuevo sistema a partir del punto anterior para optimizarlo con r
 \subsection{Preparación de experimentos para el sistema $ISA^2$}
 
 Para realizar esta fase, recabaremos múltiples imágenes de la vía en diferentes situaciones para tener un amplio rango de posibilidades a la hora de realizar los experimentos. Una vez hecho esto, las pasaremos por el sistema y comprobaremos su funcionamiento.
+
 \subsection{Repetición de experimentos anteriores (de la primera versión) para el sistema $ISA^2$}
 
 Por otro lado, tenemos una base de datos con imágenes de la vía que se utilizaron en la versión anterior. A partir de esas imágenes, realizaremos los mismo experimentos para comprobar la mejora del funcionamiento de este sistema con respecto al anterior.
 %Ahora si, ¿cómo vas a hacer las cosas? Describe las partes, módulos o fases de tu proyecto, y añade un diagrama de bloques. Comenta cada uno de ellos, para que el lector entienda lo que persigues.
 
 \section{Fases de desarrollo}
+
+Teniendo en cuenta el apartado anterior, vamos a pasar a explicar de forma más detallada las diferentes fases del proyecto que antes hemos nombrado y descrito:
+
+Dentro de este apartado vamos a tomar en cuenta el esquema utilizado en la versión 1.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
+  \caption{$ISA^2$ Versión 1}
+\end{figure}
+
+\subsection{Exploración de nuevos modelos de predicción de segmentación semántica}
+
+Antes de continuar conviene explicar qué es la segmentación semántica. La segmentación semántica es un algoritmo de deep learning basado en ``etiquetar'' cada píxel de una imagen con una categoría. Por ejemplo: en una fotografía en la que salga un coche y una persona, este sistema es capaz de diferenciar, etiquetando los píxeles, los elementos de la imagen, es decir; el coche por un lado, y la persona por otro.
+
+Como se puede ver en la figura anterior, el algoritmo que usamos en la primera versión se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como input una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab como framework para hacer uso del algoritmo de segmentación semántica, teniendo como basa una CNN (en este caso, ResNet-101). De tal modo que la CNN calcula para cada una de las escalas el valor adecuado para los píxeles como hemos explicado antes, para después fusionar los datos recogidos en cada escala.
+
+Este proceso queremos mejorarlo en esta segunda versión: utilizando otros frameworks u otros modelos de CNN tal vez. O puede que mirándolo desde otro enfoque. Afortunadamente existe todo un baremo de posibilidades para optimizarlo. 
+\subsection{Elaboración de sistema $ISA^2$}
+
+Ya hemos explicado la parte referente al algoritmo de segmentación semántica, pero queda otra que es crucial para el proyecto: el sistema de regresión.
+\subsubsection{Sistema de regresión}
+
+Para esta parte vamos a seguir desde donde lo dejamos en el punto anterior: En la versión 1, tras la fusión de los datos en la CNN, recopilamos éstos en histogramas que informen de la frecuencia con la que han aparecido en la imagen los distintos objetos para saber qué porcentaje de imagen corresponde al paisaje, vehículos, etc,... 
+
+Con todo ello construimos un descriptor de la imagen, el cual será pasado al sistema de regresión para que finalmente éste estime la velocidad adecuada para la imagen.
+
+Los sistemas de regresión usados en la versión anterior, para los experimentos realizados, comprendían desde una ``regresión lineal'', hasta ``Lasso'' (Método de análisis de regresión) pasando por otros métodos como ``SVR'' (Support Vector Regression) o ``Boosting Trees''. Sin embargo, trabajaremos en otras aproximaciones basándonos, o bien en nuevas técnicas, o bien en lo ya usado en la versión anterior con un enfoque diferente. 
+\subsection{Preparación de experimentos para el sistema $ISA^2$}
+
+\subsection{Repetición de experimentos anteriores (de la primera versión) para el sistema $ISA^2$}
 %Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
 
 %\begin{enumerate}
@@ -114,28 +146,28 @@ Por otro lado, tenemos una base de datos con imágenes de la vía que se utiliza
 
 \section{Sobre \LaTeX}
 
-Si ya manejas \LaTeX no hace falta que leas esta sección.
+%Si ya manejas \LaTeX no hace falta que leas esta sección.
 
-Necesitas aprender a manejar \LaTeX para escribir este anteproyecto y la memoria final del PFC. Verás que se trata de una herramienta estupenda para editar textos de forma profesional.
+%Necesitas aprender a manejar \LaTeX para escribir este anteproyecto y la memoria final del PFC. Verás que se trata de una herramienta estupenda para editar textos de forma profesional.
 
-La mejor manera de aprender es abrir un fichero \verb$.tex$ (por ejemplo el \verb$anteproyecto.tex$) y empezar a cambiar cosas en él y a compilarlo para generar un fichero \verb$.pdf$. Como editor te recomendamos Kile \cite{kile} (está en los repositorios de Ubuntu).
+%La mejor manera de aprender es abrir un fichero \verb$.tex$ (por ejemplo el \verb$anteproyecto.tex$) y empezar a cambiar cosas en él y a compilarlo para generar un fichero \verb$.pdf$. Como editor te recomendamos Kile \cite{kile} (está en los repositorios de Ubuntu).
 
-Un página estupenda donde consultar dudas es esta \cite{wikibook}.
+%Un página estupenda donde consultar dudas es esta \cite{wikibook}.
 
-Ya has visto que las citas bibliográficas (referencias a páginas web, artículos, congresos y libros) debes ponerlas utilizando el comando \verb$\cite$.
+%Ya has visto que las citas bibliográficas (referencias a páginas web, artículos, congresos y libros) debes ponerlas utilizando el comando \verb$\cite$.
 
 Toda la bibliografía debes tenerla en un fichero \verb$.bib$ (en este caso estamos utilizando el fichero \verb$bibliografia-tfc.bib$). Se trata de un fichero que tiene la bibliografía en formato BibTex \cite{bibtex}. Para gestionar este fichero te recomendamos utilizar el programa JabRef \cite{jabref}. Si abres con JabRef el fichero \verb$bibliografia-tfc.bib$ verás las referencias que hemos utilizado en esta plantilla de anteproyecto. Tienes referencias a páginas web (que debes poner como tipo MISC) \cite{bibtex,jabref,wikibook}, a artículos de congresos (tipo INPROCEEDINGS) \cite{Lowe1999}, a artículos en revistas (tipo ARTICLE) \cite{Tuytelaars2008} y a libros (tipo BOOK) \cite{hartley2006}.
 
 Como ves, \LaTeX se encarga de numerar las referencias y de generar la bibliografía a partir del fichero \verb$.bib$.
 
-También puedes poner imágenes, como la representada en la Figura \ref{fig:ejemplo}. Recuerda utilizar \textbf{SÓLO} el formato \verb$.eps$ y compilar con latex (no con pdflatex). Para generar figuras en formato \verb$.eps$ te recomiendo utilizar el programa Inkscape\footnote{\url{http://www.inkscape.org/} -- también está en los repositorios de Ubuntu}. Por cierto, las notas a pie de página como esta debes tratar de no utilizarlas en exceso cuando escribas tu proyecto.
+%También puedes poner imágenes, como la representada en la Figura \ref{fig:ejemplo}. Recuerda utilizar \textbf{SÓLO} el formato \verb$.eps$ y compilar con latex (no con pdflatex). Para generar figuras en formato \verb$.eps$ te recomiendo utilizar el programa Inkscape\footnote{\url{http://www.inkscape.org/} -- también está en los repositorios de Ubuntu}. Por cierto, las notas a pie de página como esta debes tratar de no utilizarlas en exceso cuando escribas tu proyecto.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=4cm]{figuras/logo-uah.eps}
-  \caption{Un título.}
-  \label{fig:ejemplo}
-\end{figure}
+%\begin{figure}
+ % \centering
+  %\includegraphics[width=4cm]{figuras/logo-uah.eps}
+  %\caption{Un título.}
+  %\label{fig:ejemplo}
+%\end{figure}
 
 
 %Bibliografía
