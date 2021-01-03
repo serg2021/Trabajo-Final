@@ -70,7 +70,7 @@ En los últimos años, con la aparición de los sistemas ISA para conseguir que 
 Es por ello que aquí presentamos una solución ante esos problemas: \[ISA^{2}\]
 Que quiere decir Intelligent Speed Adaptation from Appearance.
 
-Con este nuevo sistema queremos añadirle un factor más de reconocimiento para adaptar su velocidad, y no es otro que la situación del tráfico en cada momento para poder estimar una velocidad apropiada del vehículo.
+Con este nuevo sistema queremos adaptar la velocidad del vehículo en base a la situación del tráfico en cada momento.
 
 La primera versión ya se realizó en su momento, por lo que el objetivo de este proyecto es mejorarlo a partir de nuevas tecnologías que han ido surgiendo en los últimos años.
 
@@ -117,7 +117,7 @@ Dentro de este apartado vamos a tomar en cuenta el esquema utilizado en la versi
 
 \subsection{Exploración de nuevos modelos de predicción de segmentación semántica}
 
-Antes de continuar conviene explicar qué es la segmentación semántica. La segmentación semántica es un algoritmo de deep learning basado en ``etiquetar'' cada píxel de una imagen con una categoría. Por ejemplo: en una fotografía en la que salga un coche y una persona, este sistema es capaz de diferenciar, etiquetando los píxeles, los elementos de la imagen, es decir; el coche por un lado, y la persona por otro.
+La segmentación semántica es un algoritmo de deep learning basado en ``etiquetar'' cada píxel de una imagen con una categoría. Por ejemplo: en una fotografía en la que salga un coche y una persona, este sistema es capaz de diferenciar, etiquetando los píxeles, los elementos de la imagen, es decir; el coche por un lado, y la persona por otro.
 
 Como se puede ver en la figura anterior, el algoritmo que usamos en la primera versión se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como input una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab como framework para hacer uso del algoritmo de segmentación semántica, teniendo como basa una CNN (en este caso, ResNet-101). De tal modo que la CNN calcula para cada una de las escalas el valor adecuado para los píxeles como hemos explicado antes, para después fusionar los datos recogidos en cada escala.
 
@@ -134,7 +134,14 @@ Con todo ello construimos un descriptor de la imagen, el cual será pasado al si
 Los sistemas de regresión usados en la versión anterior, para los experimentos realizados, comprendían desde una ``regresión lineal'', hasta ``Lasso'' (Método de análisis de regresión) pasando por otros métodos como ``SVR'' (Support Vector Regression) o ``Boosting Trees''. Sin embargo, trabajaremos en otras aproximaciones basándonos, o bien en nuevas técnicas, o bien en lo ya usado en la versión anterior con un enfoque diferente. 
 \subsection{Preparación de experimentos para el sistema $ISA^2$}
 
+Para la esta fase nos centraremos en la recopilación de imágenes tanto en vías urbanas como interurbanas para tener un amplio abanico de situaciones sobre las que comprobar nuestras aproximaciones para el $ISA^2$. Una vez realizados compararemos qué aproximación es mejor basándonos en la métrica MAE (Mean Absolute Error).
+
+MAE es la diferencia en valor absoluto de la velocidad real y la velocidad estimada por el $ISA^2$ para un cierto número de imágenes de la misma situación de la vía.
 \subsection{Repetición de experimentos anteriores (de la primera versión) para el sistema $ISA^2$}
+
+Por último, contrastaremos los resultados anteriores con los experimentos realizados en la versión 1 repitiendo éstos últimos para nuestro sistema y comparando para ver en qué medida se ha mejorado con respecto al anterior.
+
+Para ello disponemos de una base de datos con dichos experimentos. Accederemos a ella y los probaremos en el nuevo sistema.
 %Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
 
 %\begin{enumerate}
@@ -144,7 +151,7 @@ Los sistemas de regresión usados en la versión anterior, para los experimentos
 %\item Edición del documento final utilizando \LaTeX.
 %\end{enumerate}
 
-\section{Sobre \LaTeX}
+%\section{Sobre \LaTeX}
 
 %Si ya manejas \LaTeX no hace falta que leas esta sección.
 
