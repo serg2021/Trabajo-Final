@@ -1,4 +1,3 @@
-
 %Plantilla anteproyecto
 %Última modificación: 21 de mayo de 2010
 \documentclass[12pt,oneside,a4paper]{article}
@@ -60,7 +59,6 @@ Diciembre - 2020
 \end{flushright}
 
 \newpage
-
 \section{Introducción}
 
 En los últimos años, con la aparición de los sistemas ISA para conseguir que los vehículos adapten su velocidad se han evitado muchas desgracias afortunadamente. No obstante, han acarreado una serie de inconvenientes que se podrían mejorar. Por ejemplo: estos sistemas utilizan GPS, lo cual es muy eficiente para su propósito, pero en determinadas ocasiones (núcleos urbanos, distinción de carriles en una autovía con una carretera de servicio) pueden desembocar en situaciones de gran peligro.
@@ -68,11 +66,10 @@ En los últimos años, con la aparición de los sistemas ISA para conseguir que 
 ¿Pero qué es un sistema ISA? ISA son las siglas de Intelligent Speed Adaptation, y como su propio nombre indica, es un sistema para adaptar la velocidad según diversos factores como adaptación por proximidad con otros vehículos u objetos, o por GPS como hemos mencionado anteriormente.
 
 Es por ello que aquí presentamos una solución ante esos problemas: \[ISA^{2}\]
-Que quiere decir Intelligent Speed Adaptation from Appearance.
 
 Con este nuevo sistema queremos adaptar la velocidad del vehículo en base a la situación del tráfico en cada momento.
 
-La primera versión ya se realizó en su momento, por lo que el objetivo de este proyecto es mejorarlo a partir de nuevas tecnologías que han ido surgiendo en los últimos años.
+La primera versión ya se realizó en su momento, por lo que el objetivo de este proyecto es mejorarlo a partir de nuevas tecnologías que han ido surgiendo en los últimos años \cite{isa2}.
 
 \section{Objetivos y campos de aplicación}
 
@@ -111,17 +108,15 @@ Dentro de este apartado vamos a tomar en cuenta el esquema utilizado en la versi
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=8cm]{figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
+  \includegraphics[width=4cm]{figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
   \caption{$ISA^2$ Versión 1}
 \end{figure}
 
 \subsection{Exploración de nuevos modelos de predicción de segmentación semántica}
 
-La segmentación semántica es un algoritmo de deep learning basado en ``etiquetar'' cada píxel de una imagen con una categoría. Por ejemplo: en una fotografía en la que salga un coche y una persona, este sistema es capaz de diferenciar, etiquetando los píxeles, los elementos de la imagen, es decir; el coche por un lado, y la persona por otro.
+Como se puede ver en la figura anterior, el algoritmo que usamos en la primera versión se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como input una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab como framework para hacer uso del algoritmo de segmentación semántica, teniendo como basa una CNN (en este caso, ResNet-101). De tal modo que la CNN calcula para cada una de las escalas el valor adecuado para los píxeles, para después fusionar los datos recogidos en cada escala.
 
-Como se puede ver en la figura anterior, el algoritmo que usamos en la primera versión se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como input una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab como framework para hacer uso del algoritmo de segmentación semántica, teniendo como basa una CNN (en este caso, ResNet-101). De tal modo que la CNN calcula para cada una de las escalas el valor adecuado para los píxeles como hemos explicado antes, para después fusionar los datos recogidos en cada escala.
-
-Este proceso queremos mejorarlo en esta segunda versión: utilizando otros frameworks u otros modelos de CNN tal vez. O puede que mirándolo desde otro enfoque. Afortunadamente existe todo un baremo de posibilidades para optimizarlo. 
+Este proceso queremos mejorarlo en esta segunda versión: utilizando otros frameworks u otros modelos de CNN tal vez. O puede que mirándolo desde otro enfoque. Afortunadamente existe todo un baremo de posibilidades para optimizarlo\cite{segsem}. 
 \subsection{Elaboración de sistema $ISA^2$}
 
 Ya hemos explicado la parte referente al algoritmo de segmentación semántica, pero queda otra que es crucial para el proyecto: el sistema de regresión.
@@ -132,16 +127,6 @@ Para esta parte vamos a seguir desde donde lo dejamos en el punto anterior: En l
 Con todo ello construimos un descriptor de la imagen, el cual será pasado al sistema de regresión para que finalmente éste estime la velocidad adecuada para la imagen.
 
 Los sistemas de regresión usados en la versión anterior, para los experimentos realizados, comprendían desde una ``regresión lineal'', hasta ``Lasso'' (Método de análisis de regresión) pasando por otros métodos como ``SVR'' (Support Vector Regression) o ``Boosting Trees''. Sin embargo, trabajaremos en otras aproximaciones basándonos, o bien en nuevas técnicas, o bien en lo ya usado en la versión anterior con un enfoque diferente. 
-\subsection{Preparación de experimentos para el sistema $ISA^2$}
-
-Para la esta fase nos centraremos en la recopilación de imágenes tanto en vías urbanas como interurbanas para tener un amplio abanico de situaciones sobre las que comprobar nuestras aproximaciones para el $ISA^2$. Una vez realizados compararemos qué aproximación es mejor basándonos en la métrica MAE (Mean Absolute Error).
-
-MAE es la diferencia en valor absoluto de la velocidad real y la velocidad estimada por el $ISA^2$ para un cierto número de imágenes de la misma situación de la vía.
-\subsection{Repetición de experimentos anteriores (de la primera versión) para el sistema $ISA^2$}
-
-Por último, contrastaremos los resultados anteriores con los experimentos realizados en la versión 1 repitiendo éstos últimos para nuestro sistema y comparando para ver en qué medida se ha mejorado con respecto al anterior.
-
-Para ello disponemos de una base de datos con dichos experimentos. Accederemos a ella y los probaremos en el nuevo sistema.
 %Ahora debes detallar, de forma técnica, las fases de desarrollo. Te pongo un ejemplo.
 
 %\begin{enumerate}
@@ -163,9 +148,9 @@ Para ello disponemos de una base de datos con dichos experimentos. Accederemos a
 
 %Ya has visto que las citas bibliográficas (referencias a páginas web, artículos, congresos y libros) debes ponerlas utilizando el comando \verb$\cite$.
 
-Toda la bibliografía debes tenerla en un fichero \verb$.bib$ (en este caso estamos utilizando el fichero \verb$bibliografia-tfc.bib$). Se trata de un fichero que tiene la bibliografía en formato BibTex \cite{bibtex}. Para gestionar este fichero te recomendamos utilizar el programa JabRef \cite{jabref}. Si abres con JabRef el fichero \verb$bibliografia-tfc.bib$ verás las referencias que hemos utilizado en esta plantilla de anteproyecto. Tienes referencias a páginas web (que debes poner como tipo MISC) \cite{bibtex,jabref,wikibook}, a artículos de congresos (tipo INPROCEEDINGS) \cite{Lowe1999}, a artículos en revistas (tipo ARTICLE) \cite{Tuytelaars2008} y a libros (tipo BOOK) \cite{hartley2006}.
+%Toda la bibliografía debes tenerla en un fichero \verb$.bib$ (en este caso estamos utilizando el fichero \verb$bibliografia-tfc.bib$). Se trata de un fichero que tiene la bibliografía en formato BibTex \cite{bibtex}. Para gestionar este fichero te recomendamos utilizar el programa JabRef \cite{jabref}. Si abres con JabRef el fichero \verb$bibliografia-tfc.bib$ verás las referencias que hemos utilizado en esta plantilla de anteproyecto. Tienes referencias a páginas web (que debes poner como tipo MISC) \cite{bibtex,jabref,wikibook}, a artículos de congresos (tipo INPROCEEDINGS) \cite{Lowe1999}, a artículos en revistas (tipo ARTICLE) \cite{Tuytelaars2008} y a libros (tipo BOOK) \cite{hartley2006}.
 
-Como ves, \LaTeX se encarga de numerar las referencias y de generar la bibliografía a partir del fichero \verb$.bib$.
+%Como ves, \LaTeX se encarga de numerar las referencias y de generar la bibliografía a partir del fichero \verb$.bib$.
 
 %También puedes poner imágenes, como la representada en la Figura \ref{fig:ejemplo}. Recuerda utilizar \textbf{SÓLO} el formato \verb$.eps$ y compilar con latex (no con pdflatex). Para generar figuras en formato \verb$.eps$ te recomiendo utilizar el programa Inkscape\footnote{\url{http://www.inkscape.org/} -- también está en los repositorios de Ubuntu}. Por cierto, las notas a pie de página como esta debes tratar de no utilizarlas en exceso cuando escribas tu proyecto.
 
@@ -179,7 +164,7 @@ Como ves, \LaTeX se encarga de numerar las referencias y de generar la bibliogra
 
 %Bibliografía
 \bibliographystyle{plain}
-\bibliography{bibliografia-tfc}
+\bibliography{bibliografia-anteproyecto}
 
 
 \end{document}

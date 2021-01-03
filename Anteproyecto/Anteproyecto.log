@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.20)  3 JAN 2021 18:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.20)  3 JAN 2021 22:48
 entering extended mode
 **./Anteproyecto.tex
 (Anteproyecto.tex
@@ -467,24 +467,24 @@ LaTeX Info: Redefining \% on input line 25.
 )
 \openout1 = `Anteproyecto.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Info: Redefining \. on input line 30.
-LaTeX Info: Redefining \% on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Info: Redefining \. on input line 29.
+LaTeX Info: Redefining \% on input line 29.
 
 (C:\Users\Sergio\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
 kii
@@ -507,20 +507,20 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
 
 
 (C:\Users\Sergio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
 
 
 (C:\Users\Sergio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package xypdf Info: Line width: 0.47998pt on input line 30.
-Package hyperref Info: Link coloring ON on input line 30.
+Package xypdf Info: Line width: 0.47998pt on input line 29.
+Package hyperref Info: Link coloring ON on input line 29.
 
 (C:\Users\Sergio\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -534,9 +534,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count297
 )
-LaTeX Info: Redefining \ref on input line 30.
-LaTeX Info: Redefining \pageref on input line 30.
-LaTeX Info: Redefining \nameref on input line 30.
+LaTeX Info: Redefining \ref on input line 29.
+LaTeX Info: Redefining \pageref on input line 29.
+LaTeX Info: Redefining \nameref on input line 29.
  (Anteproyecto.out) (Anteproyecto.out)
 \@outlinefile=\write4
 \openout4 = `Anteproyecto.out'.
@@ -549,22 +549,34 @@ Package epstopdf Info: Source file: <figuras/logo-uah.eps>
 (epstopdf)                    size: 43584 bytes
 (epstopdf)             Command: <epstopdf --outfile=figuras/logo-uah-eps-conver
 ted-to.pdf figuras/logo-uah.eps>
-(epstopdf)             \includegraphics on input line 43.
+(epstopdf)             \includegraphics on input line 42.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figuras/logo-uah-eps-converted-to.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figuras/logo-uah-eps-converted-to.pdf, id=55, 606.265pt x 688.5725pt>
+<figuras/logo-uah-eps-converted-to.pdf, id=47, 606.265pt x 688.5725pt>
 File: figuras/logo-uah-eps-converted-to.pdf Graphic file (type pdf)
 <use figuras/logo-uah-eps-converted-to.pdf>
 Package pdftex.def Info: figuras/logo-uah-eps-converted-to.pdf  used on input l
-ine 43.
+ine 42.
 (pdftex.def)             Requested size: 113.81102pt x 129.2541pt.
 [1
 
 {C:/Users/Sergio/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./figuras/logo
 -uah-eps-converted-to.pdf>] [2] <xymatrix 2x2 86>
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 91.
+
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 94.
@@ -579,29 +591,17 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 97.
+(hyperref)                removing `math shift' on input line 98.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 97.
+(hyperref)                removing `superscript' on input line 98.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 97.
+(hyperref)                removing `math shift' on input line 98.
 
 [3]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 101.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 101.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 101.
-
 Package epstopdf Info: Source file: <figuras/Figura_Esquema_ISA2_Version_1_SegS
 em.eps>
 (epstopdf)                    date: 2020-12-30 21:50:37
@@ -613,105 +613,55 @@ em-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=figuras/Figura_Esquema_ISA2
 _Version_1_SegSem-eps-converted-to.pdf figuras/Figura_Esquema_ISA2_Version_1_Se
 gSem.eps>
-(epstopdf)             \includegraphics on input line 114.
+(epstopdf)             \includegraphics on input line 111.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figuras/Figura_Esquema_ISA2_Version_1_SegSem-e
 ps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most versi
 on <1.5> allowed
-<figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-converted-to.pdf, id=81, 255.
+<figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-converted-to.pdf, id=75, 255.
 95625pt x 191.71625pt>
 File: figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-converted-to.pdf Graphic
  file (type pdf)
 <use figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-converted-to.pdf>
 Package pdftex.def Info: figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-conve
-rted-to.pdf  used on input line 114.
-(pdftex.def)             Requested size: 227.62204pt x 170.49236pt.
+rted-to.pdf  used on input line 111.
+(pdftex.def)             Requested size: 113.81102pt x 85.2447pt.
 [4 <./figuras/Figura_Esquema_ISA2_Version_1_SegSem-eps-converted-to.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 125.
+(hyperref)                removing `math shift' on input line 120.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 125.
+(hyperref)                removing `superscript' on input line 120.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 125.
+(hyperref)                removing `math shift' on input line 120.
 
-[5]
+(Anteproyecto.bbl (Anteproyecto.brf)
+\tf@brf=\write5
+\openout5 = `Anteproyecto.brf'.
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 135.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 135.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 135.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 140.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 140.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 140.
-
-
-LaTeX Warning: Citation `bibtex' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `jabref' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `bibtex' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `jabref' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `wikibook' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `Lowe1999' on page 6 undefined on input line 166.
-
-
-LaTeX Warning: Citation `Tuytelaars2008' on page 6 undefined on input line 166.
-
-
-
-LaTeX Warning: Citation `hartley2006' on page 6 undefined on input line 166.
-
-[6]
-No file Anteproyecto.bbl.
-[7] (Anteproyecto.aux
+ [5]) [6] (Anteproyecto.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
 Package rerunfilecheck Info: File `Anteproyecto.out' has not changed.
-(rerunfilecheck)             Checksum: 43905A6D8CACB036E03EF996D908D402;1217.
-
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: DAF74CB6F40B4DD34572142B09753545;976.
+Package rerunfilecheck Info: File `Anteproyecto.brf' has not changed.
+(rerunfilecheck)             Checksum: 216D806CB22246AF8ACA7A03541F2640;81.
  ) 
 Here is how much of TeX's memory you used:
- 10588 strings out of 479697
- 152550 string characters out of 2866657
- 512450 words of memory out of 3000000
- 27432 multiletter control sequences out of 15000+200000
+ 10601 strings out of 479697
+ 152772 string characters out of 2866657
+ 513508 words of memory out of 3000000
+ 27440 multiletter control sequences out of 15000+200000
  414577 words of font info for 73 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
- 91i,13n,98p,3239b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 91i,13n,98p,3239b,469s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmbxti10.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/ty
@@ -724,9 +674,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users
 ><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/xypic/xyatip
 10.pfb><C:/Users/Sergio/AppData/Local/Programs/MiKTeX/fonts/type1/public/xypic/
 xybtip10.pfb>
-Output written on Anteproyecto.pdf (7 pages, 196236 bytes).
+Output written on Anteproyecto.pdf (6 pages, 195913 bytes).
 PDF statistics:
- 143 PDF objects out of 1000 (max. 8388607)
+ 138 PDF objects out of 1000 (max. 8388607)
  22 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 99 words of extra memory for PDF output out of 10000 (max. 10000000)
 
