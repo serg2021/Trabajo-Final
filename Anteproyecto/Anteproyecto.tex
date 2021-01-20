@@ -4,6 +4,7 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{color}
@@ -72,12 +73,12 @@ Con este nuevo sistema queremos adaptar la velocidad del vehículo en base a la 
 
 \section{Objetivos y campos de aplicación}
 
-Como ya hemos dicho, el objetivo principal de este proyecto es optimizar la primera versión del sistema \[ISA^{2}\] \cite{isa2}. Para ello, realizaremos una repetición de los experimentos detallados en \cite{isa2}, para comprobar que las nuevas mejoras funciona correctamente y de forma más eficiente que el anterior.
+Como ya hemos dicho, el objetivo principal de este proyecto es optimizar la primera versión del sistema \[ISA^{2}\] Para ello, realizaremos una repetición de los experimentos detallados en \cite{isa2}, para comprobar que las nuevas mejoras funciona correctamente y de forma más eficiente que el anterior.
 
 En cuanto a los campos de aplicación, cabrían destacar los siguientes:
 \begin{enumerate}
  \item Este proyecto será aplicable a cualquier campo relacionado con el automovilismo, para ayudar a mejorar la seguridad vial actual y, en esencia, para facilitar la lectura de la vía durante la conducción.
- \item \dots %TODO: Añade alguno más
+ \item Otro posible campo de aplicación podría ser la aviación, puesto que sería de gran utilidad durante el despegue y el aterrizaje de los aviones, ya que de esta forma facilitaría el trabajo al piloto para saber la velocidad estimada a la que ir dependiendo de las condiciones de la pista.
 
 \end{enumerate}
 
@@ -87,6 +88,11 @@ En cuanto a los campos de aplicación, cabrían destacar los siguientes:
 
 A continuación vamos a pasar a explicar las fases sobre las que se va a desarrollar el proyecto. Para ello nos ayudaremos de un diagrama de bloques:
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{figuras/Diagrama_Bloques.eps}
+  \caption{Diagrama de bloques}
+\end{figure}
 %TODO: No me covence mucho este diagrama. Mejor uno más gráfico. Lo puedes hacer con cualquier software para pintar.
 %\begin{center}
 %\xymatrix{*+[F]\txt{Modelos de predicción de segmentación semántica} \ar[r] & *+[F]\txt{Elaboración de %sistema $ISA^2$} \\
@@ -95,15 +101,15 @@ A continuación vamos a pasar a explicar las fases sobre las que se va a desarro
 
 Comenzaremos con una exploración de nuevos modelos de predicción de segmentación semántica. La idea es integrar en el sistema $ISA^2$ los últimos modelos de segmentación semántica y de predicción de la misma, que definen el estado del arte. 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=4cm]{figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
   \caption{$ISA^2$ Versión 1}
 \end{figure}
 
-Como se puede ver en la figura anterior, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{falta-la-cita }como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica \cite{segsem}. 
+Como se puede ver en la figura anterior, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{deeplab} como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica \cite{segsem}. 
 
-También exploraremos nuevas soluciones para la predicción de la segmentación semántica, como \cite{mete-esta-referencia-que-te-pongo-en-el-comentario}. De este modo añadiremos al sistema $ISA^2$ la posibilidad de anticipar la predicción de la velocidad.
+También exploraremos nuevas soluciones para la predicción de la segmentación semántica, como \cite{segmpred}. De este modo añadiremos al sistema $ISA^2$ la posibilidad de anticipar la predicción de la velocidad.
 %TODO: AÑADIR LA SIGUIENTE REFERENCIA
 %https://openaccess.thecvf.com/content_ICCV_2017/papers/Luc_Predicting_Deeper_Into_ICCV_2017_paper.pdf
 %Con código: https://github.com/facebookresearch/SegmPred
@@ -118,7 +124,12 @@ Una vez la implementación esté finalizada, procederemos a la evaluación exper
 Teniendo en cuenta el apartado anterior, vamos a pasar a explicar de forma más detallada las diferentes fases del proyecto que antes hemos nombrado y descrito:
 
 \begin{enumerate}
- \item Enumera, de forma esquemática los pasos en los que se traducen la descripción del trabajo que has escrito arriba. Tal y como venía en la plantilla que te pasé.
+ \item Exploración de nuevos modelos y técnicas de predicción de segmentación semántica.
+ \item Integración de las mismas en el sistema.
+ \item Realización de nuevos experimentos sobre el nuevo sistema para comprobar su funcionamiento.
+ \item Repetición de experimentos de la primera versión del sistema sobre la nueva para comprobar su funcionamiento y resaltar la mejoría con respecto a la anterior.
+ \item Conclusiones
+ %Enumera, de forma esquemática los pasos en los que se traducen la descripción del trabajo que has escrito arriba. Tal y como venía en la plantilla que te pasé.
 \end{enumerate}
 
 

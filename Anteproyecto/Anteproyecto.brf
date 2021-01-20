@@ -1,8 +1,7 @@
 \backcite {isa2}{{2}{1}{section.1}}
 \backcite {isa2}{{2}{2}{section.2}}
-\backcite {isa2}{{2}{2}{section.2}}
-\backcite {isa2}{{3}{3}{figure.1}}
-\backcite {falta-la-cita }{{3}{3}{figure.1}}
-\backcite {segsem}{{3}{3}{figure.1}}
-\backcite {mete-esta-referencia-que-te-pongo-en-el-comentario}{{3}{3}{figure.1}}
-\backcite {isa2}{{4}{3}{figure.1}}
+\backcite {isa2}{{4}{3}{figure.2}}
+\backcite {deeplab}{{4}{3}{figure.2}}
+\backcite {segsem}{{4}{3}{figure.2}}
+\backcite {segmpred}{{4}{3}{figure.2}}
+\backcite {isa2}{{4}{3}{figure.2}}

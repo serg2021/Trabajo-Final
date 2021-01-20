@@ -13,16 +13,10 @@
   year   = {2018},
 }
 
-@Misc{segmpred,
-  author       = {Pauline Luc Natalia Neverova Camille Couprie Jakob Verbeek Yann LeCun},
+@Misc{https://github.com/facebookresearch/SegmPred,
+  author       = {Pauline Luc, Natalia Neverova, Camille Couprie, Jakob Verbeek, Yann LeCun},
   howpublished = {\url{https://openaccess.thecvf.com/content_ICCV_2017/papers/Luc_Predicting_Deeper_Into_ICCV_2017_paper.pdf}},
   title        = {Predicting Deeper into the Future of Semantic Segmentation},
-}
-
-@Misc{deeplab,
-  author       = {Thalles Silva},
-  howpublished = {\url{https://sthalles.github.io/deep_segmentation_network/}},
-  title        = {Deeplab Image Semantic Segmentation Network},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
