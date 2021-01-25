@@ -46,11 +46,11 @@ Universidad de Alcalá\\
 
 \vspace{1cm}
 
-\begin{large}\textbf{\textit{Sistema de adaptación inteligente de la velocidad para vehículos basados en inteligencia artificial y visión por computador}}\end{large}
+\begin{large}\textbf{\textit{Sistema de adaptación inteligente de la velocidad para vehículos basado en inteligencia artificial y visión por computador}}\end{large}
 
 \vfill
 
-Diciembre - 2020
+Enero - 2021
 
 \end{center}
 
@@ -73,13 +73,18 @@ Con este nuevo sistema queremos adaptar la velocidad del vehículo en base a la 
 
 \section{Objetivos y campos de aplicación}
 
-Como ya hemos dicho, el objetivo principal de este proyecto es optimizar la primera versión del sistema \[ISA^{2}\] Para ello, realizaremos una repetición de los experimentos detallados en \cite{isa2}, para comprobar que las nuevas mejoras funciona correctamente y de forma más eficiente que el anterior.
+Como ya hemos dicho, el objetivo principal de este proyecto es optimizar la primera versión del sistema $ISA^{2}$.
+
+Para ello, realizaremos una repetición de los experimentos detallados en \cite{isa2}, para comprobar que las nuevas mejoras funciona correctamente y de forma más eficiente que el anterior.
 
 En cuanto a los campos de aplicación, cabrían destacar los siguientes:
 \begin{enumerate}
- \item Este proyecto será aplicable a cualquier campo relacionado con el automovilismo, para ayudar a mejorar la seguridad vial actual y, en esencia, para facilitar la lectura de la vía durante la conducción.
- \item Otro posible campo de aplicación podría ser la aviación, puesto que sería de gran utilidad durante el despegue y el aterrizaje de los aviones, ya que de esta forma facilitaría el trabajo al piloto para saber la velocidad estimada a la que ir dependiendo de las condiciones de la pista.
-
+ \item Este proyecto será aplicable a cualquier campo relacionado con el automovilismo, para ayudar a mejorar la seguridad vial actual y para facilitar la lectura de la vía durante la conducción. En esencia, todo lo anterior se puede resumir en lo siguiente:
+ \begin{enumerate}
+ 	\item Implementación de soluciones de adaptación de velocidad inteligente.
+ 	\item Implementación de sistema de detección de situaciones peligrosas en función de la velocidad.
+ 	\item Desarrollo de nuevas ayudas a la conducción más inteligentes.
+ \end{enumerate}
 \end{enumerate}
 
 
@@ -99,7 +104,7 @@ A continuación vamos a pasar a explicar las fases sobre las que se va a desarro
 %*+[F]\txt{Preparación de experimentos para el sistema $ISA^2$} \ar[r] & *+[F]\txt{Repetición de %experimentos anteriores}}
 %\end{center}
 
-Comenzaremos con una exploración de nuevos modelos de predicción de segmentación semántica. La idea es integrar en el sistema $ISA^2$ los últimos modelos de segmentación semántica y de predicción de la misma, que definen el estado del arte. 
+Como se puede ver en el diagrama anterior, comenzaremos con una exploración de nuevos modelos de predicción de segmentación semántica. La idea es integrar en el sistema $ISA^2$ los últimos modelos de segmentación semántica y de predicción de la misma, que definen el estado del arte. 
 
 \begin{figure}[H]
   \centering
@@ -107,7 +112,7 @@ Comenzaremos con una exploración de nuevos modelos de predicción de segmentaci
   \caption{$ISA^2$ Versión 1}
 \end{figure}
 
-Como se puede ver en la figura anterior, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{deeplab} como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica \cite{segsem}. 
+Como se puede ver en la figura anterior, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{deeplab} como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica. 
 
 También exploraremos nuevas soluciones para la predicción de la segmentación semántica, como \cite{segmpred}. De este modo añadiremos al sistema $ISA^2$ la posibilidad de anticipar la predicción de la velocidad.
 %TODO: AÑADIR LA SIGUIENTE REFERENCIA
@@ -126,13 +131,19 @@ Teniendo en cuenta el apartado anterior, vamos a pasar a explicar de forma más 
 \begin{enumerate}
  \item Exploración de nuevos modelos y técnicas de predicción de segmentación semántica.
  \item Integración de las mismas en el sistema.
- \item Realización de nuevos experimentos sobre el nuevo sistema para comprobar su funcionamiento.
- \item Repetición de experimentos de la primera versión del sistema sobre la nueva para comprobar su funcionamiento y resaltar la mejoría con respecto a la anterior.
+ \item Realización de experimentos sobre el nuevo sistema para comprobar su funcionamiento.
  \item Conclusiones
  %Enumera, de forma esquemática los pasos en los que se traducen la descripción del trabajo que has escrito arriba. Tal y como venía en la plantilla que te pasé.
 \end{enumerate}
 
+\section{Medios disponibles}
 
+Dispondremos de las siguientes herramientas:
+
+\begin{enumerate}
+	\item Estación de trabajo con GPU para la realización de experimentos.
+	\item Acceso a la base de datos $ISA^2$ utilizada en la primera versión \cite{isa2}.
+\end{enumerate}
 
  
 
