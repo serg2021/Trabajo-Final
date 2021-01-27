@@ -91,33 +91,28 @@ En cuanto a los campos de aplicación, cabrían destacar los siguientes:
 
 \section{Descripción del trabajo}
 
-A continuación vamos a pasar a explicar las fases sobre las que se va a desarrollar el proyecto. Para ello nos ayudaremos de un diagrama de bloques:
+A continuación vamos a pasar a explicar las fases sobre las que se va a desarrollar el proyecto. Para ello nos ayudaremos de un diagrama de bloques.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=16cm]{figuras/Diagrama_Bloques.eps}
   \caption{Diagrama de bloques}
+  \label{fig:diagrama_bloques}
 \end{figure}
-%TODO: No me covence mucho este diagrama. Mejor uno más gráfico. Lo puedes hacer con cualquier software para pintar.
-%\begin{center}
-%\xymatrix{*+[F]\txt{Modelos de predicción de segmentación semántica} \ar[r] & *+[F]\txt{Elaboración de %sistema $ISA^2$} \\
-%*+[F]\txt{Preparación de experimentos para el sistema $ISA^2$} \ar[r] & *+[F]\txt{Repetición de %experimentos anteriores}}
-%\end{center}
 
-Como se puede ver en el diagrama anterior, comenzaremos con una exploración de nuevos modelos de predicción de segmentación semántica. La idea es integrar en el sistema $ISA^2$ los últimos modelos de segmentación semántica y de predicción de la misma, que definen el estado del arte. 
+
+Como se puede ver en la Figura \ref{fig:diagrama_bloques}, comenzaremos con una exploración de nuevos modelos de predicción de segmentación semántica. La idea es integrar en el sistema $ISA^2$ los últimos modelos de segmentación semántica y de predicción de la misma, que definen el estado del arte. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=4cm]{figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
   \caption{$ISA^2$ Versión 1}
+  \label{fig:isa_v1}
 \end{figure}
 
-Como se puede ver en la figura anterior, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{deeplab} como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica. 
+Como se muestra la Figura \ref{fig:isa_v1}, el algoritmo que se utiliza en \cite{isa2} se basa en una CNN (Convolutional Neural Network) desde la que le pasamos como entrada una imagen en diferentes escalas. Para esa versión se utilizó el modelo DeepLab \cite{deeplab} como framework para hacer uso del algoritmo de segmentación semántica, teniendo como base una CNN (en este caso, ResNet-101). Este proceso queremos mejorarlo en esta nueva versión: utilizando otros frameworks u otros modelos de CNN para segmentación semántica. 
 
 También exploraremos nuevas soluciones para la predicción de la segmentación semántica, como \cite{segmpred}. De este modo añadiremos al sistema $ISA^2$ la posibilidad de anticipar la predicción de la velocidad.
-%TODO: AÑADIR LA SIGUIENTE REFERENCIA
-%https://openaccess.thecvf.com/content_ICCV_2017/papers/Luc_Predicting_Deeper_Into_ICCV_2017_paper.pdf
-%Con código: https://github.com/facebookresearch/SegmPred
 
 Una vez exploradas estas técnicas, se procederá a la implementación e integración de las mismas, en el modelo $ISA^2$, para poder evaluar su eficacia en cuanto a estimación de la velocidad. 
 
