@@ -41,9 +41,9 @@ class Cityscapes(Dataset):
 
     def __init__(self, root: home, transforms: lambda x: x, subset='train', open_depth=False, labels_dir='labels', epoch=None):
         self.root = home
-        self.images_dir = self.root / 'Desktop' / 'swiftnet' / 'datasets' / 'Cityscapes' / 'rgb' / subset
-        self.labels_dir = self.root / 'Desktop' / 'swiftnet' / 'datasets' / 'Cityscapes' / labels_dir / subset
-        self.depth_dir = self.root / 'Desktop' / 'swiftnet' / 'datasets' / 'Cityscapes' / 'depth' / subset
+        self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'rgb' / subset
+        self.labels_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / labels_dir / subset
+        self.depth_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'depth' / subset
         self.subset = subset
         self.has_labels = subset != 'test'
         self.open_depth = open_depth
