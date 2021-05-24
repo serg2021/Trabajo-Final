@@ -41,15 +41,15 @@ class Cityscapes(Dataset):
 
     def __init__(self, root: home, transforms: lambda x: x, subset='train', open_depth=False, labels_dir='labels', epoch=None):
         self.root = home
-        self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'rgb' / subset
-        self.labels_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / labels_dir / subset
-        self.depth_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'depth' / subset
+        self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'ISA2'
+        #self.labels_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / labels_dir / subset
+        #self.depth_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'depth' / subset
         self.subset = subset
         self.has_labels = subset != 'test'
         self.open_depth = open_depth
-        self.images = list(sorted(self.images_dir.glob('*/*.png')))
-        if self.has_labels:
-            self.labels = list(sorted(self.labels_dir.glob('*/*.png')))
+        self.images = list(sorted(self.images_dir.glob('*/*/*.jpeg')))
+        #if self.has_labels:
+        #   self.labels = list(sorted(self.labels_dir.glob('*/*.png')))
         self.transforms = transforms
         self.epoch = epoch
 
@@ -64,8 +64,8 @@ class Cityscapes(Dataset):
             'name': self.images[item].stem,
             'subset': self.subset,
         }
-        if self.has_labels:
-            ret_dict['labels'] = self.labels[item]
+        #if self.has_labels:
+        #    ret_dict['labels'] = self.labels[item]
         if self.epoch is not None:
             ret_dict['epoch'] = int(self.epoch.value)
         return self.transforms(ret_dict)

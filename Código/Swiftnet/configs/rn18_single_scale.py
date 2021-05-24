@@ -15,7 +15,7 @@ from evaluation import StorePreds
 
 from models.util import get_n_params
 
-root = Path.home() / Path('Desktop/Trabajo-Final/Código/Swiftnet/datasets/Cityscapes')
+root = Path.home() / Path('Desktop/Trabajo-Final/Código/Swiftnet/datasets/ISA2')
 path = os.path.abspath(__file__)
 dir_path = os.path.dirname(path)
 

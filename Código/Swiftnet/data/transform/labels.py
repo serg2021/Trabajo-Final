@@ -62,6 +62,5 @@ class ColorizeLabels:
     def __call__(self, example):
         if not isinstance(example, dict):
             return self._trans(example)
-        assert 'labels' in example
-        return {**example, **{'labels': self._trans(example['labels']),
-                              'original_labels': self._trans(example['original_labels'])}}
+        #assert 'labels' in example
+        return {**example, **{'labels': self._trans(example['labels'])}}

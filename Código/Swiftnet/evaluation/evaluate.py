@@ -74,12 +74,14 @@ def evaluate_semseg(model, data_loader, class_info, observers=()):
             stack.enter_context(ctx_mgr)
         conf_mat = np.zeros((model.num_classes, model.num_classes), dtype=np.uint64)
         for step, batch in tqdm(enumerate(data_loader), total=len(data_loader)):
-            batch['original_labels'] = batch['original_labels'].numpy().astype(np.uint32)
-            logits, additional = model.do_forward(batch, batch['original_labels'].shape[1:3])
+            #batch['original_labels'] = batch['original_labels'].numpy().astype(np.uint32)
+            logits, additional = model.do_forward(batch)
+            #logits, additional = model.do_forward(batch, batch['original_labels'].shape[1:3])
             pred = torch.argmax(logits.data, dim=1).byte().cpu().numpy().astype(np.uint32)
             for o in observers:
                 o(pred, batch, additional)
-            cylib.collect_confusion_matrix(pred.flatten(), batch['original_labels'].flatten(), conf_mat)
+            #cylib.collect_confusion_matrix(pred.flatten(), batch['labels'], conf_mat)
+            #cylib.collect_confusion_matrix(pred.flatten(), batch['original_labels'].flatten(), conf_mat)
         print('')
         pixel_acc, iou_acc, recall, precision, _, per_class_iou = compute_errors(conf_mat, class_info, verbose=True)
     model.train()

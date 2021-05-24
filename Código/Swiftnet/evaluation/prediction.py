@@ -20,8 +20,8 @@ class StorePreds:
         return ''
 
     def __call__(self, pred, batch, additional):
-        b = self.to_img(batch)
-        for p, name, subset in zip(pred, b['name'], b['subset']):
+        #b = self.to_img(batch)
+        for p, name, subset in zip(pred, batch['name'], batch['subset']):
             store_img = np.concatenate([i.astype(np.uint8) for i in [self.to_color(p)]], axis=0)
             store_img = pimg.fromarray(store_img)
             store_img.thumbnail((960, 1344))
