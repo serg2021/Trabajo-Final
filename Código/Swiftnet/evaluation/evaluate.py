@@ -83,6 +83,6 @@ def evaluate_semseg(model, data_loader, class_info, observers=()):
             #cylib.collect_confusion_matrix(pred.flatten(), batch['labels'], conf_mat)
             #cylib.collect_confusion_matrix(pred.flatten(), batch['original_labels'].flatten(), conf_mat)
         print('')
-        pixel_acc, iou_acc, recall, precision, _, per_class_iou = compute_errors(conf_mat, class_info, verbose=True)
+        #pixel_acc, iou_acc, recall, precision, _, per_class_iou = compute_errors(conf_mat, class_info, verbose=True)
     model.train()
     return iou_acc, per_class_iou

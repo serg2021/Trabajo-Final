@@ -107,8 +107,17 @@ print(f'SPP params: {spp_params:,}')
 if evaluating:
     eval_loaders = [(loader_val, 'val')]
     store_dir = f'{dir_path}/out/'
-    for d in ['', 'val', 'train', 'training']:
+    for d in ['', 'val', 'train', 'training', 'ISA2']:
         os.makedirs(store_dir + d, exist_ok=True)
+    store_dir_ISA2 = f'{store_dir}/ISA2/'
+    for d in ['', 'Highway', 'Urban']:
+        os.makedirs(store_dir_ISA2 + d, exist_ok=True)
+    store_dir_ISA2_Highway = f'{store_dir_ISA2}/Highway/'
+    for d in ['', 'H1', 'H2']:
+        os.makedirs(store_dir_ISA2_Highway + d, exist_ok=True)
+    store_dir_ISA2_Urban = f'{store_dir_ISA2}/Urban/'
+    for d in ['', 'U1', 'U2', 'U3']:
+        os.makedirs(store_dir_ISA2_Urban + d, exist_ok=True)
     to_color = ColorizeLabels(color_info)
     to_image = Compose([DenormalizeTh(scale, mean, std), Numpy(), to_color])
     eval_observers = [StorePreds(store_dir, to_image, to_color)]
