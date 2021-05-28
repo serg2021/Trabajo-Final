@@ -2,6 +2,7 @@ from torch.utils.data import Dataset
 from pathlib import Path
 
 from .labels import labels
+import os
 
 home = Path.home()
 
@@ -42,14 +43,43 @@ class Cityscapes(Dataset):
     def __init__(self, root: home, transforms: lambda x: x, subset='train', open_depth=False, labels_dir='labels', epoch=None):
         self.root = home
         self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'ISA2'
+        self.images = []
+        files = os.listdir(self.images_dir)
+        dirs = []
+        subdirs_H = []
+        subdirs_U = []
+        i = 0
+        for f in files:
+            if os.path.isdir(os.path.join(self.images_dir, f)):
+                dirs.append(f)
+        for d in dirs:
+            subfiles = os.listdir(os.path.join(self.images_dir, d))
+            subfiles.sort()
+            i += 1
+            for s in subfiles:
+                if os.path.isdir(os.path.join(self.images_dir, d, s)) and i is 1:
+                    subdirs_H.append(s)
+                if os.path.isdir(os.path.join(self.images_dir, d, s)) and i is len(dirs):
+                    subdirs_U.append(s)
         #self.labels_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / labels_dir / subset
         #self.depth_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'Cityscapes' / 'depth' / subset
         self.subset = subset
         self.has_labels = subset != 'test'
         self.open_depth = open_depth
-        self.images = list(sorted(self.images_dir.glob('*/*/*.jpeg')))
-        #if self.has_labels:
-        #   self.labels = list(sorted(self.labels_dir.glob('*/*.png')))
+        images_subdirs = []
+        x = 0
+        for d in dirs:
+            x += 1
+            if x is 1:
+                for s in subdirs_H:
+                    images_subdirs = list(sorted(self.images_dir.glob(f'{d}/{s}/*.jpeg')))
+                    for p in range(0, len(images_subdirs)):
+                        self.images.append(images_subdirs[p])
+            if x is len(dirs):
+                for s in subdirs_U:
+                    images_subdirs = list(sorted(self.images_dir.glob(f'{d}/{s}/*.jpeg')))
+                    for p in range(0, len(images_subdirs)):
+                        self.images.append(images_subdirs[p])
         self.transforms = transforms
         self.epoch = epoch
 
