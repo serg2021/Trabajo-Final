@@ -2,6 +2,9 @@ import numpy as np
 import os
 from pathlib import Path
 import glob
+
+import scipy.io
+from scipy.io import savemat, loadmat
 from PIL import Image as pimg
 
 __all__ = ['StorePreds', 'StoreSubmissionPreds']
@@ -54,20 +57,27 @@ class StorePreds:
             self.t += 1
             if self.d is 0:
                 if self.t <= images_subdir:
-                    store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.jpg')
+                    scipy.io.savemat(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.mat', {"name": name, "data" : p})
+                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')
                 if self.t > images_subdir:
                     self.t = 1
                     self.s += 1
                     if self.s is 2:
                         self.d = 1
-                    store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.jpg')
+                    scipy.io.savemat(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.mat',
+                                     {"name": name, "data": p})
+                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')
             if self.d is 1:
                 if self.t <= images_subdir:
-                    store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.jpg')
+                    scipy.io.savemat(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.mat',
+                                     {"name": name, "data": p})
+                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')
                 if self.t > images_subdir:
                     self.t = 1
                     self.s += 1
-                    store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.jpg')
+                    scipy.io.savemat(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.mat',
+                                     {"name": name, "data": p})
+                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')
             '''if self.step in range(1,3122):
                 store_img.save(f'{self.store_dir}ISA2/Highway/H1/{name}.jpg')
             if self.step in range(3123,4962):
