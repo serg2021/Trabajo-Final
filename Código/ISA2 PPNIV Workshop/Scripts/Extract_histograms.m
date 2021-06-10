@@ -12,40 +12,33 @@ do_save_results = 0;
 % Save_histograms
 save_histograms = 1;
 % Number of divisions of the spatial pyramid
-divisions = 4;
+divisions = 1;
 % Folder to save the histograms
-hist_folder = 'histograms_full_set_4_urban';
-
-
-
-
-
-load_folder = 'features';
-net_id = 'resnet';
-test_set = 'val';    
-save_test_set = test_set(1:end-6);
-feature_types = {'crf'};      
+hist_folder = 'histograms_full_set_1_Urban';    
 
 % Directories
-ROOT_PATH = '../DeepLab/cityscapes/';
-IMG_ROOT =['../ISA2_v1/Highway/H2']; 
-SAVE_HIST_PATH = ['./'];
+%ROOT_PATH = '../DeepLab/cityscapes/';
+ROOT_PATH = '../../Swiftnet/configs/out/';
+%IMG_ROOT =['../ISA2_v1/Highway/H2'];
+IMG_ROOT = '../../Swiftnet/configs/out/ISA2/Urban/U3';
+%SAVE_HIST_PATH = ['./'];
+SAVE_HIST_PATH = '../../Swiftnet/configs/out/Results';
 
+%pepe = load(fullfile('../../Swiftnet/configs/out/Results/histograms_full_set_1_Urban/histogramsU3.mat'));
+%pepe2 = load(fullfile('../../ISA2 PPNIV Workshop/Regressors/histograms_full_set_1_urban/histogramsseq2.mat'));
 
-
-
-for kk = 1 : numel(feature_types)
-    cur_path = fullfile(ROOT_PATH, load_folder, net_id, test_set, feature_types{kk})
+for kk = 1
+    cur_path = fullfile(IMG_ROOT);
     images_names = dir(cur_path);
 
-    vis_save_folder = fullfile('vis_res', load_folder);
-    save_folder = fullfile('res', load_folder);
+    %vis_save_folder = fullfile('vis_res', load_folder);
+    %save_folder = fullfile('res', load_folder);
 
 
     results = dir(fullfile(cur_path, '*.mat'));
 
-    save_path = fullfile(ROOT_PATH,  save_folder, net_id, test_set, feature_types{kk});
-    vis_save_path = fullfile(ROOT_PATH, vis_save_folder, net_id, test_set, feature_types{kk});
+    save_path = fullfile(ROOT_PATH, 'Grey');
+    vis_save_path = fullfile(ROOT_PATH, 'Color');
 
     if ~exist(vis_save_path, 'dir')
     	mkdir(vis_save_path)
@@ -57,14 +50,13 @@ for kk = 1 : numel(feature_types)
         
     %Process .mat results
     for jj = 1 : numel(results)
-        jj
     	fn = results(jj).name(1:end-11);
 
         tmp = load(fullfile(cur_path, results(jj).name));
         raw_result = tmp.data;
-        raw_result = permute(raw_result, [2 1 3]);
-        [~, result] = max(raw_result, [], 3);           
-        result = uint8(result(1:384, 1:640)) - 1;
+        %raw_result = permute(raw_result, [1 2 3]);
+        %[~, result] = max(raw_result, [], 3);           
+        result = uint8(raw_result(1:1024, 1:2048));
             
         %Get histograms
         [histog] = ObtainHistograms(result, divisions);
@@ -95,7 +87,7 @@ for kk = 1 : numel(feature_types)
     	if ~exist(fullfile(SAVE_HIST_PATH, hist_folder), 'dir')
         	mkdir(fullfile(SAVE_HIST_PATH, hist_folder));
         end      
-        save(fullfile(SAVE_HIST_PATH, hist_folder,['histograms', divisions, '.mat']), 'hist');
+        save(fullfile(SAVE_HIST_PATH, hist_folder,['histograms', 'U3', '.mat']), 'hist');
         clearvars hist;
     end
 end
