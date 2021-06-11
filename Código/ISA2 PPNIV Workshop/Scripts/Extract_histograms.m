@@ -12,9 +12,9 @@ do_save_results = 0;
 % Save_histograms
 save_histograms = 1;
 % Number of divisions of the spatial pyramid
-divisions = 1;
+divisions = 3;
 % Folder to save the histograms
-hist_folder = 'histograms_full_set_1_Urban';    
+hist_folder = 'histograms_full_set_3_Urban';    
 
 % Directories
 %ROOT_PATH = '../DeepLab/cityscapes/';
@@ -24,8 +24,8 @@ IMG_ROOT = '../../Swiftnet/configs/out/ISA2/Urban/U3';
 %SAVE_HIST_PATH = ['./'];
 SAVE_HIST_PATH = '../../Swiftnet/configs/out/Results';
 
-%pepe = load(fullfile('../../Swiftnet/configs/out/Results/histograms_full_set_1_Urban/histogramsU3.mat'));
-%pepe2 = load(fullfile('../../ISA2 PPNIV Workshop/Regressors/histograms_full_set_1_urban/histogramsseq2.mat'));
+%pepe = load(fullfile('../../Swiftnet/configs/out/Results/histograms_full_set_3_Urban/histogramsU3.mat'));
+%pepe2 = load(fullfile('../../ISA2 PPNIV Workshop/Regressors/histograms_full_set_3_urban/histogramsseq2.mat'));
 
 for kk = 1
     cur_path = fullfile(IMG_ROOT);
