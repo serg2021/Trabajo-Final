@@ -1,13 +1,18 @@
 %%Train regressor - SVM
 clear all
 close all
-hist_folder = 'histograms_full_set_1';
+%hist_folder = 'histograms_full_set_3';
+hist_folder = 'histograms_full_set_3_Highway';
 
-load ('../ISA2_v1/Highway/speed_H1.mat')
-load ('../ISA2_v1/Highway/speed_H2.mat')
+%load ('../ISA2_v1/Highway/speed_H1.mat')
+%load ('../ISA2_v1/Highway/speed_H2.mat')
+load ('../../Swiftnet/configs/out/ISA2/Highway/speed_H1.mat');
+load ('../../Swiftnet/configs/out/ISA2/Highway/speed_H2.mat');
 
-hist_train = load(fullfile(hist_folder, 'histogramsautovia2.mat'));
-hist_test = load(fullfile(hist_folder, 'histogramsautovia.mat'));
+%hist_train = load(fullfile(hist_folder, 'histogramsautovia2.mat'));
+%hist_test = load(fullfile(hist_folder, 'histogramsautovia.mat'));
+hist_train = load(fullfile('../../Swiftnet/configs/out/Results/' ,hist_folder, 'histogramsH2.mat'));
+hist_test = load(fullfile('../../Swiftnet/configs/out/Results/', hist_folder, 'histogramsH1.mat'));
 X_train = hist_train.hist';
 X_test = hist_test.hist';
 Y_train = speed_a2';
