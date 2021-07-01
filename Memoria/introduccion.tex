@@ -30,13 +30,29 @@ En función de qué detecte, es capaz de estimar con gran precisión la velocida
 
 He aquí un ejemplo de una imagen real y de la misma imagen procesada por el sistema de segmentación semántica:
 
-\includegraphics[width=4cm]{Figuras/LogoUAH.eps}\\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{Figuras/Imagen_Original.eps}
+  \caption{Imagen Original}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{Figuras/Ejemplo_Imagen_Segmentada.eps}
+  \caption{Imagen Segmentada}
+\end{figure}
 
 
 \section{Objetivo principal}
 
 
 El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$ y para ello lo que hemos hecho ha sido un largo proceso de análisis de sistemas de segmentación semántica, acompañado de la dificultad que éstos conllevan para poder ejecutarlos correctamente. Tras ello, hemos recogido los datos generados por dicho sistema, los hemos evaluado para obtener las velocidades correspondientes, y hemos comparado éstas con las de la primera versión de $ISA^{2}$, obteniendo resultados muy prometedores.
+
+
+En la primera versión se utilizó un framework llamado "DeepLab" para realizar el proceso de segmentación semántica con unos resultados muy buenos. Para este proyecto, a través de una exhaustiva búsqueda de modelos y tras muchas pruebas, hemos utilizado uno conocido como "Swiftnet", el cual conlleva una mejora realmente interesante.
+
+
+En el siguiente capítulo, explicaremos en detalle el proceso que realiza $ISA^{2}$ parte por parte, y los pasos que hemos seguido para conseguir que todo funcione correctamente.
 
 
 
