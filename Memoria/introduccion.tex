@@ -4,10 +4,10 @@
 \chapter{Introducción} 
 
 
-Durante todo el siglo XX, en España, han habido más de 7.000.000 de accidentes de tráfico (citar), de los que aproximadamente en 250.000 han resultado víctimas mortales (citar). Un siglo después, gracias a la evolución de la tecnología, se crean los sistemas \ac{ISA}, que permiten establecer una velocidad aproximada para ayudar al conductor en cualquier situación de la vía.
+Durante todo el siglo XX, en España, han habido más de 7.000.000 de accidentes de tráfico \cite{sigloXX}, de los que aproximadamente en 250.000 han resultado víctimas mortales \cite{vidas}. Un siglo después, gracias a la evolución de la tecnología, se crean los sistemas \ac{ISA}, que permiten establecer una velocidad aproximada para ayudar al conductor en cualquier situación de la vía.
 
 
-Con la creación de estos sistemas se reduce considerablemente el número de accidentes, y más importante aún, el número de víctimas (citar).
+Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas \cite{reduccion}.
 
 
 Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, poseen fallos que pueden derivar en posibles accidentes. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en GPS y en adaptación por proximidad de vehículos y objetos, y como se puede prever, no son unas bases lo suficientemente sólidas como para proporcionar un mayor grado de seguridad en el conductor; ya que tienen fallos sujetos a la situación del tráfico y de la zona en la que se encuentran en un instante, todo ello sin hablar de las condiciones climáticas que haya en ese momento.
@@ -22,40 +22,49 @@ Es por ello que aquí presentamos nuestro sistema capaz de resolver (en gran med
 La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar el tráfico, en un determinado momento, y predecir, en consecuencia, la velocidad apropiada para ese instante.
 
 
-Para ello usamos una cámara en la parte frontal del vehículo que va tomando fotos con una cierta cadencia. Gracias a un sistema de segmentación semántica (más adelante explicarlo), conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc,...
+Para ello usamos una cámara en la parte frontal del vehículo que va tomando fotos con una cierta cadencia. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc,... Más tarde lo explicaremos con más detalle.
 
 
 En función de qué detecte, es capaz de estimar con gran precisión la velocidad a la que se requiere ir para ese instante.
 
 
-He aquí un ejemplo de una imagen real y de la misma imagen procesada por el sistema de segmentación semántica:
+He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen procesada por el sistema de \ac{SS} \ref{fig:ImgSegm}:
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{Figuras/Imagen_Original.eps}
   \caption{Imagen Original}
+  \label{fig:ImgOrig}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{Figuras/Ejemplo_Imagen_Segmentada.eps}
   \caption{Imagen Segmentada}
+    \label{fig:ImgSegm}
 \end{figure}
 
 
 \section{Objetivo principal}
 
 
-El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$ y para ello lo que hemos hecho ha sido un largo proceso de análisis de sistemas de segmentación semántica, acompañado de la dificultad que éstos conllevan para poder ejecutarlos correctamente. Tras ello, hemos recogido los datos generados por dicho sistema, los hemos evaluado para obtener las velocidades correspondientes, y hemos comparado éstas con las de la primera versión de $ISA^{2}$, obteniendo resultados muy prometedores.
+El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$ y para ello lo que hemos hecho ha sido un largo proceso de análisis de sistemas de \ac{SS}, acompañado de la dificultad que éstos conllevan para poder ejecutarlos correctamente. Tras ello, hemos recogido los datos generados por dicho sistema, los hemos evaluado para obtener las velocidades correspondientes, y hemos comparado éstas con las de la primera versión de $ISA^{2}$, obteniendo resultados muy prometedores.
 
 
-En la primera versión se utilizó un framework llamado "DeepLab" para realizar el proceso de segmentación semántica con unos resultados muy buenos. Para este proyecto, a través de una exhaustiva búsqueda de modelos y tras muchas pruebas, hemos utilizado uno conocido como "Swiftnet", el cual conlleva una mejora realmente interesante.
+En la primera versión se utilizó un framework llamado ``DeepLab'' \cite{deeplab} para realizar el proceso de segmentación semántica con unos resultados muy buenos. Para este proyecto, a través de una exhaustiva búsqueda de modelos y tras muchas pruebas, hemos utilizado uno conocido como ``Swiftnet'' \cite{swiftnet}, el cual conlleva una mejora realmente interesante.
 
 
 En el siguiente capítulo, explicaremos en detalle el proceso que realiza $ISA^{2}$ parte por parte, y los pasos que hemos seguido para conseguir que todo funcione correctamente.
 
+\section{Campos de aplicación}
 
 
+Este proyecto será aplicable a cualquier campo relacionado con el automovilismo, para ayudar a mejorar la seguridad vial actual y para facilitar la lectura de la vía durante la conducción. A modo de resumen, podríamos plasmar las ideas recogidas de todo lo anterior en los siguientes puntos:
+\begin{enumerate}	
+	\item Implementación de soluciones de adaptación de velocidad inteligente.
+	\item Implementación de sistema de detección de situaciones peligrosas en función de la velocidad.
+	\item Desarrollo de nuevas ayudas a la conducción más inteligentes.
+\end{enumerate}
 %\section{¿Cómo escribir tu PFC en \LaTeX{} ?}
 
 %Escribir un \ac{PFC} es una tarea de gran importancia. La herramienta de edición \LaTeX{} te va a permitir editar tu \ac{PFC} de una forma elegante, útil y segura. Simplemente dedicando unos minutos a comprender cómo están organizados los ficheros que acabas de descargar, y realizando algunas pruebas con ellos, podrás comenzar a escribir el tuyo.
