@@ -7,7 +7,7 @@ Hemos hablado anteriormente de qué son los sistemas \ac{ISA} a grandes rasgos y
 Para poder explicar la metodología, antes debemos de preguntarnos cómo funciona todo el sistema de $ISA^{2}$, centrándonos en cada parte que lo compone para que resulte más fácil su comprensión. He aquí unas figuras ilustrativas que nos servirán como punto de referencia durante todo el capítulo:
 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{Figuras/Figura_Esquema_ISA2_Version_1_SegSem.eps}
   \caption{Esquema $ISA^{2}$ Antiguo}
@@ -23,6 +23,12 @@ Como se puede ver al pie de la figura \ref{fig:Isa_v1}, este fue el esquema util
  
 \item Este tipo de tecnología es la que posibilitó entonces, y ahora, la \ac{SS} de las imágenes.
 
+\item Tras este proceso, mediante unos códigos de Matlab se recogían los datos de los píxeles ya segmentados y se organizaban en histogramas. Basándonos en los histogramas generados, usábamos una estrategia llamada \ac{SPP} \cite{spp} para crear un descriptor de imagen.
+
+\item Por último, el descriptor generado en el paso anterior se pasaba a diferentes sistemas de regresión. Para cada uno de ellos se añadía \ac{SI} \cite{spp} usando \ac{SPP} de hasta 3 niveles para poder compararlos entre sí y saber cuál era mejor. Para ello cogíamos los mejores resultados de cada uno de todos los niveles usados en los mismos.
+
+\end{itemize}
+
 \subsection{Segmentación Semántica}
 
 Pero, ¿qué es la \ac{SS}? ¿Y por qué es tan útil en este proyecto?
@@ -33,19 +39,30 @@ En el capítulo anterior hablamos de una forma resumida en qué consiste la \ac{
 
 La \ac{SS} es un proceso por el cual los píxeles de una imagen son dotados de distintos valores para poder diferenciarlos en etiquetas unos de otros y así reconocer los elementos que componen dicha imagen. 
 
-
 Por ejemplo: Una fotografía de una persona, un coche y un perro. A priori, todos los píxeles de la imagen no están categorizados y no se sabe qué partes de la imagen corresponden a la persona, al coche, y al perro. Gracias a la segmentación semántica los píxeles de la imagen adquieren los valores de las etiquetas referentes a ``persona'', a ``coche'' y a ``perro''; y son fácilmente diferenciables.
 
 Cuando hablamos de ``diferenciables'' nos referimos a los programas y soluciones que trabajan con este tipo de tecnologías. Más adelante usaremos unos códigos en MatLab que trabajan con estas etiquetas, pero es conveniente saber el porqué de esa ``diferenciabilidad'' a la que se hace alusión.
 
-\item Tras este proceso, mediante unos códigos de Matlab se recogían los datos de los píxeles ya segmentados y se organizaban en histogramas. Basándonos en los histogramas generados, usábamos una estrategia llamada \ac{SPP} \cite{spp} para crear un descriptor de imagen.
+\subsection{mIoU}
 
-\item Por último, el descriptor generado en el paso anterior se pasaba a diferentes sistemas de regresión. Para cada uno de ellos se añadía \ac{SI} \cite{spp} usando \ac{SPP} de hasta 3 niveles para poder compararlos entre sí y saber cuál era mejor. Para ello cogíamos los mejores resultados de cada uno de todos los niveles usados en los mismos.
+Para saber qué porcentaje de acierto ha tenido el proceso nos basaremos en la \ac{mIoU} \cite{miou-iou}. Esta métrica se basa en hacer la media de la \ac{IoU} de las diferentes etiquetas de clases.
 
-\end{itemize}
+La \ac{IoU} \cite{miou-iou} es la relación de superposición que existe entre la imagen segmentada y la original. Es decir, sirve para dictaminar con cuánta precisión se ha realizado el proceso de \ac{SS}. En las siguientes figuras se puede ver un ejemplo muy práctico:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{Figuras/Iou_1.eps}
+  \caption{Imagen Original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{Figuras/IoU_2.eps}
+  \caption{Predicción}
+\end{figure}
 
 
-Fue de esta manera como se pudo ejecutar con eficacia este sistema \cite{isa2}. Sin embargo, con el paso de los años surgieron nuevos modelos de \ac{SS} más eficaces y precisos, y fruto de ello es el sistema que hemos utilizado en esta nueva versión: Swiftnet \cite{swiftnet}.
+Fue de esta manera como se pudo ejecutar con eficacia este sistema \cite{isa2}. Sin embargo, con el paso de los años surgieron nuevos modelos de \ac{SS} más eficaces y precisos, y fruto de ello es el sistema que hemos utilizado en esta nueva versión: ``Swiftnet'' \cite{swiftnet}.
 
 
 \begin{figure}[H]

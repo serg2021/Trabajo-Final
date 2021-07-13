@@ -21,11 +21,14 @@ Antes de crear ningún entorno, primero hay que instalar Conda en la máquina qu
 Para crear el entorno Conda sobre el que trabajar basta con abrir un terminal del sistema operativo y escribir el siguiente comando:
 
 \begin{center}
-\textit{conda  create  --name  swiftnet  python=3.7}
+\textit{conda create --name swiftnet python=3.7}
 \end{center}
 
-En este caso estamos creando un entorno Conda llamado ``swiftnet'' con la versión de Python 3.7 (la necesaria para el modelo de ``Swiftnet'', aunque se admiten versiones superiores  \cite{github_swiftnet}).
+En este caso estamos creando un entorno Conda llamado ``swiftnet'' con la versión de Python 3.7 (la necesaria para el modelo de ``Swiftnet'', aunque se admiten versiones superiores  \cite{github_swiftnet}). Y lo activamos con:
 
+\begin{center}
+\textit{conda activate swiftnet}
+\end{center}
 
 Ya tenemos creado el entorno, ahora hace falta añadirle los paquetes necesarios que requiere ``Swiftnet'', indicados en el archivo ``requirements.txt'' \cite{github_swiftnet}. Para instalarlos simplemente seguimos las indicaciones del modelo y usamos este comando:
 
@@ -46,11 +49,12 @@ A continuación enumeramos los paquetes que quedan para poder ejecutar ``Swiftne
 \begin{enumerate}
 \item opencv \cite{opencv}
 \item pytorch torchaudio=0.4.0 cudatoolkit=10.0 \cite{pytorch}
+\item cython
 \end{enumerate}
 
 Cabe destacar que ponemos dichos paquetes con estas versiones porque las especificaciones de nuestra máquina lo requerían. Si se quiere reproducir el resultado de este proyecto, puede que no sean las mismas versiones de estos paquetes los que haya que instalar, dependerá de la máquina sobre la que se trabaje.
 
-Una vez instalados dichos paquetes, se sigue el procedimiento marcado por el modelo (se descargan la base de datos de Cityscapes \cite{cityscapes} y una serie de modelos preentrenados para la misma en la carpeta ``weights'' \cite{github_swiftnet}) y se ejecuta desde el directorio en el que éste se encuentra:
+Una vez instalados los paquetes, se sigue el procedimiento marcado por el modelo (se descargan la base de datos de Cityscapes \cite{cityscapes} para guardarla en la carpeta ``datasets'' y una serie de modelos preentrenados para la misma en la carpeta ``weights'' \cite{github_swiftnet}) y se ejecuta desde el directorio en el que éste se encuentra:
 
 \begin{center}
 \textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
@@ -59,8 +63,8 @@ Una vez instalados dichos paquetes, se sigue el procedimiento marcado por el mod
 Tras ello, y en nuestro caso particular, se llegarán a dos errores:
 
 \begin{enumerate}
-\item No se encuentra el módulo ``lib.cylib''
-\item No se encuentra la versión ``GLIBCXX\_3.4.26'' de ``libstdc++'' que se encuentra en el sistema operativo
+\item No se encuentra el módulo ``lib.cylib''.
+\item No se encuentra la versión ``GLIBCXX\_3.4.26'' de ``libstdc++'' que se encuentra en el sistema operativo. A este último llegaremos más adelante, cuando hayamos modificado los archivos ``rn18\_single\_scale.py'' y ``cityscapes.py''; sin embargo, este error puede no darse, todo dependerá de los medios de los que se disponga.
 \end{enumerate}
 
 Pasamos a explicarlos:
@@ -158,8 +162,7 @@ Basta con hacerle saber a PyTorch sobre qué ejecutarlo con la siguiente instruc
 \textit{torch.device(`cpu/gpu')}
 \end{center}
 
-Escribiendo dicha instrucción en el código que se quiera ejecutar especificando una de las dos opciones que se dan (\ac{CPU} o \ac{GPU}), podemos obligar a PyTorch a que trabaje con una u otra.
-
+Escribiendo dicha instrucción en el código que se quiera ejecutar especificando una de las dos opciones que se dan (\ac{CPU} o \ac{GPU}), podemos obligar a PyTorch a que trabaje con una u otra. El uso de esta instrucción es meramente opcional, ya que para los medios que tenemos disponibles no es necesaria, pero puede ser útil mencionarla si se diera el caso opuesto.
 
 En cuanto a términos de rendimiento, es recomendable ,si es posible, que PyTorch trabaje con \ac{GPU} puesto que al hacerlo de la otra forma, la carga de procesos que tendría que soportar la \ac{CPU} sería elevada y conllevaría a que tardase demasiado la ejecución del modelo. Con \ac{GPU}, sin embargo, sería más veloz y podríamos trabajar con mayor soltura al no tener largos tiempos de espera durante la ejecución del modelo.
 
@@ -257,7 +260,7 @@ Básicamente estamos cambiando la ruta por donde va a obtener las imágenes de C
 
 Cambiamos la ruta por donde va a obtener las etiquetas de las clases de Cityscapes.
 
-\item `self.images = list(sorted(self.images\_dir.glob(`*\textbackslash{*.png}'))' en la línea 48
+\item `self.images = list(sorted(self.images\_dir.glob(`*\textbackslash{*.png}')))' en la línea 48
 
 Como se puede ver, la instrucción es la misma salvo en el final: Simplemente obtenemos una lista ordenada de archivos ``.png'' de la base de datos de Cityscapes y la guardamos en la variable ``self.images''.
 \end{enumerate}
@@ -270,67 +273,109 @@ Para concluir, con todo esto ya podemos ejecutar el modelo con la instrucción:
 \textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
 \end{center}
 
-Si hemos hecho todo bien, obtendremos los mismos resultados que en el paper de ``Swiftnet'' \cite{swiftnet}.
+Si hemos hecho todo bien, obtendremos los mismos resultados que en el paper de ``Swiftnet'' \cite{swiftnet} en la carpeta ``out'' del directorio ``configs'' (las imágenes vendrán en formato ``.jpg'').
 
-Cuando veamos las imágenes segmentadas, veremos que no están todas las del dataset de Cityscapes; esto es porque hemos ejecutado el modelo para evaluación (``eval.py''), de modo que sólo ha procesado las imágenes del dataset de la subcarpeta ``val''. Se puede modificar para que coja todas, pero en este caso no es necesario.
+Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. Esto se puede cambiar en el archivo ``prediction.py'' de la carpeta ``evaluation''.
+
+En dicho archivo, dentro de la clase ``StorePreds'', en el método ``call'', ponemos la siguiente instrucción:
+
+\begin{center}
+\textit{store\_img = np.concatenate([i.astype(np.uint8) for i in [self.to\_color(p)]], axis = 0)} en la línea 25
+\end{center}
+
+Con esa simple modificación podemos ver únicamente la imagen segmentada en los resultados.
 
 Sin embargo, nuestro trabajo no lo hemos realizado con la base de datos de Cityscapes, sino con la de $ISA^{2}$ \cite{isa2}. Para hacerlo con esa base de datos simplemente hay que:
 
 \begin{itemize}
 \item Cambiar las rutas del dataset de Cityscapes y sustituirlo por $ISA^{2}$ en el archivo ``rn18\_single\_scale.py'' en las líneas que modificamos previamente.
 \item Comentar las líneas 77, 79, 82 del archivo ``evaluation\textbackslash{evaluate.py}''
-\item Modificar el archivo ``cityscapes.py'' siguiendo las siguientes figuras:
+\item Modificar el archivo ``cityscapes.py'' de la siguiente manera:
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=16cm]{Figuras/cityscapes.py_1.eps}
-  \caption{Archivo ``cityscapes.py'' Parte 1}
-\end{figure}
+\begin{enumerate}
+\item Justo debajo de la instrucción ``self.root = home'' hay que poner ``self.subset = subset''
+\item `self.images\_dir = self.root \textbackslash{} `Desktop' \textbackslash{} `swiftnet' \textbackslash{} `datasets' \textbackslash{} `ISA2'' en la línea 42.
+\item Comentar las líneas en las que se inicializan las variables ``self.labels\_dir'' y ``self.depth\_dir''
+\item `self.images = list(sorted(self.images\_dir.glob(`*\textbackslash{*}\textbackslash{*.jpeg}')))' en la línea 48
+\item Comentar las líneas 65 y 66
+\end{enumerate}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=16cm]{Figuras/cityscapes.py_2.eps}
-  \caption{Archivo ``cityscapes.py'' Parte 2}
-\end{figure}
+\item Por último, modificar la clase ``StorePreds'' del archivo ``prediction.py'' en la carpeta ``evaluation\textbackslash{}'' siguiendo las instrucciones:
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=8cm]{Figuras/cityscapes.py_3.eps}
-  \caption{Archivo ``cityscapes.py'' Parte 3}
-  \label{fig:pred.py3}
-\end{figure}
+\begin{enumerate}
+\item `import scipy.io' en la línea 3
+\item `from scipy.io import savemat' en la línea 4
+\item Cambiar la instrucción de la línea 28 por la siguiente: `scipy.io.savemat(f'{self.store\_dir}\textbackslash{ISA2}\textbackslash{{name}.mat}', {``name'': name, ``data'' : p})'
+\end{enumerate}
 
-\item Por último, modificar la clase ``StorePreds'' del archivo ``prediction.py'' en la carpeta ``evaluation\textbackslash{}'' siguiendo las siguientes figuras:
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=16cm]{Figuras/prediction.py_1.eps}
-  \caption{Archivo ``prediction.py'' Parte 1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=16cm]{Figuras/prediction.py_2.eps}
-  \caption{Archivo ``prediction.py'' Parte 2}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=16cm]{Figuras/prediction.py_3.eps}
-  \caption{Archivo ``prediction.py'' Parte 3}
-\end{figure}
-
-Hemos modificado de esta manera el archivo ``cityscapes.py'' porque buscábamos que obtuviese las imágenes de manera automática de los subdirectorios de la base de datos de $ISA^{2}$. De la misma forma, los cambios en el archivo ``prediction.py'' persiguen el mismo objetivo: Guardar las imágenes procesadas de manera automática en los subdirectorios correspondientes.
-
-A pesar de que son muchas modificaciones en estos dos últimos archivos, no son necesarias para la ejecución del modelo. En nuestro caso particular lo hemos hecho así por comodidad, pero no imprescindible para que funcione.
-
-Siendo opcionales estas modificaciones, para lograr que el programa se ejecute con la base de datos de $ISA^{2}$ sin que se ``automatice'', basta con observar los mismos archivos para el dataset de Cityscapes y aplicar los cambios que se crean oportunos; ya que, teniéndolos como referencia, se puede ver de forma intuitiva qué partes se han de modificar. Sin embargo, la figura \ref{fig:pred.py3} es obligatoria en cualquier caso.
+Con estas modificaciones tan sencillas podemos trabajar con la base de datos de $ISA^{2}$. En nuestro caso, hemos hecho multitud de modificaciones en esos archivos para automatizar el modelo, es decir, guardar todas las imágenes procesadas en sus correspondientes carpetas. Sin embargo, lo hemos hecho por comodidad y no es necesario hacerlo; con las instrucciones anteriores es suficiente para ejecutar el modelo correctamente.
 
 Cabe destacar que en el archivo ``prediction.py'', siguiendo las figuras, se puede ver la llamada a un método llamado ``savemat''. Éste sirve para guardar las imágenes segmentadas en archivos ``.mat'' que en el siguiente paso utilizaremos, de modo que, aunque no es estrictamente imprescindible, sí es recomendable usarlo puesto que nos resultará mucho más fácil manejar las imágenes segmentadas en los códigos de MatLab \cite{matlab} si están en ese formato.
 
 \end{itemize}
 
-Aquí acaba todo lo pertinente a Swiftnet. Hemos visto cómo ha segmentado las imágenes y el proceso interno que lo hace posible, además de trabajar con dos bases de datos. El siguiente paso es la realización de histogramas de las imágenes segmentadas y su posterior introducción en los sistemas de regresión para estimar la velocidad adecuada. Todo ello se hará en MatLab \cite{matlab}.
+Aquí acaba todo lo pertinente a ``Swiftnet''. Hemos visto cómo ha segmentado las imágenes y el proceso interno que lo hace posible, además de trabajar con dos bases de datos. El siguiente paso es la realización de histogramas de las imágenes segmentadas y su posterior introducción en los sistemas de regresión para estimar la velocidad adecuada. Todo ello se hará en MatLab \cite{matlab}.
 
 \section{Realización de histogramas}
+
+En este apartado no se pueden replicar los resultados como con el anterior, ya que, a diferencia de ``Swiftnet'' \cite{swiftnet}, los códigos de MatLab \cite{matlab} son únicos y originales y sólo los creadores tenemos acceso a ellos.
+
+Un histograma es una representación gráfica en forma de barras que simboliza la distribución de un conjunto de datos \cite{histograma}. En nuestro caso, nuestros histogramas representan el porcentaje que hay de cada etiqueta en una imagen. He aquí un ejemplo de un histograma genérico:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{Figuras/histograma.eps}
+  \caption{Histograma}
+\end{figure}
+
+Para realizar los histogramas reutilizamos los códigos de $ISA^{2}$ \cite{isa2} de MatLab de la primera versión. Puesto que los resultados de ``Swiftnet'' están en el mismo formato que los de ``DeepLab'' \cite{deeplab}, apenas hay que modificar los códigos.
+
+Simplemente hay que actualizar las rutas para que recoja los resultados de ``Swiftnet'' y no de ``DeepLab''.
+
+Aplicando estos cambios obtenemos unos archivos en formato ``.mat'' (como los resultados de ``Swiftnet''), que contienen los histogramas correspondientes a cada imagen de cada subcarpeta de la base de datos de $ISA^{2}$.
+
+Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 3 niveles de ``pooling'', es decir, añadiendo más \ac{SI} dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
+
+\section{Sistemas de regresión}
+
+Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en el proyecto para comprobar cuánta mejoría hay con respecto a la primera versión de $ISA^{2}$ \cite{isa2}.
+
+Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir. Con cada uno de ellos aplicamos un nivel diferente de ``pooling'', como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}. No entraremos en detalle puesto que no es necesario hacerlo, pero explicaremos nociones básicas de cada uno de ellos:
+
+\subsection{Linear}
+
+La regresión lineal \cite{linear} es un tipo de análisis predictivo usado de forma muy común siendo uno de los más básicos que existen. Se utiliza para explicar la relación entre una variable predictiva (independiente) y otra variable de salida (dependiente). La siguiente ecuación es la forma más simple de expresar esta relación:
+
+\begin{equation}
+y = c + b*x
+\end{equation}
+
+Siendo ``y'' la variable de salida (dependiente), ``c'' una constante, ``b'' el coeficiente de regresión y ``x'' la variable predictiva (independiente).
+
+\subsection{Lasso}
+
+La regresión ``Lasso'' \cite{lasso} es un tipo regresión lineal que hace uso de la ``contracción'' \cite{shrinkage}. Con la ``contracción'' conseguimos que valores extremos de una muestra se reduzcan alrededor de un valor central como, por ejemplo, la media. Este tipo de regresión viene bien para modelos con altos niveles de multicolinealidad (Fuerte correlación entre variables predictivas o explicativas \cite{multicollinearity}).
+
+\subsection{Boosting Trees}
+
+Este tipo de sistema se basa en dos algoritmos \cite{boosting-trees}:
+
+\begin{itemize}
+\item Algoritmos de árboles de decisión.
+\item Métodos de ``boosting''.
+\end{itemize}
+
+El objetivo de usar algoritmos de árboles de decisión es crear un modelo ``entrenador'' que se pueda usar para predecir el valor de una variable, a través de una serie de reglas de decisión que le sirvan a dicho modelo para ``aprender'' a decidir construidas en base a unos datos de ``entrenamiento'' \cite{decision-tree}.
+
+Por otro lado, tenemos los métodos de ``boosting''. En esencia, el ``boosting'' es una manera de conseguir un sistema más robusto combinando los resultados (decisiones) de los árboles de decisión \cite{boosting}.
+
+Con todo ello tendremos un sistema de regresión final que, por lo general, suele dar buenos resultados \cite{isa2}.
+
+\subsection{SVR}
+
+El sistema \ac{SVR} es una variante del sistema \ac{SVM} para predecir valores \cite{SVR}. \ac{SVM} es un conjunto de algoritmos de aprendizaje supervisado, el cual es entrenado para construir el modelo que prediga los resultados \cite{SVR}.
+
+Hemos detallado todo el proceso del sistema de $ISA^{2}$, junto a su implementación, en diferentes bloques. Cada uno de los bloques ha sido explicado según la relevancia que ha tenido durante la ejecución del proyecto y según los problemas que ha podido dar en el mismo, con su posterior solución.
+
+A continuación vamos a mostrar los resultados finales de cada uno de los sistemas de regresión, utilizando tanto figuras como tablas.
 
