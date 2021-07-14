@@ -340,9 +340,13 @@ Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite
 
 Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en el proyecto para comprobar cuánta mejoría hay con respecto a la primera versión de $ISA^{2}$ \cite{isa2}.
 
-Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir. Con cada uno de ellos aplicamos un nivel diferente de ``pooling'', como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}. No entraremos en detalle puesto que no es necesario hacerlo, pero explicaremos nociones básicas de cada uno de ellos:
+Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de ``pooling'', como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
+ 
+El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores de predicción y los valores reales de la velocidad. Más adelante veremos una serie de figuras en las que se verá representado.
 
-\subsection{Linear}
+No entraremos en detalle puesto que no es necesario hacerlo, pero explicaremos nociones básicas de cada uno de ellos:
+
+\subsection{Lineal}
 
 La regresión lineal \cite{linear} es un tipo de análisis predictivo usado de forma muy común siendo uno de los más básicos que existen. Se utiliza para explicar la relación entre una variable predictiva (independiente) y otra variable de salida (dependiente). La siguiente ecuación es la forma más simple de expresar esta relación:
 

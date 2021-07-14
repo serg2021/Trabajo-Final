@@ -28,6 +28,7 @@ tfc.pdf
 *-converted-to.*
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.sav
 *.bbl
 *.bcf
 *.blg
