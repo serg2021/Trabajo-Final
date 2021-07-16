@@ -10,7 +10,7 @@ Durante todo el siglo XX, en España, han habido más de 7.000.000 de accidentes
 Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas \cite{reduccion}.
 
 
-Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, poseen fallos que pueden derivar en posibles accidentes. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en GPS y en adaptación por proximidad de vehículos y objetos, y como se puede prever, no son unas bases lo suficientemente sólidas como para proporcionar un mayor grado de seguridad en el conductor; ya que tienen fallos sujetos a la situación del tráfico y de la zona en la que se encuentran en un instante, todo ello sin hablar de las condiciones climáticas que haya en ese momento.
+Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, poseen fallos que pueden derivar en posibles accidentes. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en \ac{GPS} y en adaptación por proximidad de vehículos y objetos, y como se puede prever, no son unas bases lo suficientemente sólidas como para proporcionar un mayor grado de seguridad en el conductor; ya que tienen fallos sujetos a la situación del tráfico y de la zona en la que se encuentran en un instante, todo ello sin hablar de las condiciones climáticas que haya en ese momento.
 
 
 Es por ello que aquí presentamos nuestro sistema capaz de resolver (en gran medida) estos problemas: \[ISA^{2}\]
@@ -51,13 +51,15 @@ He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen pr
 El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$ y para ello lo que hemos hecho ha sido un largo proceso de análisis de sistemas de \ac{SS}, acompañado de la dificultad que éstos conllevan para poder ejecutarlos correctamente. Tras ello, hemos recogido los datos generados por dicho sistema, los hemos evaluado para obtener las velocidades correspondientes, y hemos comparado éstas con las de la primera versión de $ISA^{2}$, obteniendo resultados muy prometedores.
 
 
-En la primera versión se utilizó un framework llamado ``DeepLab'' \cite{deeplab} para realizar el proceso de segmentación semántica con unos resultados muy buenos. Para este proyecto, a través de una exhaustiva búsqueda de modelos y tras muchas pruebas, hemos utilizado uno conocido como ``Swiftnet'' \cite{swiftnet}, el cual conlleva una mejora realmente interesante.
+En la primera versión se utilizó un framework llamado \textbf{DeepLab} \cite{deeplab} para realizar el proceso de segmentación semántica con unos resultados muy buenos. Para este proyecto, a través de una exhaustiva búsqueda de modelos y tras muchas pruebas, hemos utilizado uno conocido como \textbf{Swiftnet} \cite{swiftnet}, el cual conlleva una mejora realmente interesante.
 
-Afortunadamente, ``Swiftnet'' es un modelo de código abierto en GitHub de modo que cualquiera puede utilizarlo a su disposición \cite{github_swiftnet}. Todo lo que hay que hacer es clonar el repositorio de en el que se encuentra utilizando el siguiente comando en la terminal del sistema \cite{clonar}:
+Afortunadamente, Swiftnet es un modelo de código abierto en GitHub de modo que cualquiera puede utilizarlo a su disposición \cite{github_swiftnet}. Todo lo que hay que hacer es clonar el repositorio en el que se encuentra utilizando el siguiente comando en la terminal del sistema \cite{clonar}:
 
 \begin{center}
 \textit{git clone URL\_del\_repositorio}
 \end{center}
+
+Cuando clonemos el repositorio, se recomienda hacerlo desde el escritorio (carpeta \textbf{Desktop}) para ejecutar Swiftnet según este trabajo.
 
 En el siguiente capítulo, explicaremos en detalle el proceso que realiza $ISA^{2}$ parte por parte, y los pasos que hemos seguido para conseguir que todo funcione correctamente.
 
@@ -76,8 +78,8 @@ Este proyecto será aplicable a cualquier campo relacionado con el automovilismo
 Dispondremos de las siguientes herramientas:
 
 \begin{enumerate}
-	\item Estación de trabajo con GPU (NVIDIA 1080 TI) para la realización de experimentos con sistema operativo Ubuntu.
-	\item Acceso a la librería de Deep Learning llamada ``PyTorch'' \cite{pytorch}
+	\item Estación de trabajo con \textbf{GPU (NVIDIA 1080 TI)} para la realización de experimentos con sistema operativo \textbf{Ubuntu}.
+	\item Acceso a la librería de \textbf{Deep Learning} llamada \textbf{PyTorch} \cite{pytorch}
 	\item Acceso a la base de datos $ISA^2$ utilizada en la primera versión \cite{isa2} a través del siguiente enlace: \url{http://agamenon.tsc.uah.es/Personales/rlopez/data/isa2/index.html}.
 \end{enumerate}
 %\section{¿Cómo escribir tu PFC en \LaTeX{} ?}

@@ -1,3 +1,44 @@
 \chapter{Resumen Extendido}
-Debe incluir un resumen del trabajo de un máximo de 5 páginas. Resaltar aspectos fundamentales del desarrollo, los resultados más relevantes y las conclusiones.
+%Debe incluir un resumen del trabajo de un máximo de 5 páginas. Resaltar aspectos fundamentales del desarrollo, los resultados más relevantes y las conclusiones.
 
+El principal objetivo que persigue este trabajo es mostrar y mejorar el sistema $ISA^{2}$ que presentaremos más adelante. Este sistema tiene como fin ser una alternativa para los ya existentes sistemas \ac{ISA}, puesto que éstos tienen una serie de fallos que solucionar y están enfocados de manera diferente.
+
+La principal diferencia de $ISA^{2}$ con estos sistemas reside en cuál es la base de éste. Los sistemas \ac{ISA} están basados en tecnología \ac{GPS} y adaptación por proximidad, mientras que $ISA^{2}$ se basa en \ac{SS}.
+
+La \ac{SS} se puede explicar como el procedimiento que es capaz de predecir qué clases (etiquetas) hay en una imagen. Pero, ¿qué es una clase? O mejor dicho, ¿cómo definimos una clase en este contexto?
+
+Una clase (o etiqueta) es la forma de categorizar una parte de la imagen para diferenciarla de otras. Dicho de otra forma, sirve para que un programa sepa de qué partes se compone una imagen. Se hace dándole un mismo valor a un conjunto de píxeles en concreto, para distinguirlos de los demás \cite{deeplab}.
+
+Las clases que usaremos en su mayoría son la clase \textbf{carretera}, \textbf{acera}, \textbf{coche}, \textbf{persona}, etc,...
+
+Para aplicar este procedimiento, nos servimos de un modelo de \ac{SS} llamado \textbf{Swiftnet} \cite{swiftnet}.
+
+\textbf{Swiftnet} es la base sobre la que desarrollamos este proyecto y donde más hemos trabajado para conseguir los resultados de las velocidades estimadas.
+
+Swiftnet es un modelo \textbf{Real-Time} que recibe imágenes de la vía cada cierto tiempo. Una vez las va recibiendo, va procesándolas una a una y predice en cada una de ellas, con una gran precisión, qué clases las componen.
+
+Para trabajar con Swiftnet, previamente tenemos que construir el ``escenario'' sobre el que se va a ejecutar, y para ello nos servimos de un entorno \textbf{Conda} \cite{conda}.
+
+No entraremos, aún, en detalle sobre la explicación de Conda, pero sí diremos que nos sirve para crear un entorno virtual con todos los requerimientos necesarios para trabajar con Swiftnet.
+
+Una vez lo creamos, siguiendo los pasos que más adelante explicaremos, conseguiremos replicar Swiftnet justo como sus creadores \cite{github_swiftnet}.
+
+Pero todavía no hemos terminado con Swiftnet, puesto que lo hemos ejecutado con una base de datos compuesta por imágenes que no se corresponde a la que se usó en la primera versión de $ISA^{2}$.
+
+Por ello, debemos descargar la base de datos de $ISA^{2}$ y aplicar los cambios pertinentes en Swiftnet para que funcione.
+
+Una vez lo conseguimos, debemos generar una serie de histogramas \cite{histograma} que recojan las clases de cada imagen procesada por Swiftnet. Para generarlos nos serviremos de unos códigos en \textbf{MatLab} \cite{matlab}.
+
+Con los histogramas creados, ya podemos ejecutar los sistemas de regresión para la parte final del proyecto: la estimación de la velocidad, y la comparación de la misma con la velocidad real de las imágenes.
+
+Estos sistemas sirven para poder ``predecir'' qué velocidad es la apropiada basándose en la velocidad real de las imágenes.
+
+Al ejecutar estos últimos códigos, nos basaremos en una técnica llamada \ac{SPP} \cite{spp} para obtener más precisión durante su ejecución. Más tarde viene explicada.
+
+Aplicando \ac{SPP}, obtenemos los resultados que veremos más adelante.
+
+Los sistemas con mejores resultados, a pesar de que sean solo en entornos urbanos, son \textit{Boosting Trees} \cite{boosting-trees} y \textit{\ac{SVR}} \cite{SVR}.
+
+De todos ellos cabe destacar un hecho muy importante: Swiftnet, a diferencia de \textbf{DeepLab} (el modelo de \ac{SS} de la primera versión), es un modelo \textbf{Real-Time}, es decir, el coste de su implementación es mucho menor y, por si no fuera suficiente, trabaja mejor en entornos urbanos.
+
+Por todo ello, y para concluir, podemos decir que, aunque DeepLab trabaje mejor en autovías y autopistas; Swiftnet lo compensa haciéndolo mejor en entornos urbanos, lo cual es más complejo por la dificultad que tiene el poder clasificar con gran precisión tan diferentes y variadas etiquetas.
