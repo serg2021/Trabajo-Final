@@ -11,10 +11,16 @@ Durante todo el siglo XX, en España, han ocurrido más de 7.000.000 de accident
 Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas \cite{reduccion}.
 
 
-Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, poseen fallos que pueden derivar en posibles accidentes. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en \ac{GPS} y en adaptación por proximidad de vehículos y objetos, y como se puede prever, no son unas bases lo suficientemente sólidas como para proporcionar un mayor grado de seguridad en el conductor; ya que tienen fallos sujetos a la situación del tráfico y de la zona en la que se encuentran en un instante, todo ello sin hablar de las condiciones climáticas que haya en ese momento.
+Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, presentan algunos problemas. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en combinar la posición \ac{GPS} con meta-información asociada a la misma, en relación a la velocidad máxima permitida en la vía. Es decir, el módulo ISA comienza localizando mediante GPS la posición del vehículo, para luego consultar para esa posición, qué velocidad es la máxima permitida en dicha vía. Los principales problemas que pueden surgir, siguiendo este procedimiento, son los siguientes:
+\begin{enumerate}
+\item La información de la velocidad máxima de la vía puede que no esté actualizada, o que incluso sea incorrecta.
+\item La precisión de la localización de los sistemas GPS en ocasiones puede resultar insuficiente para este tipo de sistemas. Por ejemplo, cuando circulamos por una vía de servicio paralela a una autovía, el sistema GPS puede no tener resolución suficiente para posicionarnos en el tipo de vía correcto. Nótese que los límites de velocidad son muy diferentes para estos dos tipos de vías (p. ej. 90 km/h versus 120 km/h), y el sistema ISA puede fallar.
+\item No tienen en cuenta la situación real del tráfico, salvo si utilizan sensores de proximidad de otros vehículos, combinados con la información del GPS.
+\end{enumerate}
 
 
 Es por ello que aquí presentamos nuestro sistema capaz de resolver (en gran medida) estos problemas: \[ISA^{2}\]
+%TODO: ¿Cómo? Anticipa en qué se basa: procesado de imagen.
 
 
 \section{¿Qué es $ISA^{2}$? ¿Cómo funciona?}
