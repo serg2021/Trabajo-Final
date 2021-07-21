@@ -1,44 +1,33 @@
 \chapter{Resumen Extendido}
 %Debe incluir un resumen del trabajo de un máximo de 5 páginas. Resaltar aspectos fundamentales del desarrollo, los resultados más relevantes y las conclusiones.
 
-El principal objetivo que persigue este trabajo es mostrar y mejorar el sistema $ISA^{2}$ que presentaremos más adelante. Este sistema tiene como fin ser una alternativa para los ya existentes sistemas \ac{ISA}, puesto que éstos tienen una serie de fallos que solucionar y están enfocados de manera diferente.
+El principal objetivo que persigue este trabajo fin de grado es mostrar y mejorar el sistema $ISA^{2}$ que presentaremos más adelante. Este sistema tiene como fin ser una alternativa para los ya existentes sistemas \ac{ISA}, puesto que éstos tienen una serie de fallos que solucionar y están enfocados de manera diferente.
 
-La principal diferencia de $ISA^{2}$ con estos sistemas reside en cuál es la base de éste. Los sistemas \ac{ISA} están basados en tecnología \ac{GPS} y adaptación por proximidad, mientras que $ISA^{2}$ se basa en \ac{SS}.
+La principal diferencia de $ISA^{2}$ con estos sistemas reside en cuál es la base de éste. Los sistemas \ac{ISA} están basados en tecnología \ac{GPS} y sensores de proximidad para con otros vehículos, mientras que la propuesta $ISA^{2}$ simplemente utiliza imágenes tomadas desde una cámara, y modelos de inteligencia artificial, para ser capaz de indicar al conductor la velocidad a la que debe circular.
 
-La \ac{SS} se puede explicar como el procedimiento que es capaz de predecir qué clases (etiquetas) hay en una imagen. Pero, ¿qué es una clase? O mejor dicho, ¿cómo definimos una clase en este contexto?
+En resumen, el sistema $ISA^{2}$ comienza capturando una imagen de la escena de tráfico que observa un vehículo. Sobre esta imagen se realiza un proceso de \ac{SS}. La \ac{SS} se puede explicar como el procedimiento de inteligencia artificial que es capaz de predecir qué clases (etiquetas) hay en una imagen, para cada uno de sus píxeles. Pero, ¿qué es una clase? O mejor dicho, ¿cómo definimos una clase en este contexto? Una clase (o etiqueta) es la forma de categorizar una parte de la imagen para diferenciarla de otras. Dicho de otra forma, sirve para que un programa sepa de qué partes se compone una imagen. Se hace dándole un mismo valor a un conjunto de píxeles en concreto, para distinguirlos de los demás \cite{deeplab}. En la Figura \ref{xxx} puede verse un ejemplo de segmentación semántica como la que utiliza nuestro modelo $ISA^{2}$. Una vez se ha completado la segmentación semántica, se utiliza esta información para entrenar un conjunto de regresores que son capaces de aprender a estimar la velocidad a la que debe ir el vehículo.
 
-Una clase (o etiqueta) es la forma de categorizar una parte de la imagen para diferenciarla de otras. Dicho de otra forma, sirve para que un programa sepa de qué partes se compone una imagen. Se hace dándole un mismo valor a un conjunto de píxeles en concreto, para distinguirlos de los demás \cite{deeplab}.
+En este proyecto hacemos uso del modelo de deep learning \textbf{Swiftnet} \cite{swiftnet} para conseguir la segmentación semántica. \textbf{Swiftnet} es la base sobre la que desarrollamos este proyecto y donde más hemos trabajado para conseguir los resultados de las velocidades estimadas.
 
-Las clases que usaremos en su mayoría son la clase \textbf{carretera}, \textbf{acera}, \textbf{coche}, \textbf{persona}, etc,...
+Swiftnet es un modelo de \textbf{tiempo real} que recibe imágenes de la vía cada cierto tiempo. Una vez las va recibiendo, va procesándolas una a una y predice una máscara de segmentación semántica en cada una de ellas, con una gran precisión.
 
-Para aplicar este procedimiento, nos servimos de un modelo de \ac{SS} llamado \textbf{Swiftnet} \cite{swiftnet}.
+Para trabajar con Swiftnet, previamente tenemos que construir el ``escenario'' sobre el que se va a ejecutar, y para ello nos servimos de un entorno \textbf{Conda} \cite{conda}. No entraremos, aún, en detalle sobre la explicación de Conda, pero sí diremos que nos sirve para crear un entorno virtual con todos los requerimientos necesarios para trabajar con Swiftnet.
 
-\textbf{Swiftnet} es la base sobre la que desarrollamos este proyecto y donde más hemos trabajado para conseguir los resultados de las velocidades estimadas.
+Una vez lo creamos, siguiendo los pasos que más adelante explicaremos, conseguiremos replicar los resultado de Swiftnet tal y como se detallan en el artículo original \cite{swiftnet}, empleando el software que proporcionan los propios autores \cite{github_swiftnet}.
 
-Swiftnet es un modelo \textbf{Real-Time} que recibe imágenes de la vía cada cierto tiempo. Una vez las va recibiendo, va procesándolas una a una y predice en cada una de ellas, con una gran precisión, qué clases las componen.
+%Pero todavía no hemos terminado con Swiftnet, puesto que lo hemos ejecutado con una base de datos compuesta por imágenes que no se corresponde a la que se usó en la primera versión de $ISA^{2}$.
 
-Para trabajar con Swiftnet, previamente tenemos que construir el ``escenario'' sobre el que se va a ejecutar, y para ello nos servimos de un entorno \textbf{Conda} \cite{conda}.
+Una vez tenemos el modelo de segmentación semántica Swiftnet funcionando, pasamos a aplicarlo al problema propuesto. Por ello, debemos descargar la base de datos de $ISA^{2}$ y aplicar los cambios pertinentes en Swiftnet para que funcione en la misma, generando una máscara de segmentación semántica para cada imagen en $ISA^{2}$. Una vez lo conseguimos, debemos generar una serie de histogramas \cite{histograma} que recojan las clases de cada imagen procesada por Swiftnet, replicando el modelo propuesto en el artículo \cite{añade nuestro paper}. Para generarlos nos serviremos de unos códigos en \textbf{MatLab} \cite{matlab}.
 
-No entraremos, aún, en detalle sobre la explicación de Conda, pero sí diremos que nos sirve para crear un entorno virtual con todos los requerimientos necesarios para trabajar con Swiftnet.
+Con los histogramas creados, ya podemos ejecutar los sistemas de regresión para la parte final del proyecto: la estimación de la velocidad, y la comparación de la misma con la velocidad real de las imágenes (anotada en la base de datos $ISA^{2}$) . Todo esto lo hacemos replicando el modelo experimental descrito en \cite{añade nuestro paper}, donde se proponen varias soluciones de inteligencia artificial para resolver el problema de la adaptación de la velocidad inteligente en base a imágenes. En la figura \ref{xxx} puede verse la solución global propuesta, desde la segmentación semántica con Swiftnet hasta la aplicación del modelo de regresión para la estimación de la velocidad. 
+%TODO: Añade figura/diagrama explicativa de todo el sistema.
 
-Una vez lo creamos, siguiendo los pasos que más adelante explicaremos, conseguiremos replicar Swiftnet justo como sus creadores \cite{github_swiftnet}.
+Según nuestros experimentos, los sistemas con mejores resultados, a pesar de que sean solo en entornos urbanos, son los que emplean \textit{Boosting Trees} \cite{boosting-trees} y \textit{\ac{SVR}} \cite{SVR}.
+%TODO: Añade más detalles sobre los números. Hay que resumir en un par de párrafos el capítulo de resultados.
+%TODO: Añade resultados en gráficas.
+%TODO: Añade resultados cualitativos.
 
-Pero todavía no hemos terminado con Swiftnet, puesto que lo hemos ejecutado con una base de datos compuesta por imágenes que no se corresponde a la que se usó en la primera versión de $ISA^{2}$.
-
-Por ello, debemos descargar la base de datos de $ISA^{2}$ y aplicar los cambios pertinentes en Swiftnet para que funcione.
-
-Una vez lo conseguimos, debemos generar una serie de histogramas \cite{histograma} que recojan las clases de cada imagen procesada por Swiftnet. Para generarlos nos serviremos de unos códigos en \textbf{MatLab} \cite{matlab}.
-
-Con los histogramas creados, ya podemos ejecutar los sistemas de regresión para la parte final del proyecto: la estimación de la velocidad, y la comparación de la misma con la velocidad real de las imágenes.
-
-Estos sistemas sirven para poder ``predecir'' qué velocidad es la apropiada basándose en la velocidad real de las imágenes.
-
-Al ejecutar estos últimos códigos, nos basaremos en una técnica llamada \ac{SPP} \cite{spp} para obtener más precisión durante su ejecución. Más tarde viene explicada.
-
-Aplicando \ac{SPP}, obtenemos los resultados que veremos más adelante.
-
-Los sistemas con mejores resultados, a pesar de que sean solo en entornos urbanos, son \textit{Boosting Trees} \cite{boosting-trees} y \textit{\ac{SVR}} \cite{SVR}.
-
-De todos ellos cabe destacar un hecho muy importante: Swiftnet, a diferencia de \textbf{DeepLab} (el modelo de \ac{SS} de la primera versión), es un modelo \textbf{Real-Time}, es decir, el coste de su implementación es mucho menor y, por si no fuera suficiente, trabaja mejor en entornos urbanos.
+De todos ellos cabe destacar un hecho muy importante: Swiftnet, a diferencia de \textbf{DeepLab} (el modelo de \ac{SS} de la primera versión publicado en \cite{xxx}), es un modelo \textbf{Real-Time}, es decir, el coste de su implementación es mucho menor y, por si no fuera suficiente, trabaja mejor en entornos urbanos.
 
 Por todo ello, y para concluir, podemos decir que, aunque DeepLab trabaje mejor en autovías y autopistas; Swiftnet lo compensa haciéndolo mejor en entornos urbanos, lo cual es más complejo por la dificultad que tiene el poder clasificar con gran precisión tan diferentes y variadas etiquetas.
+%TODO: Añade más conclusiones, sobre velocidad, precisión en la estimación, etc.
