@@ -26,30 +26,27 @@ Es por ello que aquí presentamos nuestro sistema capaz de resolver (en gran med
 \section{¿Qué es $ISA^{2}$? ¿Cómo funciona?}
 
 
-La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar el tráfico, en un determinado momento, y predecir, en consecuencia, la velocidad apropiada para ese instante.
+La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar la situación real y actual del tráfico, y predecir, en consecuencia, la velocidad apropiada para ese instante. No se parte de información asociada a coordinadas GPS, sino que se emplean técnicas de inteligencia artificial y visión por computador para reconocer la situación de tráfico real, y poder recomendar una velocidad al conductor.
 
 
-Para ello usamos una cámara en la parte frontal del vehículo que va tomando fotos con una cierta cadencia. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc,... Más tarde lo explicaremos con más detalle.
+Para ello usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc. Con esa información se construye un vector de características que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular.
 
+%TODO: mejor que una imagen con solo datos de segmentación semántica, debes incluir una imagen donde se vea todo, desde la imagen original, a la segmentación semántica, y al proceso de extracción de características y la regresión final. Es para dar una idea gráfica del problema. Una vez la tengas, la metes y la comentas en el propio texto. Te dejo lo de abajo comentado para que lo cambies.
+%He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen procesada por el sistema de \ac{SS} \ref{fig:ImgSegm}:
 
-En función de qué detecte, es capaz de estimar con gran precisión la velocidad a la que se requiere ir para ese instante.
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=12cm]{Figuras/Imagen_Original.eps}
+%  \caption{Imagen Original}
+%  \label{fig:ImgOrig}
+%\end{figure}
 
-
-He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen procesada por el sistema de \ac{SS} \ref{fig:ImgSegm}:
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{Figuras/Imagen_Original.eps}
-  \caption{Imagen Original}
-  \label{fig:ImgOrig}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{Figuras/Ejemplo_Imagen_Segmentada.eps}
-  \caption{Imagen Segmentada}
-    \label{fig:ImgSegm}
-\end{figure}
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=12cm]{Figuras/Ejemplo_Imagen_Segmentada.eps}
+%  \caption{Imagen Segmentada}
+%    \label{fig:ImgSegm}
+%\end{figure}
 
 
 \section{Objetivo principal}
