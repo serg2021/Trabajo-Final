@@ -1,8 +1,19 @@
 \chapter{Resultados}
+%TODO: introduce lo que se va a hacer en este capítulo
 
-En la siguiente tabla pasamos a mostrar los resultados tanto de la versión anterior de $ISA^{2}$ como de la actual. Como ya dijimos anteriormente, el \ac{MAE} será la métrica que usaremos para esta tarea, pues indica cuánta precisión ha habido en la \ac{SS} realizada por el modelo Swiftnet \cite{swiftnet} con respecto al modelo DeepLab \cite{deeplab}.
+%TODO: organiza en secciones los distintos experimentos.
 
-Recordemos que, a raíz de la \ac{SS} realizada por uno de los modelos, generamos los histogramas que, posteriormente, se usaron en los sistemas de regresión para estimar la velocidad apropiada; de modo que el \ac{MAE} es una métrica muy acertada para saber qué versión del proyecto es mejor.
+%TODO: yo suelo añadir una sección explicando las métricas, pero no es necesario, si las explicas en cada experimento. Recuerda traer aquí la explicación de la mIOU para evaluar la segmentación semántica.
+
+\section{Evaluación de la segmentación semántica}
+...
+\section{Evaluación en $ISA^2$}
+
+%TODO hay que añadir una subsección donde se explique el diseño del experimento, es decir, qué se emplea para training, y qué para test, de cada una de las secuencias que forman ISA^2
+
+En la siguiente tabla pasamos a mostrar los resultados tanto de la versión anterior de $ISA^{2}$ \cite{xxxx} como de la desarrollada en este trabajo. Como ya dijimos anteriormente, el \ac{MAE} será la métrica que usaremos para esta tarea, pues indica cuánta precisión ha habido en términos de la estimación de la velocidad.
+
+
 
 \begin{table}[H]
 \centering
@@ -24,18 +35,18 @@ Recordemos que, a raíz de la \ac{SS} realizada por uno de los modelos, generamo
  & 3 & 12.09 & \textbf{9.60} & 9.78 & \textbf{9.62}\\ \cline{1-6}
 \end{tabular}
 }
-\caption{Tabla de resultados}
+\caption{Tabla de resultados %TODO: añade más información , sobre qué experimento, incluso comenta el ganador.}
 \end{table}
 
-Como se puede apreciar, para cada modelo de \ac{SS} se han segmentado imágenes correspondientes a autovías (o autopistas) y a entornos urbanos.
+Como se puede apreciar, para cada modelo de \ac{SS} se han segmentado imágenes correspondientes a autovías (o autopistas) y a entornos urbanos. %TODO: da más detalles, donde se entrena, dódne se prueba, se trata de repetir lo del diseño del experimento
 
-Los valores de Swiftnet que aparecen \textbf{resaltados de esta forma} indican que son mejores que los valores de DeepLab (\textbf{también resaltados}) para esa fila.
+Los valores de Swiftnet que aparecen \textbf{resaltados} indican que son mejores que los valores de DeepLab (\textbf{también resaltados}) para esa fila.
 
-Por otro lado, hemos puesto dos valores con \textit{\textbf{este aspecto}} para indicar que, durante la predicción de la velocidad en el sistema de regresión lineal, hemos modificado un parámetro para obtener unos resultados más apropiados; ya que, de otra forma, se obtendrían valores muy lejanos a la realidad.
+Por otro lado, hemos puesto dos valores con \textit{\textbf{este aspecto}} para indicar que, durante la predicción de la velocidad en el sistema de regresión lineal, hemos modificado un parámetro para obtener unos resultados más apropiados; ya que, de otra forma, se obtendrían valores muy lejanos a la realidad. %TODO Te refieres la filtrado? hay que explicarlo, dando detalles y poniendo las gráfica
 
-Como se puede observar, tanto los sistemas \textit{Boosting Trees} como \textit{\ac{SVR}} son mejores con la nueva versión para entornos urbanos, mientras que para las autovías es mejor utilizar el modelo DeepLab. Esto quiere decir que Swiftnet trabaja mejor con entornos en los que se requiere más nivel de detalle y DeepLab, por el contrario, lo realiza mejor en entornos más abiertos.
+Como se puede observar, tanto los sistemas \textit{Boosting Trees} como \textit{\ac{SVR}} son mejores con la nueva versión de $ISA^2$ que integra Swiftnet para entornos urbanos, mientras que para las autovías es mejor utilizar el modelo DeepLab. Esto quiere decir que Swiftnet trabaja mejor con entornos en los que se requiere más nivel de detalle y DeepLab, por el contrario, lo realiza mejor en entornos más abiertos.
 
-Cabe destacar que Swiftnet \cite{swiftnet} es un modelo \textbf{Real-Time}, de modo que su implementación es menos que costosa que DeepLab, el cual, por el contrario, necesita de un tiempo de procesamiento para realizar su función.
+Cabe destacar que Swiftnet \cite{swiftnet} es un modelo \textbf{Real-Time}, de modo que su implementación es menos que costosa que DeepLab, el cual, por el contrario, necesita de un tiempo de procesamiento demasiado elevado para realizar su función. En concreto \ldots %TODO: añade información de tiempos de procesado de uno y otro, en lo que se refiere a segmentación semántica.
 
 A continuación mostramos algunas figuras con las que podemos ver, de forma gráfica, los resultados de los sistemas de regresión con la \ac{SS} realizada por Swiftnet:
 
@@ -64,4 +75,4 @@ En las figuras, los puntos azules representan la velocidad \textbf{real} a la qu
 
 Como se puede observar, hemos escogido, en su mayoría, aquellas figuras en las que los sistemas de regresión han dado mejores resultados, es decir, en entornos urbanos \textbf{(Urban)}. Sin embargo, para contrastar cómo trabaja Swiftnet en autovías hemos decidido poner una figura con esos datos (\textbf{Highway}).
 
-Hemos visto cómo se realiza todo el proceso de este trabajo y hemos comparado los resultados actuales con los anteriores. A continuación, finalizaremos con las conclusiones de éste.
+%TODO: faltan muchas cosas. 1) Hay que aclarar que los anteriores resultados, para cada regresor, han sido obtenidos con unos parámetros para el spatial pyramids concretos. Debemos ponerlos. 2) Hay que enriquecer este capítulo con un análisis de la influencia del nivel de la pirámide para cada regresor, así se entenderá porqué hemos puesto los ganadores en la primera tabla. Básicamente una tabla donde comparemos todos con todos los niveles del 1 al 4. 3) falta una sección con los resultados de evaluación en cityscapes en términos de segmentación semántica, donde podamos ver que replicamos los resultados del paper original. Yo pondría esta subsección la primera. 4) Resultados cualitativos: añadir imágenes donde se vea la predicción de la velocidad, y la velocidad anotada, hay que seleccionar las mejores y las peores, y comentarlo. Puedes hacerlo para el modelo ganador nuestro, y creas dos figuras, una con imágenes urbanas y otra con imágenes de autopista. Puedes poner las 4 mejores y las 4 peores. 5) Para el examen conviene que tengas una demo lista en la que podamos ver el sistema funcionando. Lo lanzas contra una carpeta de imágenes y va una a una generando la velocidad, que se guarda en una imagen donde se vea el dato superpuesto, como si fuera un video. Si tienes dudas comentamos. Eso te va a permitir generar un gif a modo de video que te va a quedar muy chulo. 6) Hecho en falta un análsis tiempos de procesado del switnet, para terminar de vender lo de que es tiempo real, vaya. Debes añadirlo.
