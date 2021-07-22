@@ -1,12 +1,14 @@
 \chapter{Implementación de $ISA^{2}$ con Switnet}
 %TODO: Comentario general: una memoria de TFG no es un diario de trabajo. Debes tratar de reescribir ciertas partes, para que se haga una descripción técnica, y no parezca una guía paso a paso. Ambas cosas pueden convivir, y el documento puede/debe valer para que cualquiera repita paso a paso lo que has hecho, pero no puede parecer un diario de investigación.
 
+%TODO Completar siguiente frase que resuma todo lo que vas a explicar en este capítulo
+En este capítulo \ldots
 
+
+\section{Creación de entorno Conda e instalación de requisitios para Swiftnet}
 A la hora de implementar esta nueva arquitectura debemos considerar que, para ejecutarla, hay que crear un entorno, un escenario, real sobre el que hacerlo. O, en su defecto, crear un entorno que simule esas condiciones para trabajar con ella.
 
 Es por ello que antes de trabajar con el modelo de Swiftnet \cite{swiftnet} tenemos que sentar las bases sobre las que se pueda ejecutar. Así comienza la creación de un entorno Conda.
-
-\section{Conda}
 
 \textbf{Conda} \cite{conda} es un sistema de gestión de entornos con el que creamos el escenario sobre el que vamos a correr Swiftnet \cite{swiftnet}. Conda permite crear el escenario instalando y gestionando paquetes de uso público ubicados en diferentes \textbf{canales} del sistema. Simplemente hay que seguir las instrucciones que dan para descargarlos e instalarlos, y poder añadirlos así al escenario sobre el que se esté trabajando.
 
@@ -16,7 +18,7 @@ Es por ello que antes de trabajar con el modelo de Swiftnet \cite{swiftnet} tene
   \caption{Conda}
 \end{figure}
 
-Antes de crear ningún entorno, primero hay que instalar Conda en la máquina que va a procesar el proyecto. Para ello descargamos \textbf{Miniconda} (un instalador de Conda) para Python 2.7 \cite{miniconda_install}. Una vez descargado ya podemos crear entornos Conda.
+Antes de crear ningún entorno, primero hay que instalar Conda en la máquina con la que vamos a trabajar en este proyeco. Para ello descargamos \textbf{Miniconda} (un instalador de Conda) para Python 2.7 \cite{miniconda_install}. Una vez descargado ya podemos crear entornos Conda.
 
 
 Para crear el entorno Conda sobre el que trabajar basta con abrir un terminal del sistema operativo y escribir el siguiente comando:
@@ -37,7 +39,7 @@ Ya tenemos creado el entorno, ahora hace falta añadirle los paquetes necesarios
 \textit{pip install -r requirements.txt}
 \end{center}
 
-\textbf{Pip} es otro gestor de paquetes que, junto a Conda, es muy útil a la hora de instalar aquellos paquetes que Conda no posee en sus canales \cite{pip}.
+\textbf{Pip} \cite{pip} es otro gestor de paquetes que, junto a Conda, es muy útil a la hora de instalar aquellos paquetes que Conda no posee en sus canales.
 
 Con el anterior comando, se instalan una serie de paquetes necesarios para la ejecución del modelo, entre ellos \textbf{PyTorch} \cite{pytorch}, del cual hablaremos más adelante; pero no todos (en nuestro caso). Para que el modelo funcione correctamente hay que instalar los paquetes restantes con este comando \cite{conda_sheet}:
 
@@ -55,6 +57,7 @@ A continuación enumeramos los paquetes que quedan para poder ejecutar Swiftnet:
 
 Cabe destacar que ponemos dichos paquetes con estas versiones porque las especificaciones de nuestra máquina lo requerían. Si se quiere reproducir el resultado de este proyecto, puede que no sean las mismas versiones de estos paquetes los que haya que instalar, dependerá de la máquina sobre la que se trabaje.
 
+%TODO: En el párrafo siguiente faltan muchos detalles. Dí que hay que bajarse un repositorio, luego explica lo de las bases de datos paso a paso, ya qye recuerdo que había que descargarla y prepararla de una forma especial. Yo lo dejaría aquí todo bien documentado y explicado.
 Una vez instalados los paquetes, se sigue el procedimiento marcado por el modelo (se descargan la base de datos de Cityscapes \cite{cityscapes} para guardarla en la carpeta \textbf{datasets} y una serie de modelos preentrenados para la misma en la carpeta \textbf{weights} \cite{github_swiftnet}) y se ejecuta desde el directorio en el que éste se encuentra:
 
 \begin{center}
@@ -68,18 +71,18 @@ Tras ello, y en nuestro caso particular, se llegarán a dos errores:
 \item No se encuentra la versión \textbf{GLIBCXX\_3.4.26} de \textbf{libstdc++} que se encuentra en el sistema operativo. A este último llegaremos más adelante, cuando hayamos modificado los archivos \textbf{rn18\_single\_scale.py} y \textbf{cityscapes.py}; sin embargo, este error puede no darse, todo dependerá de los medios de los que se disponga.
 \end{enumerate}
 
-Pasamos a explicarlos:
+Pasamos a explicarlos.
 
 \subsection{Error de lib.cylib}
 
-Este error se da porque aún no se ha creado módulo de \textbf{cython} \cite{cython} necesario para evaluar las métricas del modelo. Se consigue ejecutando el código del archivo \textbf{build.sh} del modelo en la carpeta \textbf{lib\textbackslash{}} de éste.
+Este error se da porque aún no se ha creado un módulo de \textbf{cython} \cite{cython} necesario para evaluar las métricas del modelo. Se consigue ejecutando el código del archivo \textbf{build.sh} que se encuentra en la carpeta \textbf{lib\textbackslash{}} de éste.
 
-Sin embargo, antes de ejecutarlo conviene modificarlo de la siguiente manera:
+Sin embargo, antes de ejecutarlo conviene modificarlo de la siguiente manera, tal y como mostramos en la Figura \ref{fig:cylib}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=12cm]{Figuras/cylib.eps}
-  \caption{Archivo build.sh}
+  \caption{Archivo build.sh con las modificaciones necesarias para el compilado.}
   \label{fig:cylib}
 \end{figure}
 
@@ -121,7 +124,7 @@ El linker enlaza la llamada a una función de la librería con su última versi�
 
 Para nuestro caso, no encuentra la versión \textbf{GLIBCXX\_3.4.26} de \textbf{libstdc++} debido a que el linker no tiene permisos para acceder a la librería del sistema operativo. Por lo que, cada vez que ejecutemos el modelo, aunque lo intente, no podrá encontrar dicha librería.
 
-Sin embargo, he aquí una razón de uso de los entornos Conda: Cuando se crea un entorno Conda nuevo, éste también adquiere esta librería al venir incluida en uno de los paquetes de instalación predeterminados para la creación del entorno. De este modo obtenemos la versión que requiere Swiftnet para su ejecución.
+Sin embargo, he aquí una razón de uso de los entornos Conda: cuando se crea un entorno Conda nuevo, éste también adquiere esta librería al venir incluida en uno de los paquetes de instalación predeterminados para la creación del entorno. De este modo obtenemos la versión que requiere Swiftnet para su ejecución.
 
 Aún así sigue existiendo un problema: el linker sigue buscando la versión requerida por Swiftnet en el mismo lugar, de modo que cada vez que se llame a esa librería el linker seguirá buscando donde siempre y seguiremos igual. La solución reside en hacerle saber al linker dónde buscar esta nueva versión, y para ello usaremos este comando en la terminal:
 
