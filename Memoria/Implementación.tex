@@ -348,15 +348,16 @@ Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite
 
 \section{Sistemas de regresión}
 
-Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en el proyecto para comprobar cuánta mejoría hay con respecto a la primera versión de $ISA^{2}$ \cite{isa2}.
+Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en este proyecto para comprobar cuánta mejoría hay con respecto a la primera versión de $ISA^{2}$ \cite{isa2}.
 
-Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de \textbf{pooling} (\ac{SPP}), como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
+Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir lo vehículos según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de \textbf{pooling} (\ac{SPP}), como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
  
 El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores de predicción y los valores reales de la velocidad. Más adelante veremos una serie de figuras en las que se verá representado.
+%TODO Añade fórmula.
 
-No entraremos en detalle puesto que no es necesario hacerlo, pero explicaremos nociones básicas de cada uno de ellos:
-
-\subsection{Lineal}
+En cuanto a los modelos de regresión empleados en nuestra evaluación para sistemas $ISA^2$, pasamos a explicar nociones básicas de cada uno de ellos, sin entrar en mucho detalle:
+%TODO: para cada una de ellas añade la función de MATLAB que se emplea, y comenta sus parámetros de entrada.
+\subsection{Regresor Lineal}
 
 La regresión lineal \cite{linear} es un tipo de análisis predictivo usado de forma muy común siendo uno de los más básicos que existen. Se utiliza para explicar la relación entre una variable predictiva (independiente) y otra variable de salida (dependiente). La siguiente ecuación es la forma más simple de expresar esta relación:
 
@@ -368,7 +369,7 @@ Siendo \textit{y} la variable de salida (dependiente), \textit{c} una constante,
 
 \subsection{Lasso}
 
-La regresión \textbf{Lasso} \cite{lasso} es un tipo regresión lineal que hace uso de la \textbf{contracción} \cite{shrinkage}. Con la contracción conseguimos que valores extremos de una muestra se reduzcan alrededor de un valor central como, por ejemplo, la media. Este tipo de regresión viene bien para modelos con altos niveles de \textbf{multicolinealidad} (Fuerte correlación entre variables predictivas o explicativas \cite{multicollinearity}).
+La regresión \textbf{Lasso} \cite{lasso} es un tipo de regresión lineal que hace uso de la \textbf{contracción} \cite{shrinkage}. Con la contracción conseguimos que valores extremos de una muestra se reduzcan alrededor de un valor central como, por ejemplo, la media. Este tipo de regresión viene bien para modelos con altos niveles de \textbf{multicolinealidad} (Fuerte correlación entre variables predictivas o explicativas \cite{multicollinearity}).
 
 \subsection{Boosting Trees}
 
@@ -379,17 +380,17 @@ Este tipo de sistema se basa en dos algoritmos \cite{boosting-trees}:
 \item Métodos de \textbf{boosting}.
 \end{itemize}
 
-El objetivo de usar algoritmos de árboles de decisión es crear un modelo \textbf{entrenador} que se pueda usar para predecir el valor de una variable, a través de una serie de reglas de decisión que le sirvan a dicho modelo para \textbf{aprender} a decidir construidas en base a unos datos de \textbf{entrenamiento} \cite{decision-tree}.
+El objetivo de usar algoritmos de árboles de decisión es crear un modelo \textbf{entrenado} que se pueda usar para predecir el valor de una variable, a través de una serie de reglas de decisión que le sirvan a dicho modelo para \textbf{aprender} a decidir, construidas en base a unos datos de \textbf{entrenamiento} \cite{decision-tree}.
 
 Por otro lado, tenemos los métodos de \textbf{boosting}. En esencia, el boosting es una manera de conseguir un sistema más robusto combinando los resultados (decisiones) de los árboles de decisión \cite{boosting}.
 
-Con todo ello tendremos un sistema de regresión final que, por lo general, suele dar buenos resultados \cite{isa2}.
+Con todo ello tendremos un sistema de regresión final que, por lo general, suele dar buenos resultados, tal y como se muestra en \cite{isa2}.
 
 \subsection{SVR}
 
-El sistema \ac{SVR} es una variante del sistema \ac{SVM} para predecir valores \cite{SVR}. \ac{SVM} es un conjunto de algoritmos de aprendizaje supervisado, el cual es entrenado para construir el modelo que prediga los resultados \cite{SVR}.
+El sistema \ac{SVR} es una variante del sistema \ac{SVM} para realizar regresión \cite{SVR}. Se trata de una adaptación del modelo de clasificación básico, implementado por las máquinas de vectores soporte, para conseguir que estas implementen una solución de regresión.
 
-Hemos detallado todo el proceso del sistema de $ISA^{2}$, junto a su implementación, en diferentes bloques. Cada uno de los bloques ha sido explicado según la relevancia que ha tenido durante la ejecución del proyecto y según los problemas que ha podido dar en el mismo, con su posterior solución.
+%Hemos detallado todo el proceso del sistema de $ISA^{2}$, junto a su implementación, en diferentes bloques. Cada uno de los bloques ha sido explicado según la relevancia que ha tenido durante la ejecución del proyecto y según los problemas que ha podido dar en el mismo, con su posterior solución.
 
-A continuación vamos a mostrar los resultados finales de cada uno de los sistemas de regresión, utilizando tanto figuras como tablas.
+%A continuación vamos a mostrar los resultados finales de cada uno de los sistemas de regresión, utilizando tanto figuras como tablas.
 
