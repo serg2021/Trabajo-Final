@@ -327,7 +327,7 @@ Aquí acaba todo lo pertinente a Swiftnet. Hemos visto cómo ha segmentado las i
 
 \section{Obtención de histogramas basados en la segmentación semántica}
 
-En este apartado no se pueden replicar los resultados como con el anterior, ya que, a diferencia de Swiftnet \cite{swiftnet}, los códigos de MatLab \cite{matlab} son únicos y originales y sólo los creadores tenemos acceso a ellos.
+En este apartado vamos a detallar cómo obtener los histogramas en función de los datos de segmentación semántica, que son las características de entrada a los modelos de regresión para predecir la velocidad adecuada a cada imagen, tal y como se describe en el sistema $ISA^2$.
 
 Un histograma es una representación gráfica en forma de barras que simboliza la distribución de un conjunto de datos \cite{histograma}. En nuestro caso, nuestros histogramas representan el porcentaje que hay de cada etiqueta en una imagen. He aquí un ejemplo de un histograma genérico:
 
@@ -344,6 +344,7 @@ Simplemente hay que actualizar las rutas para que recoja los resultados de Swift
 Aplicando estos cambios obtenemos unos archivos en formato \textbf{.mat} (como los resultados de Swiftnet), que contienen los histogramas correspondientes a cada imagen de cada subcarpeta de la base de datos de $ISA^{2}$.
 
 Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 3 niveles de \textbf{pooling}, es decir, añadiendo más \ac{SI} dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
+%TODO: faltan muchos detalles, debes explicar paso a paso en qué consisten estas pirámides, si tienes dudas me puedes preguntar. Con un par de párrafos valdría.
 
 \section{Sistemas de regresión}
 
