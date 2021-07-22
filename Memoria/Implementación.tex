@@ -138,7 +138,7 @@ Al usarla, conseguimos nuestro objetivo y podemos seguir avanzando en la ejecuci
 
 \section{PyTorch}
 
-Anteriormente lo hemos mencionado, y a diferencia de otros paquetes de instalación, éste conviene explicarlo, pues es en lo que se basa Swiftnet para hacer la \ac{SS}.
+Anteriormente lo hemos mencionado, y a diferencia de otros paquetes de instalación, éste conviene explicarlo más en detalle, pues es la librería para Deep Learning en la que se basa Swiftnet para hacer la \ac{SS}.
 
 \begin{figure}[H]
   \centering
@@ -148,7 +148,7 @@ Anteriormente lo hemos mencionado, y a diferencia de otros paquetes de instalaci
 
 \textbf{PyTorch} \cite{pytorch} es un framework de Python de \textbf{deep learning} que permite su utilización en aplicaciones que implementan visión por computador o IA. Está basado en la librería \textbf{Torch}, de ahí que los paquetes que se requieren instalar por Conda tengan el mismo nombre y derivados.
 
-PyTorch trabaja, entre otras cosas, con \textbf{tensores}, que sirven para operar con \textbf{arrays de n-dimensiones}. Este tipo de variables se usan durante todo el modelo de Swiftnet ya que son las que obtendrán, por ejemplo, la lectura de datos de las imágenes, la información de las etiquetas (persona, vehículo...).
+PyTorch trabaja, entre otras cosas, con \textbf{tensores}, que sirven para operar con \textbf{arrays de n-dimensiones}. Este tipo de variables se usan durante todo el modelo de Swiftnet ya que son las que obtendrán, por ejemplo, la lectura de datos de las imágenes, la información de las etiquetas (persona, vehículo, \ldots).
 
 En esencia, PyTorch posibilita la existencia del modelo de Swiftnet. Si no se utilizase, podríamos utilizar otros como \textbf{Tensorflow} \cite{tensorflow} o \textbf{Caffe} \cite{caffe}, sin embargo, cada uno de estos frameworks está enfocado hacia diferentes aspectos y habría que analizar cuál de ellos podría ser el adecuado para el modelo. 
 
@@ -156,7 +156,7 @@ PyTorch se puede instalar tanto para máquinas con tarjeta gráfica como sin ell
 
 \subsection{CUDA}
 
-CUDA \cite{cuda} es una plataforma desarrollada por \textbf{NVIDIA} para poder trabajar, a nivel de cómputo, con las \ac{GPU}.
+CUDA \cite{cuda} es una plataforma desarrollada por \textbf{NVIDIA} para poder trabajar, a nivel de cómputo, con las \ac{GPU}s.
 
 Como ya hemos dicho, el paquete \textbf{cudatoolkit} es necesario para trabajar con PyTorch en máquinas con tarjeta gráfica (\ac{GPU}). Sin embargo, es posible instalarlo y poder ejecutar PyTorch sin la \ac{GPU}, es decir, a través de la \ac{CPU}.
 
@@ -168,13 +168,13 @@ Basta con hacerle saber a PyTorch sobre qué ejecutarlo con la siguiente instruc
 
 Escribiendo dicha instrucción en el código que se quiera ejecutar especificando una de las dos opciones que se dan (\ac{CPU} o \ac{GPU}), podemos obligar a PyTorch a que trabaje con una u otra. El uso de esta instrucción es meramente opcional, ya que para los medios que tenemos disponibles no es necesaria, pero puede ser útil mencionarla si se diera el caso opuesto.
 
-En cuanto a términos de rendimiento, es recomendable ,si es posible, que PyTorch trabaje con \ac{GPU} puesto que al hacerlo de la otra forma, la carga de procesos que tendría que soportar la \ac{CPU} sería elevada y conllevaría a que tardase demasiado la ejecución del modelo. Con \ac{GPU}, sin embargo, sería más veloz y podríamos trabajar con mayor soltura al no tener largos tiempos de espera durante la ejecución de Swiftnet.
+En cuanto a términos de rendimiento, es recomendable, si es posible, que PyTorch trabaje con una \ac{GPU}, puesto que al hacerlo de la otra forma, la carga de procesos que tendría que soportar la \ac{CPU} sería elevada y conllevaría a que tardase demasiado la ejecución del modelo. Con \ac{GPU}, sin embargo, sería más veloz y podríamos trabajar con mayor soltura al no tener largos tiempos de espera durante la ejecución de Swiftnet.
 
 
 \section{Swiftnet}
 
 Ya hemos explicado las bases sobre las que se sustenta Swiftnet (PyTorch y CUDA) y sobre dónde ejecutarlo (entorno Conda), además de explicar y solucionar los errores que pueden ocurrir durante el proceso. A continuación pasamos a explicar el propio modelo y cómo ejecutarlo paso a paso.
-
+%TODO: mover esta subsección arriba tal y como te proponía,pero debes añadir muchos más detalles: imágenes, secuencias, info general de la base de datos, anotaciones, etc.
 \subsection{Cityscapes}
 
 Para la ejecución del modelo tomaremos como referencia la base de datos de Cityscapes \cite{cityscapes}, como viene indicado en la guía de éste \cite{github_swiftnet}, para poder comparar los resultados con los del paper de Swiftnet \cite{swiftnet}.
@@ -192,23 +192,23 @@ Para ejecutar Swiftnet nos hemos ayudado de un \ac{IDE} llamado \textbf{Pycharm}
 Pycharm nos sirve para poder comprobar la ejecución del modelo paso a paso. De otra manera, si lo hiciéramos desde la terminal, resultaría mucho más difícil saber cómo procesa las imágenes. Se puede descargar de manera muy sencilla.
 
 \subsection{Proceso de Swiftnet}
+En este TFG antes de aplicar el modelo Swiftnet a las imágenes de la base de datos $ISA^2$, quisimos asegurarnos que todo funcionaba correctamente, intentando replicar los resultados que se ofrecen en el artículo de Swiftnet \cite{xxxx} sobre la base de datos Cityscapes. Es por ello que detallamos todo este proceso en esta memoria.
 
-Una vez tenemos Pycharm podemos pasar a ejecutar Swiftnet, el cual funciona de la siguiente manera:
+Así pues, una vez tenemos Pycharm podemos pasar a ejecutar Swiftnet, el cual funciona de la siguiente manera:
 
 \begin{enumerate}
 \item En primera instancia, Swiftnet carga las especificaciones del archivo de configuración \textbf{rn18\_single\_scale.py} que pasaremos a modificar a continuación.
-\item Más adelante, carga la información de las etiquetas (persona, carretera, vehículo...).
+\item Más adelante, carga la información de las etiquetas (persona, carretera, vehículo, \ldots).
 \item A continuación, carga el modelo de \ac{SS} que se va a utilizar con CUDA \cite{cuda}.
-\item Por último, evalúa el modelo cargado usando las imágenes de la base de datos de Cityscapes, la información de las etiquetas, etc,... Para evaluarlo sigue los siguientes pasos:
+\item Por último, evalúa el modelo cargado usando las imágenes de la base de datos de Cityscapes, la información de las etiquetas, etc. Para evaluarlo sigue los siguientes pasos:
 
 \begin{itemize}
 \item Crea una pila para guardar las predicciones que se van a hacer de las imágenes de Cityscapes. Con \textbf{predicciones} nos referimos a \textbf{imágenes segmentadas por el modelo}.
-\item En la pila creada, se colorizarán las etiquetas de las predicciones y se formarán éstas. En esencia, la pila será la encargada de realizar estas funciones además de guardar los resultados en el directorio adecuado
+\item En la pila creada, se colorizarán las etiquetas de las predicciones y se formarán éstas. En esencia, la pila será la encargada de realizar estas funciones además de guardar los resultados en el directorio adecuado.
 \item Una vez se crea la pila, se crean lotes de imágenes que van a pasar por el modelo para que éste los vaya segmentando, es decir, el modelo va a ir etiquetando las imágenes del lote según las clases que detecte en las mismas.
 \item Una vez todo finaliza, se calcula el porcentaje de acierto que ha tenido el modelo con las imágenes reales. De ahí se extraen los datos que aparecen en el paper de Swiftnet.
 \end{itemize}   
 \end{enumerate}
-
 Sin embargo, si lo ejecutamos siguiendo el comando que nos dice el procedimiento del modelo no funcionará.
 
 Esto es porque antes de ejecutarlo debemos modificar el archivo \textbf{rn18\_single\_scale.py} de la carpeta \textbf{configs}. En este archivo, hay que cambiar lo siguiente:
@@ -231,7 +231,7 @@ Básicamente hay que modificarlas poniendo la \textbf{ruta absoluta} en cada una
 \textit{RemapLabels(Cityscapes.map\_to\_id, Cityscapes.num\_classes)}
 \end{center}
 
-Esta última es de vital importancia para el funcionamiento de Swiftnet. Cuando ejecutemos Swiftnet y no ponemos esta instrucción, cada vez que analice las etiquetas de una imagen se confundirá.
+Esta última es de vital importancia para el funcionamiento de Swiftnet. Cuando ejecutemos Swiftnet y no pongamos esta instrucción, cada vez que analice las etiquetas de una imagen se confundirá.
 
 Esto es porque cuando Swiftnet obtiene las etiquetas de Cityscapes (\textbf{data\textbackslash{cityscapes}\textbackslash{labels.py}}), filtra sólo las que le son necesarias. Cada una de ellas viene identificada por un número (por ejemplo, la clase \textbf{carretera} tiene asociado el número 7). De este modo, cuando filtra las etiquetas, por cómo accede a ellas para saber cual es cual, obvia estos números y las identifica por el orden en que se han filtrado.
 
@@ -240,7 +240,8 @@ Tomando el ejemplo de la clase \textbf{carretera}: Si esta clase tiene asociado 
 Con la instrucción anterior evitamos ese tipo de errores.
 \end{enumerate}
 
-Por último, debemos modificar un último archivo para poder generar los resultados de Swiftnet.
+Por último, debemos modificar un último archivo para poder replicar los resultados de Swiftnet.
+%TODO: hay que añadir los resultados aquí, o decir, si se ha hecho así, que los presentarás en el capítulo X
 
 Para que funcione Swiftnet, nos vamos al directorio \textbf{data} del modelo, y a su vez nos dirigimos al que lleva por nombre \textbf{cityscapes}, para modificar el archivo \textbf{cityscapes.py}.
 
@@ -270,9 +271,9 @@ Cambiamos la ruta por donde va a obtener las etiquetas de Cityscapes.
 Como se puede ver, la instrucción es la misma salvo en el final: Simplemente obtenemos una lista ordenada de archivos \textbf{.png} de la base de datos de Cityscapes y la guardamos en la variable \textbf{self.images}.
 \end{enumerate}
 
-\subsection{Final}
+\subsection{Evaluación final en Cityscapes}
 
-Para concluir, con todo esto ya podemos ejecutar el modelo con la instrucción:
+Para concluir con una evaluación de resultados de segmentación semántica en Cityscapes, basta con ejecutar el modelo con la instrucción:
 
 \begin{center}
 \textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
@@ -281,6 +282,7 @@ Para concluir, con todo esto ya podemos ejecutar el modelo con la instrucción:
 Si hemos hecho todo bien, obtendremos los mismos resultados que en el paper de Swiftnet \cite{swiftnet} en la carpeta \textbf{out} del directorio \textbf{configs} (las imágenes vendrán en formato \textbf{.jpg}).
 
 Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. Esto se puede cambiar en el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation}.
+%TODO: añade una imagen de ejemplo
 
 En dicho archivo, dentro de la clase \textbf{StorePreds}, en el método \textbf{call}, ponemos la siguiente instrucción:
 
@@ -290,6 +292,8 @@ En dicho archivo, dentro de la clase \textbf{StorePreds}, en el método \textbf{
 
 Con esa simple modificación podemos ver únicamente la imagen segmentada en los resultados.
 
+\section{Ejecutando Swiftnet sobre $ISA^{2}$}
+%TODO: todo lo que viene aquí hay que sacarlo de esta subsección y ponerlo en esta sección. Cambia el texto e introduce el problema, ahora vamos a contar nuestra implementación, ya no hay más configuraciones de entorno, ni pruebas de métrica con el paper de switnet
 Sin embargo, nuestro trabajo no lo hemos realizado con la base de datos de Cityscapes, sino con la de $ISA^{2}$ \cite{isa2}. Para hacerlo con esa base de datos simplemente hay que:
 
 \begin{itemize}
@@ -321,7 +325,7 @@ Cabe destacar que en el archivo \textbf{prediction.py}, siguiendo las figuras, s
 
 Aquí acaba todo lo pertinente a Swiftnet. Hemos visto cómo ha segmentado las imágenes y el proceso interno que lo hace posible, además de trabajar con dos bases de datos. El siguiente paso es la realización de histogramas de las imágenes segmentadas y su posterior introducción en los sistemas de regresión para estimar la velocidad adecuada. Todo ello se hará en \textbf{MatLab} \cite{matlab}.
 
-\section{Realización de histogramas}
+\section{Obtención de histogramas basados en la segmentación semántica}
 
 En este apartado no se pueden replicar los resultados como con el anterior, ya que, a diferencia de Swiftnet \cite{swiftnet}, los códigos de MatLab \cite{matlab} son únicos y originales y sólo los creadores tenemos acceso a ellos.
 
