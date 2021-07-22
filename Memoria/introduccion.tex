@@ -19,8 +19,8 @@ Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, presentan alg
 \end{enumerate}
 
 
-Es por ello que aquí presentamos nuestro sistema capaz de resolver (en gran medida) estos problemas: \[ISA^{2}\]
-%TODO: ¿Cómo? Anticipa en qué se basa: procesado de imagen.
+Es por ello que aquí presentamos un sistema basado en el procesado de imágenes, capaz de resolver (en gran medida) estos problemas: \[ISA^{2}\]
+%TODO_DONE: ¿Cómo? Anticipa en qué se basa: procesado de imagen.
 
 
 \section{¿Qué es $ISA^{2}$? ¿Cómo funciona?}
@@ -32,6 +32,7 @@ La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en
 Para ello usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc. Con esa información se construye un vector de características que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular.
 
 %TODO: mejor que una imagen con solo datos de segmentación semántica, debes incluir una imagen donde se vea todo, desde la imagen original, a la segmentación semántica, y al proceso de extracción de características y la regresión final. Es para dar una idea gráfica del problema. Una vez la tengas, la metes y la comentas en el propio texto. Te dejo lo de abajo comentado para que lo cambies.
+
 %He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen procesada por el sistema de \ac{SS} \ref{fig:ImgSegm}:
 
 %\begin{figure}[h]
