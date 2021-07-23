@@ -4,8 +4,17 @@
 \chapter{Introducción} 
 
 
-Durante todo el siglo XX, en España, han ocurrido más de 7.000.000 de accidentes de tráfico \cite{sigloXX}, de los que en aproximadamente en 250.000 ha habido víctimas mortales \cite{vidas}. Un siglo después, gracias a la evolución de la tecnología, se crean los sistemas \ac{ISA}, que permiten establecer una velocidad aproximada para ayudar al conductor en cualquier situación de la vía.
-%TODO: No me convence el párafo, pasas de los accidentes a los ISA dando un gran salto. Los sistemsa ISA no han aparecido un siglo después, por cierto, llevan tiempo. Modifica el párrafo para hilar ambas cosas. ¿Cuántos accidentes se deben a excesos de velocidad? ¿Hay cifras? Regular la velocidad es importante, existen lo sistemas ISA. Habla de soluciones comerciales (hay muchos modelos de coches que los llevan, basados en sistemas de detección de señales de tráfico, GPS y meta información, sensores de proximidad, etc).
+Durante todo el siglo XX, en España, han ocurrido más de 7.000.000 de accidentes de tráfico \cite{sigloXX}, de los que en aproximadamente en 250.000 ha habido víctimas mortales \cite{vidas}. No sabemos cuántos de ellos fueron por exceso de velocidad; sin embargo, fue, y es, la principal causa de éstos junto con el factor humano \cite{dgt-velocidad}. 
+
+Durante ese tiempo se comenzaron a pensar soluciones para poder reducirlos, como la modificación de los límites de velocidad en la consecución de distintos gobiernos \cite{limites-velocidad}. Y fruto de ello, gracias a la evolución de la tecnología, surgieron los sistemas \ac{ISA} para regular la velocidad dentro del vehículo y ayudar así al conductor.
+
+No todos los sistemas \ac{ISA} son iguales y su uso no es el mismo para cada vehículo. Hay algunos cuya función consiste en el reconocimiento y recomendación de la limitación de velocidad, y otros que actúan como un limitador de la velocidad inteligente \cite{2022}; depende de la marca y el modelo donde de implementen.
+
+Actualmente se llevan utilizando durante bastante tiempo, y en 2022 serán obligatorios para los vehículos nuevos homologados en la Unión Europea. Modelos como el Mercedes Clase-S, el Peugeot 3008 y el Fiat 500X fueron pioneros usando esta tecnología \cite{2022}.
+
+%Un siglo después, gracias a la evolución de la tecnología, se crean los sistemas \ac{ISA}, que permiten establecer una velocidad aproximada para ayudar al conductor en cualquier situación de la vía.
+
+%TODO_DONE: No me convence el párafo, pasas de los accidentes a los ISA dando un gran salto. Los sistemsa ISA no han aparecido un siglo después, por cierto, llevan tiempo. Modifica el párrafo para hilar ambas cosas. ¿Cuántos accidentes se deben a excesos de velocidad? ¿Hay cifras? Regular la velocidad es importante, existen lo sistemas ISA. Habla de soluciones comerciales (hay muchos modelos de coches que los llevan, basados en sistemas de detección de señales de tráfico, GPS y meta información, sensores de proximidad, etc).
 
 
 Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas \cite{reduccion}.
@@ -29,12 +38,36 @@ Es por ello que aquí presentamos un sistema basado en el procesado de imágenes
 La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar la situación real y actual del tráfico, y predecir, en consecuencia, la velocidad apropiada para ese instante. No se parte de información asociada a coordinadas GPS, sino que se emplean técnicas de inteligencia artificial y visión por computador para reconocer la situación de tráfico real, y poder recomendar una velocidad al conductor.
 
 
-Para ello usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc. Con esa información se construye un vector de características que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular.
+Para ello usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia \ref{fig:ImgOrig}. Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc \ref{fig:ImgSegm}. Con esa información se construye un vector de características \ref{fig:Hist} que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular \ref{fig:Regre}. Todo este proceso se puede visualizar en las siguientes figuras:
 
-%TODO: mejor que una imagen con solo datos de segmentación semántica, debes incluir una imagen donde se vea todo, desde la imagen original, a la segmentación semántica, y al proceso de extracción de características y la regresión final. Es para dar una idea gráfica del problema. Una vez la tengas, la metes y la comentas en el propio texto. Te dejo lo de abajo comentado para que lo cambies.
+%TODO_DONE: mejor que una imagen con solo datos de segmentación semántica, debes incluir una imagen donde se vea todo, desde la imagen original, a la segmentación semántica, y al proceso de extracción de características y la regresión final. Es para dar una idea gráfica del problema. Una vez la tengas, la metes y la comentas en el propio texto. Te dejo lo de abajo comentado para que lo cambies.
 
 %He aquí un ejemplo de una imagen real \ref{fig:ImgOrig} y de la misma imagen procesada por el sistema de \ac{SS} \ref{fig:ImgSegm}:
 
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Imagen_Original.eps}
+    \caption{Imagen Original}
+    \label{fig:ImgOrig}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.5\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Ejemplo_Imagen_Segmentada.eps}
+    \caption{Imagen Segmentada}
+    \label{fig:ImgSegm}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Ejemplo_Histograma.eps}
+    \caption{Ejemplo del vector de características representado como un histograma}
+    \label{fig:Hist}
+  \end{subfigure}
+      \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/SVR_Urban(Nivel_1).eps}
+    \caption{Ejemplo de regresión final}
+    \label{fig:Regre}
+  \end{subfigure}
+  \caption{Proceso de $ISA^{2}$}
+\end{figure}
 %\begin{figure}[h]
 %  \centering
 %  \includegraphics[width=12cm]{Figuras/Imagen_Original.eps}
@@ -51,7 +84,10 @@ Para ello usamos una cámara en la parte frontal del vehículo que va tomando im
 
 
 \section{Objetivo principal}
-%TODO: Sergio, lo que tenías no eran objetivos. Debes poner aquí de forma muy clara los objetivos del trabajo fin de grado.
+
+
+El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$, con respecto a la versión anterior. Para ello, partiremos de los recursos que tenemos de éste y buscaremos la mejor manera de hacerlo más práctico y eficiente.
+%TODO_DONE: Sergio, lo que tenías no eran objetivos. Debes poner aquí de forma muy clara los objetivos del trabajo fin de grado.
 
 
 

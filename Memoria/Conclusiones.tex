@@ -8,9 +8,33 @@ En este trabajo hemos contribuido a la evolución del sistema $ISA^{2}$ como res
 \end{itemize}
 
 %De modo que, usando este modelo, con las variaciones que ello conlleva, podemos asegurar que este sistema es mejor que su predecesor.
-%TODO: Modifica esta frase, no me convence, y pon una comparativa explícita con el anterior modelo en términos de MAE, de modo que el lector termine el documento sabiendo cuanto mejor es la solución propuesta que el anterior. Añade también información sobre la velocidad del sistema en frames por segundo.
+
+En la siguiente tabla \ref{tab:Resul_SVR} comprobamos que esto es así mostrando el mejor resultado del modelo en núcleos urbanos en comparación con DeepLab utilizando el mismo sistema de regresión (\ac{SVR}): 
+
+\begin{table}[H]
+\centering
+\resizebox{12cm}{!}{
+\begin{tabular}{|l|l|l|l|l|}\cline{1-5}
+& \multicolumn{2}{|l|}{\textbf{MAE Swiftnet}} & \multicolumn{2}{|l|}{\textbf{MAE DeepLab}} \\ \cline{1-5}
+\textbf{Regresión} & \textbf{Highway (\%)} & \textbf{Urban (\%)} & \textbf{Highway (\%)} & \textbf{Urban (\%)}\\ \cline{1-5}
+\textbf{\textit{SVR}} & 11.13 & \textbf{8.74} & 9.69 & \textbf{9.55} \\ \cline{1-5}
+\end{tabular}
+}
+\caption{Resultados y \ac{SVR}}
+\label{tab:Resul_SVR}
+\end{table}
+
+Podemos comprobar que efectivamente, Swiftnet (\textbf{8.74\%}) es mejor que DeepLab (\textbf{9.55}) en términos de MAE para estos escenarios, aportando además una mayor rapidez de procesado de imágenes (lo cual, siendo un modelo Real-Time, nos interesa para nuestros objetivos) y un menor coste de implementación del mismo en un vehículo inteligente. 
+
+%TODO_DONE: Modifica esta frase, no me convence, y pon una comparativa explícita con el anterior modelo en términos de MAE, de modo que el lector termine el documento sabiendo cuanto mejor es la solución propuesta que el anterior. Añade también información sobre la velocidad del sistema en frames por segundo.
 
 Por todo ello, concluimos con la idea de que esta nueva versión de $ISA^{2}$ sirva como punto de referencia para futuras mejoras del mismo. Como futuras líneas de trabajo proponemos las siguientes:
-%TODO: Añade, bosqueja, algunas líneas de mejora que se deriven de tu trabajo. Pueden/deben ser muy técnicas.
+
+\begin{itemize}
+\item La sustitución del modelo Swiftnet por otro con mayor precisión (por ejemplo \cite{hierarchical-multiscale}).
+\item La posibilidad de añadir nuevos sistemas de regresión al esquema (como por ejemplo \cite{ridge}).
+\item Un nuevo esquema con una estructura diferente para $ISA^{2}$, por ejemplo uno basado en una arquitectura con \ac{CNN} que realice la regresión por sí misma, como se hizo en la primera versión del sistema \cite{isa2}, usando nuevas arquitecturas \cite{cnn-ss}.
+\end{itemize}
+%TODO_DONE: Añade, bosqueja, algunas líneas de mejora que se deriven de tu trabajo. Pueden/deben ser muy técnicas.
 
 Al principio de este trabajo, contamos cómo con los sistemas \ac{ISA} se habían reducido cuantiosamente el número de accidentes de tráfico en España y Europa. Con este sistema, y con los que se deriven de éste, esperemos que, en un futuro no muy lejano, ese dato no exista.

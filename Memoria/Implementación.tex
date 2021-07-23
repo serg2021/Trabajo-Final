@@ -152,7 +152,7 @@ PyTorch trabaja, entre otras cosas, con \textbf{tensores}, que sirven para opera
 
 En esencia, PyTorch posibilita la existencia del modelo de Swiftnet. Si no se utilizase, podríamos utilizar otros como \textbf{Tensorflow} \cite{tensorflow} o \textbf{Caffe} \cite{caffe}, sin embargo, cada uno de estos frameworks está enfocado hacia diferentes aspectos y habría que analizar cuál de ellos podría ser el adecuado para el modelo. 
 
-PyTorch se puede instalar tanto para máquinas con tarjeta gráfica como sin ella, dependiendo de cómo se quiera ejecutar. Generalmente, se suele instalar en máquinas con tarjeta gráfica y por ello se instala, además de los paquetes de Torch, el paquete \textbf{cudatoolkit}. Este paquete interactúa con \textbf{CUDA} \cite {cuda}.
+PyTorch se puede instalar tanto para máquinas con tarjeta gráfica como sin ella, dependiendo de cómo se quiera ejecutar. Generalmente, se suele instalar en máquinas con tarjeta gráfica y por ello se instala, además de los paquetes de Torch, el paquete \textbf{cudatoolkit}. Este paquete interactúa con \textbf{CUDA} \cite{cuda}.
 
 \subsection{CUDA}
 
@@ -192,7 +192,7 @@ Para ejecutar Swiftnet nos hemos ayudado de un \ac{IDE} llamado \textbf{Pycharm}
 Pycharm nos sirve para poder comprobar la ejecución del modelo paso a paso. De otra manera, si lo hiciéramos desde la terminal, resultaría mucho más difícil saber cómo procesa las imágenes. Se puede descargar de manera muy sencilla.
 
 \subsection{Proceso de Swiftnet}
-En este TFG antes de aplicar el modelo Swiftnet a las imágenes de la base de datos $ISA^2$, quisimos asegurarnos que todo funcionaba correctamente, intentando replicar los resultados que se ofrecen en el artículo de Swiftnet \cite{xxxx} sobre la base de datos Cityscapes. Es por ello que detallamos todo este proceso en esta memoria.
+En este TFG antes de aplicar el modelo Swiftnet a las imágenes de la base de datos $ISA^2$, quisimos asegurarnos que todo funcionaba correctamente, intentando replicar los resultados que se ofrecen en el artículo de Swiftnet %\cite{xxxx} sobre la base de datos Cityscapes. Es por ello que detallamos todo este proceso en esta memoria.
 
 Así pues, una vez tenemos Pycharm podemos pasar a ejecutar Swiftnet, el cual funciona de la siguiente manera:
 
@@ -327,7 +327,7 @@ Aquí acaba todo lo pertinente a Swiftnet. Hemos visto cómo ha segmentado las i
 
 \section{Obtención de histogramas basados en la segmentación semántica}
 
-En este apartado vamos a detallar cómo obtener los histogramas en función de los datos de segmentación semántica, que son las características de entrada a los modelos de regresión para predecir la velocidad adecuada a cada imagen, tal y como se describe en el sistema $ISA^2$.
+En este apartado vamos a detallar cómo obtener los histogramas en función de los datos de segmentación semántica, que son las características de entrada a los modelos de regresión para predecir la velocidad adecuada a cada imagen, tal y como se describe en el sistema $ISA^{2}$.
 
 Un histograma es una representación gráfica en forma de barras que simboliza la distribución de un conjunto de datos \cite{histograma}. En nuestro caso, nuestros histogramas representan el porcentaje que hay de cada etiqueta en una imagen. He aquí un ejemplo de un histograma genérico:
 
