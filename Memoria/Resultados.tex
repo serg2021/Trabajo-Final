@@ -3,7 +3,24 @@
 
 %TODO: organiza en secciones los distintos experimentos.
 
-%TODO: yo suelo añadir una sección explicando las métricas, pero no es necesario, si las explicas en cada experimento. Recuerda traer aquí la explicación de la mIOU para evaluar la segmentación semántica.
+\section{mIoU}
+
+Para saber qué porcentaje de acierto ha tenido el proceso de segmentación semántica utilizaremos la métrica conocida como \ac{mIoU} \cite{miou-iou}. Esta métrica se basa en hacer la media de la \ac{IoU} de las diferentes etiquetas de clases.
+
+La \ac{IoU} \cite{miou-iou} es la relación de superposición que existe entre la imagen segmentada y la original. Es decir, sirve para dictaminar con cuánta precisión se ha realizado el proceso de \ac{SS}. En las siguientes figuras se puede ver un ejemplo muy práctico:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{Figuras/Iou_1.eps}
+  \caption{Imagen Original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{Figuras/IoU_2.eps}
+  \caption{Predicción}
+\end{figure}
+%TODO_DONE: yo suelo añadir una sección explicando las métricas, pero no es necesario, si las explicas en cada experimento. Recuerda traer aquí la explicación de la mIOU para evaluar la segmentación semántica.
 
 \section{Evaluación de la segmentación semántica}
 ...

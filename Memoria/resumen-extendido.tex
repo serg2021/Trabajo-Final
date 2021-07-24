@@ -11,10 +11,10 @@ En resumen, el sistema $ISA^{2}$ comienza capturando una imagen de la escena de 
   \centering
   \includegraphics[width=8cm]{Figuras/Ejemplo_Imagen_Segmentada.eps}
   \caption{Imagen Segmentada}
-    \label{fig:ImgSegm}
+    \label{fig:ImgSeg}
 \end{figure}
 
-En la Figura \ref{ImgSegm} puede verse un ejemplo de segmentación semántica como la que utiliza nuestro modelo $ISA^{2}$. Una vez se ha completado la segmentación semántica, se utiliza esta información para entrenar un conjunto de regresores que son capaces de aprender a estimar la velocidad a la que debe ir el vehículo.
+En la Figura \ref{fig:ImgSeg} puede verse un ejemplo de segmentación semántica como la que utiliza nuestro modelo $ISA^{2}$. Una vez se ha completado la segmentación semántica, se utiliza esta información para entrenar un conjunto de regresores que son capaces de aprender a estimar la velocidad a la que debe ir el vehículo.
 
 En este proyecto hacemos uso del modelo de deep learning \textbf{Swiftnet} \cite{swiftnet} para conseguir la segmentación semántica. \textbf{Swiftnet} es la base sobre la que desarrollamos este proyecto y donde más hemos trabajado para conseguir los resultados de las velocidades estimadas.
 
