@@ -1,11 +1,10 @@
-\chapter{Implementación de $ISA^{2}$ con Switnet}
-%TODO: Comentario general: una memoria de TFG no es un diario de trabajo. Debes tratar de reescribir ciertas partes, para que se haga una descripción técnica, y no parezca una guía paso a paso. Ambas cosas pueden convivir, y el documento puede/debe valer para que cualquiera repita paso a paso lo que has hecho, pero no puede parecer un diario de investigación.
+\chapter{Implementación de $ISA^{2}$ con Swiftnet}
+%TODO_DONE: Comentario general: una memoria de TFG no es un diario de trabajo. Debes tratar de reescribir ciertas partes, para que se haga una descripción técnica, y no parezca una guía paso a paso. Ambas cosas pueden convivir, y el documento puede/debe valer para que cualquiera repita paso a paso lo que has hecho, pero no puede parecer un diario de investigación.
 
-%TODO Completar siguiente frase que resuma todo lo que vas a explicar en este capítulo
-En este capítulo \ldots
+%TODO_DONE Completar siguiente frase que resuma todo lo que vas a explicar en este capítulo
+En este capítulo vamos a explicar cómo se ha implementado el sistema $ISA^{2}$ con Swiftnet resaltando aspectos como la creación de entornos \textbf{Conda} \cite{conda} y el uso de la librería \textbf{PyTorch} \cite{pytorch}.
 
-
-\section{Creación de entorno Conda e instalación de requisitios para Swiftnet}
+\section{Creación de entorno Conda e instalación de requisitos para Swiftnet}
 A la hora de implementar esta nueva arquitectura debemos considerar que, para ejecutarla, hay que crear un entorno, un escenario, real sobre el que hacerlo. O, en su defecto, crear un entorno que simule esas condiciones para trabajar con ella.
 
 Es por ello que antes de trabajar con el modelo de Swiftnet \cite{swiftnet} tenemos que sentar las bases sobre las que se pueda ejecutar. Así comienza la creación de un entorno Conda.
@@ -33,7 +32,13 @@ En este caso estamos creando un entorno Conda llamado \textbf{swiftnet} con la v
 \textit{conda activate swiftnet}
 \end{center}
 
-Ya tenemos creado el entorno, ahora hace falta añadirle los paquetes necesarios que requiere Swiftnet, indicados en el archivo \textbf{requirements.txt} \cite{github_swiftnet}. Para instalarlos simplemente seguimos las indicaciones del modelo y usamos este comando:
+A continuación, descargamos el repositorio donde se encuentra el código de Swiftnet. Para ello basta con abrir una terminal del sistema operativo y ejecutar el siguiente comando en la carpeta donde se quiera extraer:
+
+\begin{center}
+\textit{git clone https:\textbackslash{}\textbackslash{github.com}\textbackslash{orsic}\textbackslash{swiftnet}}
+\end{center}
+
+Ya tenemos creado el entorno y hemos descargado el modelo, ahora hace falta añadirle los paquetes necesarios que requiere Swiftnet, indicados en el archivo \textbf{requirements.txt} del repositorio \cite{github_swiftnet}. Para instalarlos simplemente seguimos las indicaciones del modelo y usamos este comando:
 
 \begin{center}
 \textit{pip install -r requirements.txt}
@@ -57,8 +62,40 @@ A continuación enumeramos los paquetes que quedan para poder ejecutar Swiftnet:
 
 Cabe destacar que ponemos dichos paquetes con estas versiones porque las especificaciones de nuestra máquina lo requerían. Si se quiere reproducir el resultado de este proyecto, puede que no sean las mismas versiones de estos paquetes los que haya que instalar, dependerá de la máquina sobre la que se trabaje.
 
-%TODO: En el párrafo siguiente faltan muchos detalles. Dí que hay que bajarse un repositorio, luego explica lo de las bases de datos paso a paso, ya qye recuerdo que había que descargarla y prepararla de una forma especial. Yo lo dejaría aquí todo bien documentado y explicado.
-Una vez instalados los paquetes, se sigue el procedimiento marcado por el modelo (se descargan la base de datos de Cityscapes \cite{cityscapes} para guardarla en la carpeta \textbf{datasets} y una serie de modelos preentrenados para la misma en la carpeta \textbf{weights} \cite{github_swiftnet}) y se ejecuta desde el directorio en el que éste se encuentra:
+Siguiendo con la operativa, pasamos a descargar la base de datos de Cityscapes sobre la que está entrenado Swiftnet y la modificamos de esta forma:
+
+%TODO_DONE: En el párrafo siguiente faltan muchos detalles. Dí que hay que bajarse un repositorio, luego explica lo de las bases de datos paso a paso, ya qye recuerdo que había que descargarla y prepararla de una forma especial. Yo lo dejaría aquí todo bien documentado y explicado.
+
+%TODO_DONE: mover esta subsección arriba tal y como te proponía,pero debes añadir muchos más detalles: imágenes, secuencias, info general de la base de datos, anotaciones, etc.
+\subsection{Cityscapes}
+
+Para la ejecución del modelo tomaremos como referencia la base de datos de Cityscapes \cite{cityscapes}, como viene indicado en la guía de éste \cite{github_swiftnet}, para poder comparar los resultados con los del paper de Swiftnet \cite{swiftnet}.
+
+Cityscapes es una base de datos que contiene imágenes de secuencias de vídeos en diferentes ciudades y escenarios. Descargaremos los siguientes archivos ``.zip'': \textbf{leftImg8bit\_trainvaltest.zip} y \textbf{gtFine\_trainvaltest.zip}. En el primero vienen tanto un set de imágenes preparadas para poder entrenar el modelo (\textbf{train}), como un set para evaluarlo (\textbf{val}) y otro para probarlo (\textbf{test}); nosotros nos quedaremos con los sets de evaluación y de entrenamiento (\textbf{val} y \textbf{train}). En el segundo, hay información acerca de las máscaras de segmentación de las imágenes del primer archivo; viene en diferentes formatos y está organizado con el mismo sistema de carpetas de antes (\textbf{test}, \textbf{train} y \textbf{val}). Concretando para este segundo archivo, la información viene dada en forma de anotaciones sobre las etiquetas que hay en las imágenes originales. Más adelante concretaremos qué parte de ésta es necesaria para la correcta ejecución del modelo.
+
+En la siguiente figura, se puede ver un ejemplo de cómo son ambos archivos:
+
+\begin{figure}[H]
+  \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Imagen_Cityscapes.eps}
+    \caption{Imagen de Cityscapes (Primer archivo)}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Mascara_Cityscapes.eps}
+    \caption{Máscara de la imagen (Segundo archivo)}
+  \end{subfigure}
+      \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Mascara_Color.eps}
+    \caption{Máscara a color de la imagen (Segundo archivo)}
+  \end{subfigure}
+\end{figure}
+
+Antes de continuar, es recomendable cambiar el nombre de las bases de datos que se han descargado de Cityscapes por nombres más sencillos por comodidad. En nuestro caso, llamamos \textbf{labels} a la carpeta que contiene las etiquetas de las imágenes (241 MB) y \textbf{rgb} a la carpeta que contiene las imágenes (11 GB).
+
+Cuando esté descargada la base de datos, vamos a la carpeta referente a las etiquetas (\textbf{labels}). Una vez dentro, tenemos que, o bien borrar todos los archivos \textbf{instanceIds} y \textbf{color}, o bien moverlos en otra carpeta. Esto es porque durante la ejecución del modelo, éste podría confundirse de archivos y coger los que queremos borrar (o mover), y nos interesa que utilice sólo los llamados \textbf{labelIds}. También aparecen unos archivos con la extensión \textbf{.json} que es conveniente dejarlos tal y como están.
+
+Una vez hecho lo anterior, se sigue el procedimiento marcado por el modelo (se guarda la base de datos de Cityscapes ya modificada \cite{cityscapes} en la carpeta \textbf{datasets} y una serie de modelos preentrenados para la misma en la carpeta \textbf{weights} \cite{github_swiftnet}) y se ejecuta desde el directorio en el que éste se encuentra:
 
 \begin{center}
 \textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
@@ -174,17 +211,6 @@ En cuanto a términos de rendimiento, es recomendable, si es posible, que PyTorc
 \section{Swiftnet}
 
 Ya hemos explicado las bases sobre las que se sustenta Swiftnet (PyTorch y CUDA) y sobre dónde ejecutarlo (entorno Conda), además de explicar y solucionar los errores que pueden ocurrir durante el proceso. A continuación pasamos a explicar el propio modelo y cómo ejecutarlo paso a paso.
-%TODO: mover esta subsección arriba tal y como te proponía,pero debes añadir muchos más detalles: imágenes, secuencias, info general de la base de datos, anotaciones, etc.
-\subsection{Cityscapes}
-
-Para la ejecución del modelo tomaremos como referencia la base de datos de Cityscapes \cite{cityscapes}, como viene indicado en la guía de éste \cite{github_swiftnet}, para poder comparar los resultados con los del paper de Swiftnet \cite{swiftnet}.
-
-Antes de continuar, es recomendable cambiar el nombre de las bases de datos que se han descargado de Cityscapes por nombres más sencillos por comodidad. En nuestro caso, llamamos \textbf{labels} a la carpeta que contiene las etiquetas de las imágenes (241 MB) y \textbf{rgb} a la carpeta que contiene las imágenes (11 GB).
-
-Cuando esté descargada la base de datos, vamos a la carpeta referente a las etiquetas (\textbf{labels}). Una vez dentro, tenemos que, o bien borrar todos los archivos \textbf{instanceIds} y \textbf{color}, o bien moverlos en otra carpeta. Esto es porque durante la ejecución del modelo, éste podría confundirse de archivos y coger los que queremos borrar (o mover), y nos interesa que utilice sólo los llamados \textbf{labelIds}.
-
-También aparecen unos archivos con la extensión \textbf{.json} que es conveniente dejarlos tal y como están.
-
 \subsection{Pycharm}
 
 Para ejecutar Swiftnet nos hemos ayudado de un \ac{IDE} llamado \textbf{Pycharm} \cite{pycharm}.
@@ -192,7 +218,7 @@ Para ejecutar Swiftnet nos hemos ayudado de un \ac{IDE} llamado \textbf{Pycharm}
 Pycharm nos sirve para poder comprobar la ejecución del modelo paso a paso. De otra manera, si lo hiciéramos desde la terminal, resultaría mucho más difícil saber cómo procesa las imágenes. Se puede descargar de manera muy sencilla.
 
 \subsection{Proceso de Swiftnet}
-En este TFG antes de aplicar el modelo Swiftnet a las imágenes de la base de datos $ISA^2$, quisimos asegurarnos que todo funcionaba correctamente, intentando replicar los resultados que se ofrecen en el artículo de Swiftnet %\cite{xxxx} sobre la base de datos Cityscapes. Es por ello que detallamos todo este proceso en esta memoria.
+En este TFG antes de aplicar el modelo Swiftnet a las imágenes de la base de datos $ISA^2$, quisimos asegurarnos que todo funcionaba correctamente, intentando replicar los resultados que se ofrecen en el artículo de Swiftnet \cite{swiftnet} sobre la base de datos Cityscapes. Es por ello que detallamos todo este proceso en esta memoria.
 
 Así pues, una vez tenemos Pycharm podemos pasar a ejecutar Swiftnet, el cual funciona de la siguiente manera:
 
@@ -240,8 +266,8 @@ Tomando el ejemplo de la clase \textbf{carretera}: Si esta clase tiene asociado 
 Con la instrucción anterior evitamos ese tipo de errores.
 \end{enumerate}
 
-Por último, debemos modificar un último archivo para poder replicar los resultados de Swiftnet.
-%TODO: hay que añadir los resultados aquí, o decir, si se ha hecho así, que los presentarás en el capítulo X
+Por último, debemos modificar un último archivo para poder replicar los resultados de Swiftnet. En el siguiente capítulo los presentaremos y explicaremos en detalle.
+%TODO_DONE: hay que añadir los resultados aquí, o decir, si se ha hecho así, que los presentarás en el capítulo X
 
 Para que funcione Swiftnet, nos vamos al directorio \textbf{data} del modelo, y a su vez nos dirigimos al que lleva por nombre \textbf{cityscapes}, para modificar el archivo \textbf{cityscapes.py}.
 
@@ -281,8 +307,22 @@ Para concluir con una evaluación de resultados de segmentación semántica en C
 
 Si hemos hecho todo bien, obtendremos los mismos resultados que en el paper de Swiftnet \cite{swiftnet} en la carpeta \textbf{out} del directorio \textbf{configs} (las imágenes vendrán en formato \textbf{.jpg}).
 
-Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. Esto se puede cambiar en el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation}.
-%TODO: añade una imagen de ejemplo
+Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la máscara de segmentación de la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. Esto se puede cambiar en el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation}. He aquí un ejemplo del resultado original y del resultado modificado:
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Imagen_Concatenada.eps}
+    \caption{Resultado Original}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{Figuras/Imagen_Modificada.eps}
+    \caption{Resultado Modificado}
+  \end{subfigure}
+  \caption{Resultados}
+  \label{fig:img_con}
+\end{figure}
+%TODO_DONE: añade una imagen de ejemplo
 
 En dicho archivo, dentro de la clase \textbf{StorePreds}, en el método \textbf{call}, ponemos la siguiente instrucción:
 
@@ -293,7 +333,8 @@ En dicho archivo, dentro de la clase \textbf{StorePreds}, en el método \textbf{
 Con esa simple modificación podemos ver únicamente la imagen segmentada en los resultados.
 
 \section{Ejecutando Swiftnet sobre $ISA^{2}$}
-%TODO: todo lo que viene aquí hay que sacarlo de esta subsección y ponerlo en esta sección. Cambia el texto e introduce el problema, ahora vamos a contar nuestra implementación, ya no hay más configuraciones de entorno, ni pruebas de métrica con el paper de switnet
+%TODO_DONE: todo lo que viene aquí hay que sacarlo de esta subsección y ponerlo en esta sección. Cambia el texto e introduce el problema, ahora vamos a contar nuestra implementación, ya no hay más configuraciones de entorno, ni pruebas de métrica con el paper de switnet
+
 Sin embargo, nuestro trabajo no lo hemos realizado con la base de datos de Cityscapes, sino con la de $ISA^{2}$ \cite{isa2}. Para hacerlo con esa base de datos simplemente hay que:
 
 \begin{itemize}
@@ -323,6 +364,22 @@ Cabe destacar que en el archivo \textbf{prediction.py}, siguiendo las figuras, s
 
 \end{itemize}
 
+Ejecutando del modelo de nuevo con la anterior instrucción, obtendremos los resultados para esta nueva implementación:
+
+\begin{center}
+\textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
+\end{center}
+
+Si obtenemos los resultados de la misma forma que con Cityscapes (\ref{fig:img_con}), basta con modificar el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation} de la misma forma que antes.
+
+En la clase \textbf{StorePreds} del archivo \textbf{prediction.py}, en el método \textbf{call}, ponemos la siguiente instrucción:
+
+\begin{center}
+\textit{store\_img = np.concatenate([i.astype(np.uint8) for i in [self.to\_color(p)]], axis = 0)} en la línea 25
+\end{center}
+
+Así obtendremos los resultados del modelo con esta nueva implementación, de una forma clara y concisa.
+
 Aquí acaba todo lo pertinente a Swiftnet. Hemos visto cómo ha segmentado las imágenes y el proceso interno que lo hace posible, además de trabajar con dos bases de datos. El siguiente paso es la realización de histogramas de las imágenes segmentadas y su posterior introducción en los sistemas de regresión para estimar la velocidad adecuada. Todo ello se hará en \textbf{MatLab} \cite{matlab}.
 
 \section{Obtención de histogramas basados en la segmentación semántica}
@@ -343,8 +400,15 @@ Simplemente hay que actualizar las rutas para que recoja los resultados de Swift
 
 Aplicando estos cambios obtenemos unos archivos en formato \textbf{.mat} (como los resultados de Swiftnet), que contienen los histogramas correspondientes a cada imagen de cada subcarpeta de la base de datos de $ISA^{2}$.
 
-Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 3 niveles de \textbf{pooling}, es decir, añadiendo más \ac{SI} dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
-%TODO: faltan muchos detalles, debes explicar paso a paso en qué consisten estas pirámides, si tienes dudas me puedes preguntar. Con un par de párrafos valdría.
+Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 3 niveles de agrupación (\textbf{pooling}), es decir, añadiendo más \ac{SI} en el descriptor dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
+
+Previo a continuar es necesario recordar \ac{SPP} y su importancia en la realización del proyecto.
+
+En primera instancia, \ac{SPP} se utiliza para construir el descriptor de imagen, situándose para ello tras las capas convolucionales de la \ac{CNN}. Así, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de las imágenes de entrada) procesados por las capas convolucionales de la \ac{CNN} (en el caso de Swiftnet, \textbf{ResNet-18} \cite{swiftnet}), y los divide en un número de ``compartimentos espaciales'' (\textbf{Spatial Bins}) con un tamaño proporcional al de la imagen de entrada \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con distinto nivel de detalle.
+
+Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor granularidad y, por ende, habrá mayor o menor información (\ac{SI}) para el descriptor de imagen. Cuando se procese el descriptor en los sistemas de regresión, la estimación será más fiel a la realidad conforme aumente el nivel de agrupación, aunque de esto hablaremos en el siguiente capítulo.
+
+%TODO_DONE: faltan muchos detalles, debes explicar paso a paso en qué consisten estas pirámides, si tienes dudas me puedes preguntar. Con un par de párrafos valdría.
 
 \section{Sistemas de regresión}
 
@@ -352,11 +416,18 @@ Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en e
 
 Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir lo vehículos según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de \textbf{pooling} (\ac{SPP}), como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
  
-El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores de predicción y los valores reales de la velocidad. Más adelante veremos una serie de figuras en las que se verá representado.
-%TODO Añade fórmula.
+El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores reales con los valores de predicción de la velocidad. Como se puede ver en la fórmula \ref{eq:mae}, \textit{X} es una matriz con los valores reales e \textit{Y} es una matriz con los valores de predicción.
+
+\begin{equation}\label{eq:mae}
+MAE = \frac{\sum_{i=1}^{n}|X_i - Y_i|}{n}
+\end{equation}
+
+Más adelante veremos una serie de figuras en las que se verá representado.
+
+%TODO_DONE Añade fórmula.
 
 En cuanto a los modelos de regresión empleados en nuestra evaluación para sistemas $ISA^2$, pasamos a explicar nociones básicas de cada uno de ellos, sin entrar en mucho detalle:
-%TODO: para cada una de ellas añade la función de MATLAB que se emplea, y comenta sus parámetros de entrada.
+%TODO_DONE: para cada una de ellas añade la función de MATLAB que se emplea, y comenta sus parámetros de entrada.
 \subsection{Regresor Lineal}
 
 La regresión lineal \cite{linear} es un tipo de análisis predictivo usado de forma muy común siendo uno de los más básicos que existen. Se utiliza para explicar la relación entre una variable predictiva (independiente) y otra variable de salida (dependiente). La siguiente ecuación es la forma más simple de expresar esta relación:
@@ -367,9 +438,25 @@ y = c + b*x
 
 Siendo \textit{y} la variable de salida (dependiente), \textit{c} una constante, \textit{b} el coeficiente de regresión y \textit{x} la variable predictiva (independiente).
 
+Para este tipo de regresión usaremos la siguiente instrucción en MatLab:
+
+\begin{center}
+\textit{fitlm(X,Y)}
+\end{center}
+
+Con ella entrenamos un modelo de regresión lineal con las matrices de datos \textit{X} e \textit{Y} \cite{fitlm}, siendo \textit{X} la matriz correspondiente al descriptor de imagen que se generó previamente e \textit{Y} la matriz correspondiente a la velocidad apropiada para dicha imagen.
+
 \subsection{Lasso}
 
 La regresión \textbf{Lasso} \cite{lasso} es un tipo de regresión lineal que hace uso de la \textbf{contracción} \cite{shrinkage}. Con la contracción conseguimos que valores extremos de una muestra se reduzcan alrededor de un valor central como, por ejemplo, la media. Este tipo de regresión viene bien para modelos con altos niveles de \textbf{multicolinealidad} (Fuerte correlación entre variables predictivas o explicativas \cite{multicollinearity}).
+
+Usaremos la siguiente instrucción:
+
+\begin{center}
+\textit{lasso(X,Y,'Alpha',1,'CV',10)}
+\end{center}
+
+Con estos parámetros, se realiza la regresión regularizada (\cite{lasso-matlab}) usando el método de red elástica \cite{elasticnet} con el parámetro \textit{Alpha} a 1 y la validación cruzada \cite{cv} de 10 veces. Ambos campos \textit{X} e \textit{Y} representan lo mismo que en el sistema anterior.
 
 \subsection{Boosting Trees}
 
@@ -384,11 +471,27 @@ El objetivo de usar algoritmos de árboles de decisión es crear un modelo \text
 
 Por otro lado, tenemos los métodos de \textbf{boosting}. En esencia, el boosting es una manera de conseguir un sistema más robusto combinando los resultados (decisiones) de los árboles de decisión \cite{boosting}.
 
+Con esta instrucción lo llevaremos a cabo:
+
+\begin{center}
+\textit{fitrensemble(X,Y,'NumLearningCycles',numTrees,'Learners',t,'KFold',5,'LearnRate',learnRate(k))}
+\end{center}
+
+Según ésta, se realiza la regresión usando, para ello, las matrices \textit{X} e \textit{Y} junto con los parámetros \textit{NumLearningCycles} (Número de árboles de decisión), \textit{Learners} (Contiene el número máximo de \textbf{splits}, es decir, ramificaciones en el árbol), \textit{KFold} (Validación cruzada) y \textit{LearnRate} (Parámetro de aprendizaje del sistema)\cite{fitrensemble}.
+
 Con todo ello tendremos un sistema de regresión final que, por lo general, suele dar buenos resultados, tal y como se muestra en \cite{isa2}.
 
 \subsection{SVR}
 
 El sistema \ac{SVR} es una variante del sistema \ac{SVM} para realizar regresión \cite{SVR}. Se trata de una adaptación del modelo de clasificación básico, implementado por las máquinas de vectores soporte, para conseguir que estas implementen una solución de regresión.
+
+Se consigue usando esta instrucción en nuestro código de MatLab:
+
+\begin{center}
+\textit{fitrsvm(X,Y,'KernelFunction', 'linear', 'KernelScale', 'auto')}
+\end{center}
+
+Los parámetros usados (ademas de las matrices \textit{X} e \textit{Y}) son: \textit{KernelFunction}, que sirve para entrenar el sistema usando una función kernel (Método de entrenamiento) \textit{lineal}, como viene especificado en la función; y \textit{KernelScale}, que sirve para determinar el parámetro de escala del núcleo (en nuestro caso, con valor \textit{auto}, es decir, mediante un proceso heurístico) \cite{fitrsvm}.
 
 %Hemos detallado todo el proceso del sistema de $ISA^{2}$, junto a su implementación, en diferentes bloques. Cada uno de los bloques ha sido explicado según la relevancia que ha tenido durante la ejecución del proyecto y según los problemas que ha podido dar en el mismo, con su posterior solución.
 
