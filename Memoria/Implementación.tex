@@ -62,7 +62,7 @@ A continuación enumeramos los paquetes que quedan para poder ejecutar Swiftnet:
 
 Cabe destacar que ponemos dichos paquetes con estas versiones porque las especificaciones de nuestra máquina lo requerían. Si se quiere reproducir el resultado de este proyecto, puede que no sean las mismas versiones de estos paquetes los que haya que instalar, dependerá de la máquina sobre la que se trabaje.
 
-Siguiendo con la operativa, pasamos a descargar la base de datos de Cityscapes sobre la que está entrenado Swiftnet y la modificamos de esta forma:
+Siguiendo con la operativa, pasamos a descargar la base de datos de Cityscapes sobre la que está entrenado Swiftnet para proceder a su utilización, tal y como describimos en la siguiente sección.
 
 %TODO_DONE: En el párrafo siguiente faltan muchos detalles. Dí que hay que bajarse un repositorio, luego explica lo de las bases de datos paso a paso, ya qye recuerdo que había que descargarla y prepararla de una forma especial. Yo lo dejaría aquí todo bien documentado y explicado.
 
@@ -418,11 +418,11 @@ Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite
 
 Previo a continuar es necesario recordar \ac{SPP} y su importancia en la realización del proyecto.
 
-En primera instancia, \ac{SPP} se utiliza para construir el descriptor de imagen, situándose para ello tras las capas convolucionales de la \ac{CNN}. Así, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de las imágenes de entrada) procesados por las capas convolucionales de la \ac{CNN} (en el caso de Swiftnet, \textbf{ResNet-18} \cite{swiftnet}), y los divide en un número de ``compartimentos espaciales'' (\textbf{Spatial Bins}) con un tamaño proporcional al de la imagen de entrada \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con distinto nivel de detalle.
+%En primera instancia, \ac{SPP} se utiliza para construir el descriptor de imagen, situándose para ello tras las capas convolucionales de la \ac{CNN}. Así, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de las imágenes de entrada) procesados por las capas convolucionales de la \ac{CNN} (en el caso de Swiftnet, \textbf{ResNet-18} \cite{swiftnet}), y los divide en un número de ``compartimentos espaciales'' (\textbf{Spatial Bins}) con un tamaño proporcional al de la imagen de entrada \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con distinto nivel de detalle.
 
-Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor granularidad y, por ende, habrá mayor o menor información para el descriptor de imagen. Cuando se procese el descriptor en los sistemas de regresión, la estimación será más fiel a la realidad conforme aumente el nivel de agrupación, aunque de esto hablaremos en el siguiente capítulo.
+%Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor granularidad y, por ende, habrá mayor o menor información para el descriptor de imagen. Cuando se procese el descriptor en los sistemas de regresión, la estimación será más fiel a la realidad conforme aumente el nivel de agrupación, aunque de esto hablaremos en el siguiente capítulo.
 
-%TODO_DONE: faltan muchos detalles, debes explicar paso a paso en qué consisten estas pirámides, si tienes dudas me puedes preguntar. Con un par de párrafos valdría.
+%TODO: te dejo comentados los párrafos anteriores porque están mal, debes mirar la descripción que he hecho del SPP en el fichero anterior y añadirla aquí, ya que lo que tienes es incorrecto. Espero que ahora ya sepas lo que es el SPP. Lo has confundido con otro técnica, con el mismo nombre, que se emplea en CNN.
 
 \section{Sistemas de regresión}
 
