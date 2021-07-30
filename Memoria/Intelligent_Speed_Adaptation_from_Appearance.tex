@@ -1,7 +1,7 @@
 \chapter{$ISA^{2}$}
 \label{ch:isa2}
 
-Hemos hablado en la introducción sobre las soluciones \ac{ISA} a grandes rasgos y la principal novedad de $ISA^{2}$ frente a éstas. En este capítulo vamos a comenzar revisando el estado del arte (Sección \ref{sec:isa2_estado_del_arte}, destacando trabajos relacionados en el ámbito de las soluciones \ac{ISA}. En la Sección \ref{sec:isa2_model}, detallaremos el sistema $ISA^{2}$ sobre el que hemos trabajado en este proyecto. Finalmente, la Sección \ref{sec:isa2_modelo_nuevo} incluye la descripción de los cambios que hemos implementado sobre el sistema original para hacerlo más rápido y eficaz.
+Hemos hablado en la introducción sobre las soluciones \ac{ISA} a grandes rasgos y la principal novedad de $ISA^{2}$ frente a éstas. En este capítulo vamos a comenzar revisando el estado del arte (Sección \ref{sec:isa2_estado_del_arte}), destacando trabajos relacionados en el ámbito de las soluciones \ac{ISA}. En la Sección \ref{sec:isa2_model}, detallaremos el sistema $ISA^{2}$ sobre el que hemos trabajado en este proyecto. Finalmente, la Sección \ref{sec:isa2_modelo_nuevo} incluye la descripción de los cambios que hemos implementado sobre el sistema original para hacerlo más rápido y eficaz.
 
 
 \section{Trabajos relacionados}
@@ -66,12 +66,12 @@ El sistema comienza realizando una \ac{SS} de la imagen de entrada. La \ac{SS} e
   \begin{subfigure}[b]{0.45\linewidth}
     \includegraphics[width=\linewidth]{Figuras/Imagen_Original.eps}
     \caption{Imagen Original}
-    \label{fig:ImgOrig}
+    \label{fig:Original}
   \end{subfigure}
     \begin{subfigure}[b]{0.5\linewidth}
     \includegraphics[width=\linewidth]{Figuras/Ejemplo_Imagen_Segmentada.eps}
     \caption{Imagen Segmentada}
-    \label{fig:ImgSegm}
+    \label{fig:Segmentada}
   \end{subfigure}
   \caption{Ejemplo de \ac{SS}}
   \label{fig:SS}
@@ -82,28 +82,32 @@ En la figura \ref{fig:SS} se puede ver la imagen de un camión, entre otros elem
 
 Para la \ac{SS}, el modelo en \cite{isa2} empleó la arquitectura conocida como \textbf{DeepLab} \cite{deeplab}. \textbf{DeepLab} necesita recibir como entrada la imagen en diferentes escalas. Este modelo tenía como base una \ac{CNN}, es decir, una \textbf{Red Neuronal Convolucional} \cite{cnn}, llamada \textbf{ResNet-101} \cite{resnet}.
 
-Para la primera de versión de $ISA^{2}$ \cite{isa2}, DeepLab se entrenó con imágenes en diferentes escalas como entrada, usando factores de escalado de \textbf{0.5}, \textbf{0.75} y \textbf{1}. Más adelante se fusionaban las predicciones de la segmentación para cada escala, cogiendo la mejor respuesta dada por la red en cada escala. Puesto que la base de datos de $ISA^{2}$ no tenía máscaras de segmentación (anotaciones de \ac{SS} para poder compararlas con las predicciones), DeepLab se entrenó sobre la base de datos de \textbf{Cityscapes} \cite{cityscapes}.
+Para la primera de versión de $ISA^{2}$ \cite{isa2}, DeepLab se entrenó con imágenes en diferentes escalas como entrada, usando factores de escalado de \textbf{0.5}, \textbf{0.75} y \textbf{1}. Más adelante se fusionaban las predicciones de la segmentación para cada escala, cogiendo la mejor respuesta dada por la red en cada una. Puesto que la base de datos de $ISA^{2}$ no tenía máscaras de segmentación (anotaciones de \ac{SS} para poder compararlas con las predicciones), DeepLab se entrenó sobre la base de datos de \textbf{Cityscapes} \cite{cityscapes}.
 %TODO_DONE: falta una breve descripción del modelo. Un párrafo es suficiente.
  
 
 %TODO_DONE: Falta convertir estos item en párrafos como yo he hecho con el primero. Hay que explicar cada paso en detalle: los histogramas, las pirámides (qué son?, niveles?, cómo se computan?), los modelos de regresión que se probaron, etc.
 
-Tras este proceso, mediante unos códigos de \textbf{Matlab} se recogían los datos de los píxeles ya segmentados y se organizaban en histogramas para cada imagen. Estos histogramas se organizaban según la subcarpeta de imágenes correspondiente (\textbf{H1} y \textbf{H2} para Highway y \textbf{U1}, \textbf{U2} y \textbf{U3} para Urban) para mostrar el porcentaje de píxeles referentes a una etiqueta en una determinada imagen. Basándonos en los histogramas generados, usábamos una estrategia llamada \ac{SPP} \cite{spp} para crear un descriptor de imagen por cada histograma.
+Tras este proceso, mediante unos códigos de \textbf{Matlab} se recogían los datos de los píxeles ya segmentados y se organizaban en histogramas para cada imagen. Estos histogramas se organizaban según la subcarpeta de imágenes correspondiente (\textbf{H1} y \textbf{H2} para Highway y \textbf{U1}, \textbf{U2} y \textbf{U3} para Urban) para mostrar el porcentaje de píxeles referentes a una etiqueta en una determinada imagen. Basándonos en los histogramas generados, usábamos una estrategia crucial para el sistema llamada \ac{SPP} \cite{spp} para crear un descriptor de imagen por cada histograma, los cuales usaríamos como dato de entrada para los sistemas de regresión posteriores.
+
+Sin embargo, ¿qué es \ac{SPP} y por qué es tan importante?
+
+\subsection{Spatial Pyramid Pooling (SPP)}
+
+\ac{SPP} (también conocida como ``multi-level pooling'') es una técnica usada para que cualquier imagen, en cualquier escala, pueda ser procesada correctamente por una \ac{CNN}. Consiste en la agrupación de distintas imágenes de entrada procesadas, con diferente escalado, para obtener una salida uniforme. Existen \ac{CNN}s que requieren de una escala fija en una imagen de entrada para conseguir un procesamiento óptimo, por lo que se limita la precisión de la predicción. Aplicando \ac{SPP} al final de una \ac{CNN} esta limitación desaparece.
+
+Para ello, y siguiendo la figura \ref{fig:spp}, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de la imagen de entrada) procesados por las capas convolucionales previas a ésta, y los divide en un número de ``compartimentos espaciales'' con un tamaño proporcional al de la imagen \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con diferentes niveles de detalle. Dependiendo del nivel de agrupación que se quiera usar habrá un mayor o menor nivel de granularidad y, por ende, habrá más o menos información para el descriptor de imagen.
+
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{Figuras/SPP.eps}
+\includegraphics[width=10cm]{Figuras/SPP.eps}
 \caption{\ac{SPP}}
 \label{fig:spp}
 \end{figure}
 
-Como se puede ver en la figura \ref{fig:spp}, \ac{SPP} (también conocida como ``multi-level pooling'') es una técnica usada para que cualquier imagen, en cualquier escala, pueda ser procesada correctamente por una \ac{CNN}. Consiste en la agrupación de distintas imágenes de entrada procesadas, con diferente escalado, para obtener una salida uniforme. Existen \ac{CNN}s que requieren de una escala fija para una imagen de entrada para un procesamiento óptimo, por lo que se limita la precisión de la predicción. Aplicando \ac{SPP} al final de una \ac{CNN} esta limitación desaparece.
 
-
-Para ello, y siguiendo la figura \ref{fig:spp}, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de las imágenes de entrada) procesados por las capas convolucionales previas a ésta, y los divide en un número de ``compartimentos espaciales'' con un tamaño proporcional al de la imagen \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con diferentes niveles de detalle. Dependiendo del nivel de agrupación que se quiera usar habrá un mayor o menor nivel de granularidad y, por ende, habrá mayor o menor información para el descriptor de imagen.
-
-
-Una vez conseguíamos el descriptor generado en el paso anterior, éste se pasaba a diferentes sistemas de regresión (programados en MatLab): \textbf{Lineal}, \textbf{Lasso}, \textbf{Boosting Trees} y \ac{SVR}, de los cuales hablaremos más adelante. Para cada uno de ellos se añadía \ac{SI} (nivel de granularidad) usando \ac{SPP} de hasta 3 niveles de agrupación para poder compararlos entre sí y saber cuál era mejor (\cite{isa2}). Para ello cogíamos los mejores resultados de cada sistema entre todos los niveles usados, y los usábamos como referencia del sistema.
+Una vez conseguíamos el descriptor generado en el paso anterior, éste se pasaba a diferentes sistemas de regresión (programados en MatLab): \textbf{Lineal}, \textbf{Lasso}, \textbf{Boosting Trees} y \ac{SVR}, de los cuales hablaremos más adelante. Para cada uno de ellos se añadía un cierto nivel de granularidad usando \ac{SPP} de hasta 3 niveles de agrupación para poder compararlos entre sí y saber cuál era mejor (\cite{isa2}). Para ello cogíamos los mejores resultados de cada sistema entre todos los niveles usados, y los usábamos como referencia del modelo $ISA^{2}$.
 
 %TODO_DONE: toda esta subsección hay que moverla al capítulo de resultados, donde explicas la métrica
 
@@ -111,11 +115,11 @@ Una vez conseguíamos el descriptor generado en el paso anterior, éste se pasab
 \label{sec:isa2_modelo_nuevo}
 El trabajo fundamental de este TFG ha consistido en mejorar el sistema tradicional $ISA^{2}$. Nuestro objetivo con este TFG es el de conseguir un sistema $ISA^{2}$ que pueda funcionar en tiempo real, y que consuma pocos recursos de GPU, para poder ser embebido en una plataforma de procesado dentro de un vehículo inteligente. La solución descrita en \cite{isa2} no cumplía ninguno de estos requisitos, principalmente por el sistema DeepLab que llevaba integrada. DeepLab es un modelo que da excelentes prestaciones en cuanto a segmentación semántica se refiere, pero no funciona en tiempo real, y además necesita una tarjeta de procesado con mucha memoria de GPU y muy alto consumo.
 
-Los modelos en tiempo real tienen, como principal objetivo, cumplir con los resultados de un modelo basado en \ac{DCNN} como DeepLab, ya que éstos son los que mejores prestaciones suelen dar debido a los recursos computacionales tan potentes que usan, sin los inconvenientes que ellos mismos traen consigo. Modelos como ERFNet \cite{erfnet} o ICNet \cite{icnet} lo consiguen usando arquitecturas más ligeras en comparación (aunque no sean las adecuadas el reconocimiento de imágenes a gran escala).
+Los modelos en tiempo real tienen, como principal objetivo, cumplir con los resultados de un modelo basado en \ac{DCNN} como DeepLab, ya que éstos son los que mejores prestaciones suelen dar debido a los recursos computacionales tan potentes que usan, sin los inconvenientes que ellos mismos traen consigo. Modelos como ERFNet \cite{erfnet} o ICNet \cite{icnet} lo consiguen usando arquitecturas más ligeras en comparación (aunque no sean las adecuadas para el reconocimiento de imágenes a gran escala).
 
-Uno de los inconvenientes más importantes de los modelos en tiempo real es el campo de visión \cite{swiftnet}. El campo de visión es realmente grande cuando se trabaja con modelos como DeepLab porque su arquitectura puede soportar tales cantidades de información mientras que en los modelos en tiempo real, éste se reduce. Es por ello que actualmente se tratan con técnicas como \textbf{pirámides de resolución} (\textit{resolution pyramids}) o \textbf{conexiones laterales} (\textit{lateral connections}) para compensarlo.
+Uno de los inconvenientes más importantes de los modelos en tiempo real es el campo de visión \cite{swiftnet}. El campo de visión es realmente grande cuando se trabaja con modelos como DeepLab porque su arquitectura puede soportar tales cantidades de información mientras que en los modelos en tiempo real, éste se reduce. Es por ello que actualmente se tratan con técnicas como \textbf{pirámides de resolución} (\textit{resolution pyramids}) o \textbf{conexiones laterales} (\textit{lateral connections}) para compensarlo (\cite{res_pyr}, \cite{lat_con}).
 
-Por otro lado, la principal ventaja (y la más evidente) de estos modelos es el bajo consumo de GPU en comparación, además del uso de arquitecturas mucho más ligeras que en la otra clase de modelos. Esto hace posible el procesado de imágenes sea más rápido y, por lo tanto, la toma de decisiones también.
+Por otro lado, la principal ventaja (y la más evidente) de estos modelos es el bajo consumo de GPU en comparación, además del uso de arquitecturas mucho más ligeras que en la otra clase de modelos. Esto hace posible que el procesado de imágenes sea más rápido y, por lo tanto, la toma de decisiones también.
 
 Como ya hemos dicho lo ideal sería encontrar un modelo en tiempo real que pueda detectar los objetos de las imágenes con una precisión exquisita, y con un bajo consumo de la GPU, y poco a poco se está consiguiendo.
 %TODO_DONE: Sigue motivanto tú el trabajo, saca información del artículo siftwnet. en la intro se ve que hay familias de modelos que funcionan en real-time, ventajas, inconvenientes.
@@ -137,7 +141,7 @@ Como se puede comprobar, el esquema de la figura \ref{fig:Isa_v2} sigue el mismo
 
 \item Las imágenes de entrada al modelo de \ac{SS} no llegan en diferentes escalas como se podría intuir. La razón de por qué es así es Swiftnet: El modelo admite tanto imágenes en diferentes escalas como imágenes con una única escala. Sin embargo, para este proyecto hemos optado por la recomendación de los autores \cite{github_swiftnet} y hemos decidido hacerlo con una única escala. De esta manera hemos obtenido los resultados esperados con la base de datos de \textbf{Cityscapes} \cite{cityscapes} que ellos mismos utilizaron \cite{swiftnet}.
 
-\item La segunda, y última, modificación es la más obvia: la sustitución del modelo de DeepLab \cite{deeplab} por el modelo de Swiftnet \cite{swiftnet}. A diferencia del primero, Swiftnet es un modelo que opera en tiempo real (\textbf{Real-Time}) de tal modo que cuando procesa una imagen lo hace en el momento, a una tasa de 39.9 \ac{FPS} \cite{swiftnet}. %TODO_DONE: añade la velocidad a la que funciona en frames por segundo, seguro que viene en el paper original de siftnet.
+\item La segunda, y última, modificación es la más obvia: la sustitución del modelo de DeepLab \cite{deeplab} por el modelo de Swiftnet \cite{swiftnet}. A diferencia del primero, Swiftnet es un modelo que opera en tiempo real (\textbf{Real-Time}) de tal modo que cuando procesa una imagen lo hace en el momento, a una tasa de 39.9 \ac{FPS} (para la base de datos de Cityscapes, que es con la que extrajo este dato).%TODO_DONE: añade la velocidad a la que funciona en frames por segundo, seguro que viene en el paper original de siftnet.
 
 \end{enumerate}
 

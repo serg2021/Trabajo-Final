@@ -17,7 +17,7 @@ Es por ello que antes de trabajar con el modelo de Swiftnet \cite{swiftnet} tene
   \caption{Conda}
 \end{figure}
 
-Antes de crear ningún entorno, primero hay que instalar Conda en la máquina con la que vamos a trabajar en este proyeco. Para ello descargamos \textbf{Miniconda} (un instalador de Conda) para Python 2.7 \cite{miniconda_install}. Una vez descargado ya podemos crear entornos Conda.
+Antes de crear ningún entorno, primero hay que instalar Conda en la máquina con la que vamos a trabajar en este proyecto. Para ello descargamos \textbf{Miniconda} (un instalador de Conda) para Python 2.7 \cite{miniconda_install}. Una vez descargado ya podemos crear entornos Conda.
 
 
 Para crear el entorno Conda sobre el que trabajar basta con abrir un terminal del sistema operativo y escribir el siguiente comando:
@@ -26,7 +26,7 @@ Para crear el entorno Conda sobre el que trabajar basta con abrir un terminal de
 \textit{conda create --name swiftnet python=3.7}
 \end{center}
 
-En este caso estamos creando un entorno Conda llamado \textbf{swiftnet} con la versión de \textbf{Python 3.7} (la necesaria para el modelo de Swiftnet, aunque se admiten versiones superiores  \cite{github_swiftnet}). Y lo activamos con:
+En este caso estamos creando un entorno Conda llamado \textbf{swiftnet} con la versión de \textbf{Python 3.7} (la necesaria para el modelo Swiftnet, aunque se admiten versiones superiores  \cite{github_swiftnet}). Y lo activamos con:
 
 \begin{center}
 \textit{conda activate swiftnet}
@@ -57,7 +57,7 @@ A continuación enumeramos los paquetes que quedan para poder ejecutar Swiftnet:
 \begin{enumerate}
 \item opencv \cite{opencv}
 \item pytorch torchaudio=0.4.0 cudatoolkit=10.0 \cite{pytorch}
-\item cython
+\item cython \cite{cython}
 \end{enumerate}
 
 Cabe destacar que ponemos dichos paquetes con estas versiones porque las especificaciones de nuestra máquina lo requerían. Si se quiere reproducir el resultado de este proyecto, puede que no sean las mismas versiones de estos paquetes los que haya que instalar, dependerá de la máquina sobre la que se trabaje.
@@ -71,7 +71,16 @@ Siguiendo con la operativa, pasamos a descargar la base de datos de Cityscapes s
 
 Para la ejecución del modelo tomaremos como referencia la base de datos de Cityscapes \cite{cityscapes}, como viene indicado en la guía de éste \cite{github_swiftnet}, para poder comparar los resultados con los del paper de Swiftnet \cite{swiftnet}.
 
-Cityscapes es una base de datos que contiene imágenes de secuencias de vídeos en diferentes ciudades y escenarios. Descargaremos los siguientes archivos ``.zip'': \textbf{leftImg8bit\_trainvaltest.zip} y \textbf{gtFine\_trainvaltest.zip}. En el primero vienen tanto un set de imágenes preparadas para poder entrenar el modelo (\textbf{train}), como un set para evaluarlo (\textbf{val}) y otro para probarlo (\textbf{test}); nosotros nos quedaremos con los sets de evaluación y de entrenamiento (\textbf{val} y \textbf{train}). En el segundo, hay información acerca de las máscaras de segmentación de las imágenes del primer archivo; viene en diferentes formatos y está organizado con el mismo sistema de carpetas de antes (\textbf{test}, \textbf{train} y \textbf{val}). Concretando para este segundo archivo, la información viene dada en forma de anotaciones sobre las etiquetas que hay en las imágenes originales. Más adelante concretaremos qué parte de ésta es necesaria para la correcta ejecución del modelo.
+Cityscapes es una base de datos que contiene imágenes de secuencias de vídeos en diferentes ciudades y escenarios. Descargaremos los siguientes archivos ``\textbf{.zip}'':
+
+\begin{itemize}
+\item \textbf{leftImg8bit\_trainvaltest.zip}
+\item \textbf{gtFine\_trainvaltest.zip}
+\end{itemize}
+
+En el primero vienen tanto un set de imágenes preparadas para poder entrenar el modelo (\textbf{train}), como un set para evaluarlo (\textbf{val}) y otro para probarlo (\textbf{test}); nosotros nos quedaremos con los sets de evaluación y de entrenamiento (\textbf{val} y \textbf{train}).
+
+En el segundo, hay información acerca de las máscaras de segmentación de las imágenes del primer archivo; viene en diferentes formatos y está organizado con el mismo sistema de carpetas de antes (\textbf{test}, \textbf{train} y \textbf{val}). Concretando para este segundo archivo, la información, en parte, viene dada en forma de anotaciones sobre las etiquetas que hay en las imágenes originales en archivos ``\textbf{.json}''. Más adelante concretaremos qué parte de ésta es necesaria para la correcta ejecución del modelo.
 
 En la siguiente figura, se puede ver un ejemplo de cómo son ambos archivos:
 
@@ -91,7 +100,7 @@ En la siguiente figura, se puede ver un ejemplo de cómo son ambos archivos:
   \end{subfigure}
 \end{figure}
 
-Antes de continuar, es recomendable cambiar el nombre de las bases de datos que se han descargado de Cityscapes por nombres más sencillos por comodidad. En nuestro caso, llamamos \textbf{labels} a la carpeta que contiene las etiquetas de las imágenes (241 MB) y \textbf{rgb} a la carpeta que contiene las imágenes (11 GB).
+Antes de continuar, es recomendable cambiar el nombre de las bases de datos que se han descargado de Cityscapes por nombres más sencillos por comodidad. En nuestro caso, llamamos \textbf{labels} a la carpeta que contiene las etiquetas de las imágenes (\textbf{gtFine\_trainvaltest}) y \textbf{rgb} a la carpeta que contiene las imágenes (\textbf{leftImg8bit\_trainvaltest}).
 
 Cuando esté descargada la base de datos, vamos a la carpeta referente a las etiquetas (\textbf{labels}). Una vez dentro, tenemos que, o bien borrar todos los archivos \textbf{instanceIds} y \textbf{color}, o bien moverlos en otra carpeta. Esto es porque durante la ejecución del modelo, éste podría confundirse de archivos y coger los que queremos borrar (o mover), y nos interesa que utilice sólo los llamados \textbf{labelIds}. También aparecen unos archivos con la extensión \textbf{.json} que es conveniente dejarlos tal y como están.
 
@@ -112,9 +121,9 @@ Pasamos a explicarlos.
 
 \subsection{Error de lib.cylib}
 
-Este error se da porque aún no se ha creado un módulo de \textbf{cython} \cite{cython} necesario para evaluar las métricas del modelo. Se consigue ejecutando el código del archivo \textbf{build.sh} que se encuentra en la carpeta \textbf{lib\textbackslash{}} de éste.
+Este error se da porque aún no se ha creado un módulo de \textbf{cython} \cite{cython} necesario para evaluar las métricas del modelo. Se consigue ejecutando el código del archivo \textbf{build.sh} que se encuentra en la carpeta \textbf{lib} de éste.
 
-Sin embargo, antes de ejecutarlo conviene modificarlo de la siguiente manera, tal y como mostramos en la Figura \ref{fig:cylib}.
+Sin embargo, antes de ejecutarlo conviene modificarlo de la siguiente manera, tal y como mostramos en la Figura \ref{fig:cylib}:
 
 \begin{figure}[H]
   \centering
@@ -131,11 +140,11 @@ Tras hacerlo, lo ejecutamos con el siguiente comando:
 
 Si nos sale algún error porque falta algún paquete por instalar, volvemos al comando que utilizamos para instalar paquetes por Conda y los instalamos de forma sencilla.
 
-Como se puede observar en la figura \ref{fig:cylib}, el archivo está en \textbf{Shell Script} \cite{shell} y a través de éste se crean los archivos \textbf{cylib.so}, \textbf{cylib.cc} y \textbf{cylib.html}.
+Como se puede observar en la figura \ref{fig:cylib}, el archivo está en \textbf{Shell Script} \cite{shell} y a través de éste se crean los archivos \textbf{cylib.so}, \textbf{cylib.cc} y \textbf{cylib.html}, necesarios para la ejecución del modelo.
 
 Cabe destacar otra observación muy importante en la figura: Hay que modificar las líneas en las que se hace referencia al sistema de archivos propio de la máquina sobre la que se trabaja.
 
-En nuestro caso, tenemos la siguiente ruta seguida de los directorios que se han creado al haber instalado los paquetes previos a la ejecución del modelo:
+En nuestro caso, tenemos la siguiente ruta seguida de los directorios que se han creado al haber instalado \textbf{Conda} y los paquetes previos a la ejecución del modelo:
 
 \begin{center}
 \textit{\textbackslash{home}\textbackslash{sergios}\textbackslash{miniconda2}\textbackslash{envs}\textbackslash{swiftnet}}
@@ -145,7 +154,7 @@ Es muy importante cambiar esa ruta por la de la máquina sobre la que se trabaje
 
 Por otro lado, el resto de la ruta no se cambia, ya que son paquetes comunes a cualquier usuario que intente ejecutar Swiftnet \cite{swiftnet}.
 
-Por último, puntualizar que la última parte comentada del archivo, que es muy similar a la que hemos modificado hace un momento, sirve para lo mismo pero utilizando Python 3.8. Si se quisiese utilizar este modelo con esa versión de Python habría que descomentarla y comentar la referente a Python 3.7. Lo demás se mantendría como está.
+Por último, puntualizar que la última parte comentada del archivo, que es muy similar a la que hemos modificado hace un momento, sirve para lo mismo pero utilizando \textbf{Python 3.8}. Si se quisiese utilizar este modelo con esa versión de Python habría que descomentarla y comentar la referente a Python 3.7. Lo demás se mantendría como está.
 
 \subsection{Error de GLIBCXX}
 
@@ -175,7 +184,7 @@ Al usarla, conseguimos nuestro objetivo y podemos seguir avanzando en la ejecuci
 
 \section{PyTorch}
 
-Anteriormente lo hemos mencionado, y a diferencia de otros paquetes de instalación, éste conviene explicarlo más en detalle, pues es la librería para Deep Learning en la que se basa Swiftnet para hacer la \ac{SS}.
+Anteriormente lo hemos mencionado, y a diferencia de otros paquetes de instalación, éste conviene explicarlo más en detalle, pues es la librería para \textbf{deep learning} en la que se basa Swiftnet para hacer la \ac{SS}.
 
 \begin{figure}[H]
   \centering
@@ -226,12 +235,12 @@ Así pues, una vez tenemos Pycharm podemos pasar a ejecutar Swiftnet, el cual fu
 \item En primera instancia, Swiftnet carga las especificaciones del archivo de configuración \textbf{rn18\_single\_scale.py} que pasaremos a modificar a continuación.
 \item Más adelante, carga la información de las etiquetas (persona, carretera, vehículo, \ldots).
 \item A continuación, carga el modelo de \ac{SS} que se va a utilizar con CUDA \cite{cuda}.
-\item Por último, evalúa el modelo cargado usando las imágenes de la base de datos de Cityscapes, la información de las etiquetas, etc. Para evaluarlo sigue los siguientes pasos:
+\item Por último, evalúa el modelo cargado usando las imágenes de la base de datos de Cityscapes, la información de las etiquetas, \ldots Para evaluarlo sigue los siguientes pasos:
 
 \begin{itemize}
 \item Crea una pila para guardar las predicciones que se van a hacer de las imágenes de Cityscapes. Con \textbf{predicciones} nos referimos a \textbf{imágenes segmentadas por el modelo}.
 \item En la pila creada, se colorizarán las etiquetas de las predicciones y se formarán éstas. En esencia, la pila será la encargada de realizar estas funciones además de guardar los resultados en el directorio adecuado.
-\item Una vez se crea la pila, se crean lotes de imágenes que van a pasar por el modelo para que éste los vaya segmentando, es decir, el modelo va a ir etiquetando las imágenes del lote según las clases que detecte en las mismas.
+\item Una vez se crea la pila, se crean lotes de imágenes que van a pasar por el modelo para que éste los vaya segmentando. Es decir, el modelo va a ir etiquetando las imágenes del lote según las clases que detecte en las mismas.
 \item Una vez todo finaliza, se calcula el porcentaje de acierto que ha tenido el modelo con las imágenes reales. De ahí se extraen los datos que aparecen en el paper de Swiftnet.
 \end{itemize}   
 \end{enumerate}
@@ -257,11 +266,11 @@ Básicamente hay que modificarlas poniendo la \textbf{ruta absoluta} en cada una
 \textit{RemapLabels(Cityscapes.map\_to\_id, Cityscapes.num\_classes)}
 \end{center}
 
-Esta última es de vital importancia para el funcionamiento de Swiftnet. Cuando ejecutemos Swiftnet y no pongamos esta instrucción, cada vez que analice las etiquetas de una imagen se confundirá.
+Esta última es de vital importancia para el funcionamiento de Swiftnet. Cuando ejecutemos Swiftnet y no pongamos esta instrucción, cada vez que analice las etiquetas de una imagen se confundirá. Esto es porque cuando Swiftnet obtiene las etiquetas de Cityscapes (\textbf{data\textbackslash{cityscapes}\textbackslash{labels.py}}), filtra sólo las que le son necesarias.
 
-Esto es porque cuando Swiftnet obtiene las etiquetas de Cityscapes (\textbf{data\textbackslash{cityscapes}\textbackslash{labels.py}}), filtra sólo las que le son necesarias. Cada una de ellas viene identificada por un número (por ejemplo, la clase \textbf{carretera} tiene asociado el número 7). De este modo, cuando filtra las etiquetas, por cómo accede a ellas para saber cual es cual, obvia estos números y las identifica por el orden en que se han filtrado.
+Cada una de ellas viene identificada por un número (por ejemplo, la clase \textbf{carretera} tiene asociado el número 7). De este modo, cuando filtra las etiquetas, por cómo accede a ellas para saber cual es cual, obvia estos números y las identifica por el orden en que se han filtrado.
 
-Tomando el ejemplo de la clase \textbf{carretera}: Si esta clase tiene asociado el número 7, y ha sido filtrada en primer lugar, aunque el modelo detecte que en una imagen hay píxeles de la clase \textbf{carretera} (con el número 7), para él \textbf{carretera} tendrá el número 0 por ser la primera clase filtrada.
+Tomando el ejemplo de la clase \textbf{carretera}: Si esta clase tiene asociado el número 7, y ha sido filtrada en primer lugar, aunque el modelo detecte que en una imagen hay píxeles de la clase \textbf{carretera} (con el número 7), para él ``\textbf{carretera}'' tendrá el número 0 por ser la primera clase filtrada.
 
 Con la instrucción anterior evitamos ese tipo de errores.
 \end{enumerate}
@@ -273,7 +282,7 @@ Para que funcione Swiftnet, nos vamos al directorio \textbf{data} del modelo, y 
 
 \subsection{Archivo cityscapes.py}
 
-Éste archivo es el responsable de obtener las imágenes de la base de datos de Cityscapes pero si no hacemos los siguientes cambios no cumplirá con lo establecido:
+Este archivo es el responsable de obtener las imágenes de la base de datos de Cityscapes pero si no hacemos los siguientes cambios no cumplirá con lo establecido:
 
 \begin{enumerate}
 \item \textbf{home = Path.home()} en la línea 5.
@@ -294,7 +303,7 @@ Cambiamos la ruta por donde va a obtener las etiquetas de Cityscapes.
 
 \item \textbf{self.images = list(sorted(self.images\_dir.glob('*\textbackslash{*.png}')))} en la línea 48.
 
-Como se puede ver, la instrucción es la misma salvo en el final: Simplemente obtenemos una lista ordenada de archivos \textbf{.png} de la base de datos de Cityscapes y la guardamos en la variable \textbf{self.images}.
+Obtenemos una lista ordenada de archivos \textbf{.png} de la base de datos de Cityscapes y la guardamos en la variable \textbf{self.images}.
 \end{enumerate}
 
 \subsection{Evaluación final en Cityscapes}
@@ -307,7 +316,9 @@ Para concluir con una evaluación de resultados de segmentación semántica en C
 
 Si hemos hecho todo bien, obtendremos los mismos resultados que en el paper de Swiftnet \cite{swiftnet} en la carpeta \textbf{out} del directorio \textbf{configs} (las imágenes vendrán en formato \textbf{.jpg}).
 
-Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la máscara de segmentación de la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. Esto se puede cambiar en el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation}. He aquí un ejemplo del resultado original y del resultado modificado:
+Cuando veamos las imágenes segmentadas, veremos que aparecen la imagen real procesada en primer lugar, la imagen segmentada a continuación, y por último la máscara de segmentación de la imagen real mostrándonos las etiquetas originales para poder obtener el \ac{IoU} de cada una y el \ac{mIoU} final \cite{miou-iou}. En el siguiente capítulo explicaremos estas métricas.
+
+Esto se puede cambiar en el archivo \textbf{prediction.py} de la carpeta \textbf{evaluation}. He aquí un ejemplo del resultado original y del resultado modificado:
 
 \begin{figure}[H]
 \centering
@@ -335,27 +346,30 @@ Con esa simple modificación podemos ver únicamente la imagen segmentada en los
 \section{Ejecutando Swiftnet sobre $ISA^{2}$}
 %TODO_DONE: todo lo que viene aquí hay que sacarlo de esta subsección y ponerlo en esta sección. Cambia el texto e introduce el problema, ahora vamos a contar nuestra implementación, ya no hay más configuraciones de entorno, ni pruebas de métrica con el paper de switnet
 
-Sin embargo, nuestro trabajo no lo hemos realizado con la base de datos de Cityscapes, sino con la de $ISA^{2}$ \cite{isa2}. Para hacerlo con esa base de datos simplemente hay que:
+Sin embargo, nuestro trabajo no lo hemos realizado con la base de datos de Cityscapes, sino con la de $ISA^{2}$ \cite{isa2}. Para hacerlo con esta nueva base de datos simplemente hay que:
 
 \begin{itemize}
-\item Cambiar las rutas de la base de datos de Cityscapes y sustituirlo por $ISA^{2}$ en el archivo \textbf{rn18\_single\_scale.py} en las líneas que modificamos previamente.
+\item Cambiar las rutas de la base de datos de Cityscapes y sustituirlas por las de $ISA^{2}$ en el archivo \textbf{rn18\_single\_scale.py}, en las líneas que modificamos.
 \item Comentar las líneas 77, 79, 82 del archivo \textbf{evaluation\textbackslash{evaluate.py}}.
 \item Modificar el archivo \textbf{cityscapes.py} de la siguiente manera:
 
 \begin{enumerate}
-\item Justo debajo de la instrucción \textbf{self.root = home} hay que poner \textbf{self.subset = subset}
+\item Tras la instrucción \textbf{self.root = home} hay que poner \textbf{self.subset = subset}
 \item \textbf{self.images\_dir = self.root \textbackslash{} 'Desktop' \textbackslash{} 'swiftnet' \textbackslash{} 'datasets' \textbackslash{} 'ISA2'} en la línea 42.
 \item Comentar las líneas en las que se inicializan las variables \textbf{self.labels\_dir} y \textbf{self.depth\_dir}.
 \item \textbf{self.images = list(sorted(self.images\_dir.glob('*\textbackslash{*}\textbackslash{*.jpeg}')))} en la línea 48
 \item Comentar las líneas 65 y 66
 \end{enumerate}
 
-\item Por último, modificar la clase \textbf{StorePreds} del archivo \textbf{prediction.py} en la carpeta \textbf{evaluation\textbackslash{}} siguiendo las instrucciones:
+\item Por último, modificar la clase \textbf{StorePreds} del archivo \textbf{prediction.py} en la carpeta \textbf{evaluation} siguiendo las instrucciones:
 
 \begin{enumerate}
 \item \textbf{import scipy.io} en la línea 3
 \item \textbf{from scipy.io import savemat} en la línea 4
-\item Cambiar la instrucción de la línea 28 por la siguiente: \textbf{scipy.io.savemat(f'{self.store\_dir}\textbackslash{ISA2}\textbackslash{{name}.mat}', {''name'': name, ''data'' : p})}
+\item Cambiar la instrucción de la línea 28 por la siguiente:
+\begin{center}
+\item \textit{scipy.io.savemat(f'{self.store\_dir}\textbackslash{ISA2}\textbackslash{{name}.mat}', {''name'': name, ''data'' : p})}
+\end{center}
 \end{enumerate}
 
 Con estas modificaciones tan sencillas podemos trabajar con la base de datos de $ISA^{2}$. En nuestro caso, hemos hecho multitud de modificaciones en esos archivos para automatizar el modelo, es decir, guardar todas las imágenes procesadas en sus correspondientes carpetas. Sin embargo, lo hemos hecho por comodidad y no es necesario hacerlo; con las instrucciones anteriores es suficiente para ejecutar el modelo correctamente.
@@ -364,7 +378,7 @@ Cabe destacar que en el archivo \textbf{prediction.py}, siguiendo las figuras, s
 
 \end{itemize}
 
-Ejecutando del modelo de nuevo con la anterior instrucción, obtendremos los resultados para esta nueva implementación:
+Ejecutando el modelo de nuevo con la anterior instrucción, obtendremos los resultados para esta nueva implementación:
 
 \begin{center}
 \textit{python eval.py configs\textbackslash{rn18\_single\_scale.py}}
@@ -400,13 +414,13 @@ Simplemente hay que actualizar las rutas para que recoja los resultados de Swift
 
 Aplicando estos cambios obtenemos unos archivos en formato \textbf{.mat} (como los resultados de Swiftnet), que contienen los histogramas correspondientes a cada imagen de cada subcarpeta de la base de datos de $ISA^{2}$.
 
-Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 4 niveles de agrupación (\textbf{pooling}), es decir, añadiendo más \ac{SI} en el descriptor dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
+Es en este punto del proyecto en el que se utiliza la técnica de \ac{SPP} \cite{spp} de la que hablábamos en un principio para generar el descriptor de imagen que, posteriormente, se pasará a cada uno de los sistemas de regresión. En el siguiente paso, se volverá a utilizar para comprobar la efectividad de estos sistemas para 4 niveles de agrupación (\textbf{pooling}), es decir, añadiendo más información en el descriptor dependiendo del nivel de \ac{SPP} que se utilice \cite{isa2}.
 
 Previo a continuar es necesario recordar \ac{SPP} y su importancia en la realización del proyecto.
 
 En primera instancia, \ac{SPP} se utiliza para construir el descriptor de imagen, situándose para ello tras las capas convolucionales de la \ac{CNN}. Así, \ac{SPP} recoge los mapas de características (de un tamaño cualquiera y provenientes de las imágenes de entrada) procesados por las capas convolucionales de la \ac{CNN} (en el caso de Swiftnet, \textbf{ResNet-18} \cite{swiftnet}), y los divide en un número de ``compartimentos espaciales'' (\textbf{Spatial Bins}) con un tamaño proporcional al de la imagen de entrada \cite{spp2}. Estos compartimentos vendrán dados con diferente granularidad, es decir, con distinto nivel de detalle.
 
-Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor granularidad y, por ende, habrá mayor o menor información (\ac{SI}) para el descriptor de imagen. Cuando se procese el descriptor en los sistemas de regresión, la estimación será más fiel a la realidad conforme aumente el nivel de agrupación, aunque de esto hablaremos en el siguiente capítulo.
+Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor granularidad y, por ende, habrá mayor o menor información para el descriptor de imagen. Cuando se procese el descriptor en los sistemas de regresión, la estimación será más fiel a la realidad conforme aumente el nivel de agrupación, aunque de esto hablaremos en el siguiente capítulo.
 
 %TODO_DONE: faltan muchos detalles, debes explicar paso a paso en qué consisten estas pirámides, si tienes dudas me puedes preguntar. Con un par de párrafos valdría.
 
@@ -414,11 +428,11 @@ Dependiendo del nivel de agrupación que se quiera usar habrá mayor o menor gra
 
 Pasamos a explicar los diferentes sistemas de regresión que hemos aplicado en este proyecto para comprobar cuánta mejoría hay con respecto a la primera versión de $ISA^{2}$ \cite{isa2}.
 
-Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir lo vehículos según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de \textbf{pooling} (\ac{SPP}), como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
+Los sistemas de regresión sirven para calcular una estimación de la velocidad en cada imagen y compararla con la velocidad real a la que deberían ir los vehículos según la situación de la vía. Con cada uno de ellos aplicamos un nivel diferente de \textbf{pooling} (\ac{SPP}), como hemos explicado anteriormente, para comparar entre ellos cuál es más eficiente a través del \ac{MAE} \cite{mae}.
  
-El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores reales con los valores de predicción de la velocidad. Como se puede ver en la fórmula \ref{eq:mae}, \textit{X} es una matriz con los valores reales e \textit{Y} es una matriz con los valores de predicción.
+El \ac{MAE} es la métrica que usamos para establecer con qué sistema trabaja mejor el proyecto. Se basa en calcular la media de la diferencia absoluta de los valores reales con los valores de predicción de la velocidad. Como se puede ver en la siguiente fórmula, \textit{X} es una matriz con los valores reales e \textit{Y} es una matriz con los valores de predicción.
 
-\begin{equation}\label{eq:mae}
+\begin{equation}\label{eq:MAE}
 MAE = \frac{\sum_{i=1}^{n}|X_i - Y_i|}{n}
 \end{equation}
 
@@ -426,7 +440,7 @@ Más adelante veremos una serie de figuras en las que se verá representado.
 
 %TODO_DONE Añade fórmula.
 
-En cuanto a los modelos de regresión empleados en nuestra evaluación para sistemas $ISA^2$, pasamos a explicar nociones básicas de cada uno de ellos, sin entrar en mucho detalle:
+En cuanto a los modelos de regresión empleados en nuestra evaluación para sistemas $ISA^2$, pasamos a explicar nociones básicas de cada uno de ellos, sin entrar en mucho detalle.
 %TODO_DONE: para cada una de ellas añade la función de MATLAB que se emplea, y comenta sus parámetros de entrada.
 \subsection{Regresor Lineal}
 
@@ -491,7 +505,7 @@ Se consigue usando esta instrucción en nuestro código de MatLab:
 \textit{fitrsvm(X,Y,'KernelFunction', 'linear', 'KernelScale', 'auto')}
 \end{center}
 
-Los parámetros usados (ademas de las matrices \textit{X} e \textit{Y}) son: \textit{KernelFunction}, que sirve para entrenar el sistema usando una función kernel (Método de entrenamiento) \textit{lineal}, como viene especificado en la función; y \textit{KernelScale}, que sirve para determinar el parámetro de escala del núcleo (en nuestro caso, con valor \textit{auto}, es decir, mediante un proceso heurístico) \cite{fitrsvm}.
+Los parámetros usados (ademas de las matrices \textit{X} e \textit{Y}) son: \textit{KernelFunction}, que sirve para entrenar el sistema usando una función kernel (Método de entrenamiento) \textit{linear}, como viene especificado en la instrucción; y \textit{KernelScale}, que sirve para determinar el parámetro de escala del núcleo (en nuestro caso, con valor \textit{auto}, es decir, mediante un proceso heurístico) \cite{fitrsvm}.
 
 %Hemos detallado todo el proceso del sistema de $ISA^{2}$, junto a su implementación, en diferentes bloques. Cada uno de los bloques ha sido explicado según la relevancia que ha tenido durante la ejecución del proyecto y según los problemas que ha podido dar en el mismo, con su posterior solución.
 
