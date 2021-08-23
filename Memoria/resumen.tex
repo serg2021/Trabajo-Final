@@ -4,8 +4,8 @@
 %En el siguiente trabajo vamos a tratar de solucionar un problema que lleva existiendo desde la invención del automóvil de una forma que no se había visto antes. Con la creación de las normas que regulan el tráfico en las carreteras y la fabricación masiva de vehículos, es un hecho que la probabilidad de que ocurra un accidente es muy alta. Para solucionarlo se inventaron los sistemas \ac{ISA} \cite{reduccion} que ayudaron a reducir este número... Sin embargo, no son perfectos y tienen fallos.
 
 %Es por ello que aquí sugerimos nuestra solución con un nuevo y mejorado sistema: \[ISA^{2}\]
-En el siguiente trabajo mostramos una versión mejorada del sistema de adaptación de la velocidad $ISA^{2}$. Éste consiste en la estimación apropiada de la velocidad para un vehículo basándose en la situación del tráfico en un determinado momento capturada por una cámara. A diferencia de otros sistemas, éste predice la velocidad apropiada en lugar de la velocidad real, y para ello usamos diferentes sistemas de regresión de inteligencia artificial. El sistema realiza la regresión tomando como entrada una segmentación semántica de la imagen. En concreto, proponemos utilizar el sistema de segmentación conocido como Swiftnet, que combinado con un sistema de regresión empleando XXX, consigue un error medio para la estimación de la velocidad adecuada de tan solo XXX km/h.
-%TODO: Completa esto y luego lo traduces al Inglés abajo.
+En el siguiente trabajo mostramos una versión mejorada del sistema de adaptación de la velocidad $ISA^{2}$. Éste consiste en la estimación apropiada de la velocidad para un vehículo basándose en la situación del tráfico en un determinado momento capturada por una cámara. A diferencia de otros sistemas, éste predice la velocidad apropiada en lugar de la velocidad real, y para ello usamos diferentes sistemas de regresión de inteligencia artificial. El sistema realiza la regresión tomando como entrada una segmentación semántica de la imagen. En concreto, proponemos utilizar el sistema de segmentación conocido como Swiftnet, que combinado con un sistema de regresión empleando la técnica llamada \ac{SPP}, consigue un error medio para la estimación de la velocidad adecuada de tan solo 8.65 km\textbackslash{h}.
+%TODO_DONE: Completa esto y luego lo traduces al Inglés abajo.
 
 
 \vspace{0.5cm}
@@ -21,9 +21,7 @@ En el siguiente trabajo mostramos una versión mejorada del sistema de adaptaci�
 
 \chapter{Abstract}
 %\textcolor{red}{Resumen de 100 palabras MÁXIMO - Es OBLIGATORIO}\\
-In this work, we show an improved version of the intelligent speed adaptation system  $ISA^{2}$. It consists in the appropriate speed estimation for a vehicle on the basis of the traffic situation at a certain point of time. Unlike other systems, this one predicts the appropriate speed instead of the real speed, that is why we use different regression systems, artificial intelligence... In addition, we will use computer vision to analyse the images referred to the traffic situation taken by a camera.
-
-Therefore, all of the above will be used as a precedent for a future implementation in intelligent vehicles.
+In this work, we show an improved version of the intelligent speed adaptation system  $ISA^{2}$. It consists in the appropriate speed estimation for a vehicle on the basis of the traffic situation at a certain point of time captured by a camera. Unlike other systems, this one predicts the appropriate speed instead of the real speed, that is why we use different artificial intelligence regression systems. The system performs the regression taking as input the semantic segmentation of the image. To be more specific, we propose to use the segmentation system known as Swiftnet, which is combined with a regression system using the \ac{SPP} technique, getting a mean error for the estimation of the appropriate speed of just 8.65 km\textbackslash{h}.
 
 \vspace{0.5cm}
 

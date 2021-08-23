@@ -4,23 +4,23 @@
 \chapter{Introducción} 
 
 
-Durante todo el siglo XX, en España, han ocurrido más de 7.000.000 de accidentes de tráfico \cite{sigloXX}, de los que en aproximadamente en 250.000 han habido víctimas mortales \cite{vidas}. No sabemos cuántos de ellos fueron por exceso de velocidad; sin embargo, fue, y es, la principal causa de éstos junto con el factor humano \cite{dgt-velocidad}. 
+Durante todo el siglo XX, en España, han ocurrido más de 7.000.000 de accidentes de tráfico (\cite{sigloXX}), de los que aproximadamente en 250.000 han habido víctimas mortales (\cite{vidas}). No sabemos cuántos de ellos fueron por exceso de velocidad; sin embargo, fue, y es, la principal causa de éstos junto con el factor humano (\cite{dgt-velocidad}). 
 
-Durante ese tiempo se comenzaron a pensar soluciones para poder reducirlos, como la modificación de los límites de velocidad en la consecución de distintos gobiernos \cite{limites-velocidad}. Y fruto de ello, gracias a la evolución de la tecnología, surgieron los sistemas \ac{ISA} para regular la velocidad dentro del vehículo y ayudar así al conductor.
+Durante ese tiempo se comenzaron a pensar soluciones para poder reducirlos, como la modificación de los límites de velocidad en la consecución de distintos gobiernos (\cite{limites-velocidad}). Y fruto de ello, gracias a la evolución de la tecnología, surgieron los sistemas \ac{ISA} para regular la velocidad dentro del vehículo y ayudar así al conductor.
 
-No todos los sistemas \ac{ISA} son iguales y su uso no es el mismo para cada vehículo. Hay algunos cuya función consiste en el reconocimiento y recomendación de la limitación de velocidad, y otros que actúan como un limitador de la velocidad inteligente \cite{2022}; depende de la marca y el modelo donde de implementen.
+No todos los sistemas \ac{ISA} son iguales y su uso no es el mismo para cada vehículo. Hay algunos cuya función consiste en el reconocimiento y recomendación de la limitación de velocidad, y otros que actúan como un limitador de la velocidad inteligente (\cite{2022}); depende de la marca y el modelo donde se implementen.
 
-Actualmente se llevan utilizando durante bastante tiempo, y en 2022 serán obligatorios para los vehículos nuevos homologados en la Unión Europea. Modelos como el Mercedes Clase-S, el Peugeot 3008 y el Fiat 500X fueron pioneros usando esta tecnología \cite{2022}.
+Actualmente se llevan utilizando durante bastante tiempo, y en 2022 serán obligatorios para los vehículos nuevos homologados en la Unión Europea. Modelos como el Mercedes Clase-S, el Peugeot 3008 y el Fiat 500X fueron pioneros usando esta tecnología (\cite{2022}).
 
 %Un siglo después, gracias a la evolución de la tecnología, se crean los sistemas \ac{ISA}, que permiten establecer una velocidad aproximada para ayudar al conductor en cualquier situación de la vía.
 
 %TODO_DONE: No me convence el párafo, pasas de los accidentes a los ISA dando un gran salto. Los sistemsa ISA no han aparecido un siglo después, por cierto, llevan tiempo. Modifica el párrafo para hilar ambas cosas. ¿Cuántos accidentes se deben a excesos de velocidad? ¿Hay cifras? Regular la velocidad es importante, existen lo sistemas ISA. Habla de soluciones comerciales (hay muchos modelos de coches que los llevan, basados en sistemas de detección de señales de tráfico, GPS y meta información, sensores de proximidad, etc).
 
 
-Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas \cite{reduccion}.
+Con la creación de estos sistemas se estima que el número de accidentes se reduciría considerablemente, y más importante aún, el número de víctimas (\cite{reduccion}).
 
 
-Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, presentan algunos problemas. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en combinar la posición \ac{GPS} con meta-información asociada a la misma, en relación a la velocidad máxima permitida en la vía. Es decir, el módulo ISA comienza localizando mediante GPS la posición del vehículo, para luego consultar para esa posición, qué velocidad es la máxima permitida en dicha vía. Los principales problemas que pueden surgir, siguiendo este procedimiento, son los siguientes:
+Sin embargo, estos sistemas, a pesar de tener buenas prestaciones, presentan algunos problemas. Esto es debido a que la mayoría de sistemas \ac{ISA} están basados en combinar la posición \ac{GPS} con meta-información asociada a la misma, en relación a la velocidad máxima permitida en la vía. Es decir, el módulo \ac{ISA} comienza localizando mediante \ac{GPS} la posición del vehículo, para luego consultar para esa posición, qué velocidad es la máxima permitida en dicha vía. Los principales problemas que pueden surgir, siguiendo este procedimiento, son los siguientes:
 
 \begin{itemize}
 \item La información de la velocidad máxima de la vía puede que no esté actualizada, o que incluso sea incorrecta.
@@ -36,7 +36,7 @@ Es por ello que aquí presentamos un sistema basado en el procesado de imágenes
 \section{¿Qué es $ISA^{2}$? ¿Cómo funciona?}
 
 
-La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar la situación real y actual del tráfico, y predecir, en consecuencia, la velocidad apropiada para ese instante. No se parte de información asociada a coordinadas GPS, sino que se emplean técnicas de inteligencia artificial y visión por computador para reconocer la situación de tráfico real, y poder recomendar una velocidad al conductor. A continuación se pueden ver una serie de figuras con el proceso debidamente explicado:
+La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en la capacidad para analizar la situación real y actual del tráfico, y predecir, en consecuencia, la velocidad apropiada para ese instante. No se parte de información asociada a coordenadas GPS, sino que se emplean técnicas de inteligencia artificial y visión por computador para reconocer la situación de tráfico real, y poder recomendar una velocidad al conductor. A continuación se pueden ver una serie de figuras con el proceso debidamente explicado:
 
 \begin{figure}[H]
   \centering
@@ -63,7 +63,7 @@ La principal novedad de $ISA^{2}$ frente a los otros sistemas \ac{ISA} reside en
   \caption{Proceso de $ISA^{2}$}
 \end{figure}
 
-Para empezar usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia (figura \ref{fig:ImgOrig}). Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc (figura \ref{fig:ImgSegm}). Con esa información se construye un vector de características (figura \ref{fig:Hist}) que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular(figura \ref{fig:Regre}).
+Para empezar usamos una cámara en la parte frontal del vehículo que va tomando imágenes con una cierta frecuencia (figura \ref{fig:ImgOrig}). Gracias a un sistema de \ac{SS}, conseguimos saber qué es cada cosa en cada foto, es decir; qué píxeles son los correspondientes a un vehículo, peatón, semáforo, acera, etc (figura \ref{fig:ImgSegm}). Con esa información se construye un vector de características (figura \ref{fig:Hist}) que será empleado por los módulos de inteligencia artificial para realizar una regresión o estimación de la velocidad a la que se debe circular (figura \ref{fig:Regre}).
 
 %TODO_DONE: mejor que una imagen con solo datos de segmentación semántica, debes incluir una imagen donde se vea todo, desde la imagen original, a la segmentación semántica, y al proceso de extracción de características y la regresión final. Es para dar una idea gráfica del problema. Una vez la tengas, la metes y la comentas en el propio texto. Te dejo lo de abajo comentado para que lo cambies.
 
@@ -90,10 +90,7 @@ Para empezar usamos una cámara en la parte frontal del vehículo que va tomando
 El objetivo principal de este proyecto es la optimización del sistema $ISA^{2}$, con respecto a la versión anterior. Para ello, partiremos de los recursos que tenemos de éste y buscaremos la mejor manera de hacerlo más práctico y eficiente. La principal mejora queremos acometerla en un incremento de la velocidad del sistema, pero sin perder de vista la precisión del mismo.
 %TODO_DONE: Sergio, lo que tenías no eran objetivos. Debes poner aquí de forma muy clara los objetivos del trabajo fin de grado.
 
-
-
 \section{Campos de aplicación}
-
 
 Este proyecto será aplicable a los sistemas de transporte inteligentes, para ayudar a mejorar la seguridad vial, facilitando una solución para controlar la velocidad a la que deben circular los vehículos. A modo de resumen, podríamos destacar las siguientes aplicaciones:
 \begin{enumerate}	
@@ -101,6 +98,8 @@ Este proyecto será aplicable a los sistemas de transporte inteligentes, para ay
 	\item Implementación de sistema de detección de situaciones peligrosas en función de la velocidad.
 	\item Desarrollo de nuevas ayudas a la conducción más inteligentes.
 \end{enumerate}
+
+Este documento se organiza de esta forma: en el siguiente capítulo hablaremos del estado del arte en cuanto a sistemas \ac{ISA} se refiere y explicaremos el funcionamiento del sistema $ISA^{2}$ original, además de realizar nuestra propuesta para mejorar el mismo. En el capítulo \ref{ch:imp} abarcaremos aspectos más técnicos para la implementación del propio sistema, explicando en detalle cada parte de éste e indicando su funcionamiento interno para poder ejecutarlo correctamente. El capítulo \ref{ch:res} se basará en la extracción y análisis de resultados del sistema, y en el mismo comentaremos con qué sistema de regresión se obtienen los mejores de éstos. También explicaremos las métricas que usaremos para analizar los datos obtenidos en cada parte del sistema $ISA^{2}$. Por último y para finalizar, en el capítulo \ref{ch:conc} comentaremos las conclusiones finales tras los resultados obtenidos del sistema en cuestión.
 
 %\section{Medios disponibles}
 

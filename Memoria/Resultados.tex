@@ -1,4 +1,5 @@
 \chapter{Resultados}
+\label{ch:res}
 
 En este capítulo pasaremos a explicar cada experimento realizado, las métricas que se usarán para medir los resultados, y haremos una serie de comentarios al respecto.
 %TODO_DONE: introduce lo que se va a hacer en este capítulo
@@ -9,9 +10,9 @@ Antes de pasar a mostrar los experimentos realizados vamos a explicar en qué co
 
 \subsection{mIoU}
 
-Para saber qué porcentaje de acierto ha tenido el proceso de segmentación semántica utilizaremos la métrica conocida como \ac{mIoU} \cite{miou-iou}. Esta métrica se basa en hacer la media de la \ac{IoU} de las diferentes etiquetas de clases.
+Para saber qué porcentaje de acierto ha tenido el proceso de segmentación semántica utilizaremos la métrica conocida como \ac{mIoU} (\cite{miou-iou}). Esta métrica se basa en hacer la media de la \ac{IoU} de las diferentes etiquetas de clases.
 
-La \ac{IoU} \cite{miou-iou} es la relación de superposición que existe entre la imagen segmentada y la original. Es decir, sirve para dictaminar con cuánta precisión se ha realizado el proceso de \ac{SS}. En las siguientes figuras se puede ver un ejemplo muy práctico:
+La \ac{IoU} es la relación de superposición que existe entre la imagen segmentada y la original. Es decir, sirve para dictaminar con cuánta precisión se ha realizado el proceso de \ac{SS}. En las siguientes figuras se puede ver un ejemplo muy práctico:
 
 \begin{figure}[H]
   \centering
@@ -28,7 +29,7 @@ La \ac{IoU} \cite{miou-iou} es la relación de superposición que existe entre l
 
 \subsection{MAE}
 
-Con el objetivo de evaluar con cuánta precisión se ha estimado la velocidad, vamos a servirnos de la métrica más adecuada para ello: el \ac{MAE} \cite{mae}. Ésta se basa en calcular la media de la diferencia absoluta de los valores reales con los valores de predicción de la velocidad. Como se puede ver en la fórmula \ref{eq:mae}, \textit{X} es una matriz con los valores reales e \textit{Y} es una matriz con los valores de predicción.
+Con el objetivo de evaluar con cuánta precisión se ha estimado la velocidad, vamos a servirnos de la métrica más adecuada para ello: el \ac{MAE} (\cite{mae}). Ésta se basa en calcular la media de la diferencia absoluta de los valores reales con los valores de predicción de la velocidad. Como se puede ver en la fórmula \ref{eq:mae}, \textit{X} es una matriz con los valores reales e \textit{Y} es una matriz con los valores de predicción.
 
 \begin{equation}\label{eq:mae}
 MAE = \frac{\sum_{i=1}^{n}|X_i - Y_i|}{n}
@@ -52,7 +53,7 @@ Si se han seguido las indicaciones del capítulo anterior, tras ejecutar el mode
 \label{fig:Res_Swift}
 \end{figure}
 
-Como se puede ver, el resultado es el mismo que aparece en el paper de Swiftnet (75.52\% de \ac{mIoU}) junto a diferentes resultados de \ac{IoU} para cada una de las clases detectadas \cite{swiftnet}. A continuación, y para aclarar los resultados de forma visual, mostramos una comparativa de una imagen real y otra segmentada de Cityscapes por Swiftnet:
+Como se puede ver, el resultado es el mismo que aparece en el paper de Swiftnet (75.52\% de \ac{mIoU}) junto a diferentes resultados de \ac{IoU} para cada una de las clases detectadas (\cite{swiftnet}). A continuación, y para aclarar los resultados de forma visual, mostramos una comparativa de una imagen real y otra segmentada de Cityscapes por Swiftnet:
 
 \begin{figure}[H]
 \centering
@@ -71,7 +72,7 @@ Como se puede apreciar (a simple vista), la segmentación ha sido correcta y el 
 
 \subsection{Swiftnet con $ISA^{2}$}
 
-Para esta parte no contaremos con las métricas de \ac{mIoU} anteriores ya que la base de datos de $ISA^{2}$ no tiene máscaras de segmentación como Cityscapes, por lo que no se puede saber con cuánta precisión se van a segmentar las imágenes más que por los resultados de Cityscapes (que son los mismos que vienen en el paper de Swiftnet \cite{swiftnet}). De este modo, sólo mostraremos la comparativa entre una imagen real de esta base de datos junto con la imagen segmentada de la misma:
+Para esta parte no contaremos con las métricas de \ac{mIoU} anteriores ya que la base de datos de $ISA^{2}$ no tiene máscaras de segmentación como Cityscapes, por lo que no se puede saber con cuánta precisión se van a segmentar las imágenes más que por los resultados de Cityscapes (\cite{swiftnet}). De este modo, sólo mostraremos la comparativa entre una imagen real de esta base de datos junto con la imagen segmentada de la misma:
 
 \begin{figure}[H]
 \centering
@@ -90,7 +91,7 @@ Para esta parte no contaremos con las métricas de \ac{mIoU} anteriores ya que l
 
 A continuación vamos a desarrollar cómo se realizará esta evaluación de la velocidad según la base de datos de $ISA^{2}$. Explicaremos cómo se realiza tanto para Swiftnet como para DeepLab y, tras obtener los resultados, detallaremos por qué son de esa forma, es decir, qué ha influido en ellos para que sean así; finalmente, comentaremos qué sistema de regresión da mejores resultados de entre todos ellos. Para ello nos serviremos de la métrica \ac{MAE} anteriormente nombrada.
 
-Cabe destacar que Swiftnet \cite{swiftnet} es un modelo \textbf{Real-Time}, de modo que es un modelo más rápido que DeepLab, el cual, por el contrario, necesita de un tiempo de procesamiento demasiado elevado para realizar su función. En concreto Swiftnet trabaja a 39.9 \ac{FPS} para la resolución de Cityscapes (\textbf{1024 x 2048}) usando una tarjeta gráfica \textbf{NVIDIA GTX 1080 Ti} (la nuestra), mientras que DeepLab trabaja a 8 \ac{FPS} en una \textbf{NVIDIA Titan X} \cite{deeplab}; esta última tiene características que, en comparación con la nuestra, hacen que sea una tarjeta gráfica con un rendimiento sensiblemente peor \cite{gtx_titan}. Como resultado se puede ver que la diferencia del tiempo de procesado entre ambos modelos es notable, a pesar de trabajar sobre dos tarjetas gráficas con distintas características; ya que la diferencia entre ambas, aunque latente, no influye en gran medida para medir estos tiempos. %TODO_DONE: añade información de tiempos de procesado de uno y otro, en lo que se refiere a segmentación semántica.
+Cabe destacar que Swiftnet es un modelo \textbf{Real-Time} (\cite{swiftnet}), de modo que es un modelo más rápido que DeepLab, el cual, por el contrario, necesita de un tiempo de procesamiento demasiado elevado para realizar su función. En concreto Swiftnet trabaja a 39.9 \ac{FPS} para la resolución de Cityscapes (\textbf{1024 x 2048}) usando una tarjeta gráfica \textbf{NVIDIA GTX 1080 Ti} (la nuestra), mientras que DeepLab trabaja a 8 \ac{FPS} en una \textbf{NVIDIA Titan X} (\cite{deeplab}); esta última tiene características que, en comparación con la nuestra, hacen que sea una tarjeta gráfica con un rendimiento sensiblemente peor (\cite{gtx_titan}). Como resultado se puede ver que la diferencia del tiempo de procesado entre ambos modelos es notable, a pesar de trabajar sobre dos tarjetas gráficas con distintas características; ya que la diferencia entre ambas, aunque latente, no influye en gran medida para medir estos tiempos. %TODO_DONE: añade información de tiempos de procesado de uno y otro, en lo que se refiere a segmentación semántica.
 
 \subsection{Diseño del experimento}
 
@@ -102,7 +103,7 @@ Los sistemas de regresión funcionan de manera que necesitan de cierta informaci
 
 Para entrenar los sistemas usaremos las funciones de MatLab que explicábamos en el capítulo anterior. Sin embargo, el parámetro \textbf{\textit{X}}, común a dichas funciones, no representará a un sólo descriptor de imagen, sino a todo un set de éstos correspondientes a las imágenes de una de las subcarpetas antes mencionadas. Lo mismo pasa con el parámetro \textbf{\textit{Y}}: Éste tendrá información de la velocidad adecuada para cada una de las imágenes de dicha subcarpeta; esta información la tenemos guardada en unos archivos \textbf{``.mat''}.
 
-Dicho esto pasamos a señalar con qué subcarpetas entrenamos el modelo, o dicho de otra forma, qué contendrá el parámetro \textit{X}: Para el caso de las autovías lo haremos con la subcarpeta \textbf{H2}, y para los entornos urbanos usaremos las subcarpetas \textbf{U1} y \textbf{U2}, siguiendo las especificaciones marcadas en el artículo original \cite{isa2}, para poder así comparar resultados.
+Dicho esto pasamos a señalar con qué subcarpetas entrenamos el modelo, o dicho de otra forma, qué contendrá el parámetro \textit{X}: Para el caso de las autovías lo haremos con la subcarpeta \textbf{H2}, y para los entornos urbanos usaremos las subcarpetas \textbf{U1} y \textbf{U2}, siguiendo las especificaciones marcadas en el artículo original (\cite{isa2}), para poder así comparar resultados.
 
 Ya hemos hablado acerca de cómo se entrenan los sistemas de regresión y con qué secuencias de imágenes se hace. Ahora pasamos a explicar cómo se realiza la predicción.
 
@@ -114,10 +115,10 @@ Para que los sistemas puedan predecir estimaciones de la velocidad nos serviremo
 
 Esta función (\cite{predict}) devuelve como respuesta la predicción del modelo de regresión \textit{Mdl} para los datos de prueba de la matriz \textit{Z}. Los datos de prueba de dicha matriz se corresponderán con una subcarpeta del anterior sistema de archivos. Para las autovías escogeremos la subcarpeta \textbf{H1}, mientras que para los entornos urbanos escogeremos \textbf{U3}.
 
-Cabe destacar que esta función se utiliza en 3 de los 4 sistemas de regresión que hemos utilizado, puesto que en Lasso predecimos los resultados limitando el tamaño de los coeficientes de regresión \cite{coef_lasso}.
+Cabe destacar que esta función se utiliza en 3 de los 4 sistemas de regresión que hemos utilizado, puesto que en Lasso predecimos los resultados limitando el tamaño de los coeficientes de regresión (\cite{coef_lasso}).
 %TODO_DONE hay que añadir una subsección donde se explique el diseño del experimento, es decir, qué se emplea para training, y qué para test, de cada una de las secuencias que forman ISA^2
 
-En la siguiente tabla pasamos a mostrar los resultados tanto de la versión anterior de $ISA^{2}$ \cite{isa2} como de la desarrollada en este trabajo. Como ya dijimos anteriormente, el \ac{MAE} será la métrica que usaremos para esta tarea, pues indica cuánta precisión ha habido en términos de la estimación de la velocidad.
+En la siguiente tabla pasamos a mostrar los resultados tanto de la versión anterior de $ISA^{2}$ (\cite{isa2}) como de la desarrollada en este trabajo. Como ya dijimos anteriormente, el \ac{MAE} será la métrica que usaremos para esta tarea, pues indica cuánta precisión ha habido en términos de la estimación de la velocidad.
 
 \begin{table}[H]
 \centering
@@ -173,7 +174,7 @@ Hemos puesto dos valores con \textit{\textbf{este aspecto}} para indicar que, du
 \textit{filter(B,1,YHat)}
 \end{center}
 
-Esta función filtra los datos de predicción de la matriz \textit{YHat} utilizando una función de transferencia racional definida por los coeficientes del numerador y del denominador \textit{B} y \textit{1} respectivamente, siendo \textit{B} una matriz \cite{filter}. Los coeficientes de esta matriz los generaremos de la siguiente forma:
+Esta función filtra los datos de predicción de la matriz \textit{YHat} utilizando una función de transferencia racional definida por los coeficientes del numerador y del denominador \textit{B} y \textit{1} respectivamente, siendo \textit{B} una matriz (\cite{filter}). Los coeficientes de esta matriz los generaremos de la siguiente forma:
 
 \begin{center}
 \textit{B = 1/n*ones(n,1)}
