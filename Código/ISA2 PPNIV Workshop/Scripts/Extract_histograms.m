@@ -12,16 +12,16 @@ do_save_results = 0;
 % Save_histograms
 save_histograms = 1;
 % Number of divisions of the spatial pyramid
-divisions = 3;
+divisions = 4;
 % Folder to save the histograms
-hist_folder = 'histograms_full_set_3_Urban';    
+hist_folder = 'histograms_presentacion_U1';    
 
 % Directories
 %ROOT_PATH = '../DeepLab/cityscapes/';
 ROOT_PATH = '../../Swiftnet/configs/out/';
-%IMG_ROOT =['../ISA2_v1/Highway/H2'];
-IMG_ROOT = '../../Swiftnet/configs/out/ISA2/Urban/U3';
-%SAVE_HIST_PATH = ['./'];
+IMG_ROOT =['../../Swiftnet/configs/out/ISA2/Urban/U3'];
+%IMG_ROOT = '../../Swiftnet/configs/out/ISA2/Urban/U3';
+%SAVE_HIST_PATH = ['../Scripts'];
 SAVE_HIST_PATH = '../../Swiftnet/configs/out/Results';
 
 %pepe = load(fullfile('../../Swiftnet/configs/out/Results/histograms_full_set_3_Urban/histogramsU3.mat'));
@@ -68,7 +68,7 @@ for kk = 1
         %Show images debug
         if debug
         	figure(1)
-            img = imread(fullfile(IMG_ROOT, [fn '.jpeg']));
+            img = imread(fullfile(IMG_ROOT, [tmp.name '.png']));
             subplot(1, 2, 1), imshow(img)
             subplot(1, 2, 2), imshow(result, cityscapes.cmap_trainid);
             pause
@@ -87,7 +87,7 @@ for kk = 1
     	if ~exist(fullfile(SAVE_HIST_PATH, hist_folder), 'dir')
         	mkdir(fullfile(SAVE_HIST_PATH, hist_folder));
         end      
-        save(fullfile(SAVE_HIST_PATH, hist_folder,['histograms', 'U3', '.mat']), 'hist');
+        save(fullfile(SAVE_HIST_PATH, hist_folder,['histograms_', 'presentacion_U1', '.mat']), 'hist');
         clearvars hist;
     end
 end

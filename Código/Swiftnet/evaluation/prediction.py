@@ -32,7 +32,7 @@ class StorePreds:
         #b = self.to_img(batch)
         self.root = home
         self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'ISA2'
-        files = os.listdir(self.images_dir)
+        '''files = os.listdir(self.images_dir)
         dirs = []
         subdirs = []
         i = 0
@@ -48,12 +48,13 @@ class StorePreds:
                     subdirs.append(s)
                 if os.path.isdir(os.path.join(self.images_dir, d, s)) and i is len(dirs):
                     subdirs.append(s)
-        self.step += 1
+        self.step += 1'''
         for p, name, subset in zip(pred, batch['name'], batch['subset']):
             store_img = np.concatenate([i.astype(np.uint8) for i in [self.to_color(p)]], axis=0)
             store_img = pimg.fromarray(store_img)
             store_img.thumbnail((960, 1344))
-            images_subdir = len(glob.glob(f'{self.images_dir}/{dirs[self.d]}/{subdirs[self.s]}/*.jpeg'))
+            scipy.io.savemat(f'{self.store_dir}/ISA2/{name}.mat', {"name": name, "data" : p})
+            '''images_subdir = len(glob.glob(f'{self.images_dir}/{dirs[self.d]}/{subdirs[self.s]}/*.jpeg'))
             self.t += 1
             if self.d is 0:
                 if self.t <= images_subdir:
@@ -77,7 +78,7 @@ class StorePreds:
                     self.s += 1
                     scipy.io.savemat(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.mat',
                                      {"name": name, "data": p})
-                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')
+                    #store_img.save(f'{self.store_dir}/ISA2/{dirs[self.d]}/{subdirs[self.s]}/{name}.png')'''
             '''if self.step in range(1,3122):
                 store_img.save(f'{self.store_dir}ISA2/Highway/H1/{name}.jpg')
             if self.step in range(3123,4962):

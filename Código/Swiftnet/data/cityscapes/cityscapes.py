@@ -42,7 +42,31 @@ class Cityscapes(Dataset):
 
     def __init__(self, root: home, transforms: lambda x: x, subset='train', open_depth=False, labels_dir='labels', epoch=None):
         self.root = home
+        self.subset = subset
         self.images_dir = self.root / 'Desktop' / 'Trabajo-Final' / 'Código' / 'Swiftnet' / 'datasets' / 'ISA2'
+        self.images = list(sorted(self.images_dir.glob('Urban/U3/*.jpeg')))
+        #self.images = list(sorted(self.images_dir.glob('*/*/*.jpeg')))
+        self.transforms = transforms
+        self.epoch = epoch
+        print(f'Num images: {len(self)}')
+
+
+    def __len__(self):
+        return len(self.images)
+
+    def __getitem__(self, item):
+        ret_dict = {
+            'image': self.images[item],
+            'name': self.images[item].stem,
+            'subset': self.subset,
+        }
+        #if self.has_labels:
+        #    ret_dict['labels'] = self.labels[item]
+        if self.epoch is not None:
+            ret_dict['epoch'] = int(self.epoch.value)
+        return self.transforms(ret_dict)
+
+'''
         self.images = []
         files = os.listdir(self.images_dir)
         dirs = []
@@ -80,22 +104,4 @@ class Cityscapes(Dataset):
                     images_subdirs = list(sorted(self.images_dir.glob(f'{d}/{s}/*.jpeg')))
                     for p in range(0, len(images_subdirs)):
                         self.images.append(images_subdirs[p])
-        self.transforms = transforms
-        self.epoch = epoch
-
-        print(f'Num images: {len(self)}')
-
-    def __len__(self):
-        return len(self.images)
-
-    def __getitem__(self, item):
-        ret_dict = {
-            'image': self.images[item],
-            'name': self.images[item].stem,
-            'subset': self.subset,
-        }
-        #if self.has_labels:
-        #    ret_dict['labels'] = self.labels[item]
-        if self.epoch is not None:
-            ret_dict['epoch'] = int(self.epoch.value)
-        return self.transforms(ret_dict)
+'''
